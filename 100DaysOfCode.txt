@@ -1,0 +1,5 @@
+Day 1 - Django Day 1 - Learnt about how to setup up virtual environment and create Django projects and applications
+Day 2 - Dart - Learnt about concpets of dart by watching a YouTube video.
+Day 3 - Django Day 2 - Learnt about URL mappings and intro to Templates
+Day 4 - Flutter Day 1 - Learnt about how to setup flutter in Windows, explored various widgets. Watched the youtube video of Pawan Kumar 55 mins. Have to watch the rest.
+Day 5 - Django Day 3 - Learnt about Templates and implemented the concept involved.
