@@ -5,3 +5,4 @@ Day 4 - Flutter Day 1 - Learnt about how to setup flutter in Windows, explored v
 Day 5 - Django Day 3 - Learnt about Templates and implemented the concept involved.
 Day 6 - Django Day 4 - Learnt about static files concept and implemented it with an image file.
 Day 7 - Django Day 5 - Got to know an overview of Models. Haven't implemented yet. Will do it tomorrow.
+Day 8 - DSAlgo Day 1 - Learnt about 6/13 essential C and C++ concepts.
