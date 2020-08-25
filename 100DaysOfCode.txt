@@ -6,3 +6,4 @@ Day 5 - Django Day 3 - Learnt about Templates and implemented the concept involv
 Day 6 - Django Day 4 - Learnt about static files concept and implemented it with an image file.
 Day 7 - Django Day 5 - Got to know an overview of Models. Haven't implemented yet. Will do it tomorrow.
 Day 8 - DSAlgo Day 1 - Learnt about 6/13 essential C and C++ concepts.
+Day 9 - Django Day 6 - Learnt about how to create models and make migrations in Django.
