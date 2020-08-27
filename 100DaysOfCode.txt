@@ -8,3 +8,4 @@ Day 7 - Django Day 5 - Got to know an overview of Models. Haven't implemented ye
 Day 8 - DSAlgo Day 1 - Learnt about 6/13 essential C and C++ concepts.
 Day 9 - Django Day 6 - Learnt about how to create models and make migrations in Django.
 Day 10 - Django Day 7 - Learnt about registering the models to the application. Also got to know how to create a superuser for performing CRUD operations on a model. Also learnt how to populate the data and view it.
+Day 11 = Django Day 8 - Learnt about Model Views Template Paradigm and implemented the same.
