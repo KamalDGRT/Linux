@@ -11,3 +11,4 @@ Day 10 - Django Day 7 - Learnt about registering the models to the application. 
 Day 11 = Django Day 8 - Learnt about Model Views Template Paradigm and implemented the same.
 Day 12 - Working on the digital business card for PT1.
 Day 13 - Revised and practiced some questions in Java language because it was a long time since i used it. So, just brushing up on the concepts of classes and inheritance.
+Day 14 - Django Day 9 - Started Django Level 3 module. Learnt about how django creates the forms. Haven't done the implementation yet. Will do it the next day.
