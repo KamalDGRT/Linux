@@ -15,3 +15,4 @@ Day 14 - Django Day 9 - Started Django Level 3 module. Learnt about how django c
 Day 15 - Planned out what I will be doing in the PT1 project. Finished off the registration part.
 Day 16 - Added the login page, the dashboard and the about me option. 
 Day 17 - Added the contact module and fixed a lot of major bugs: restricting access to users.
+Day 18 - Added the Skills module with the tables and stuff.
