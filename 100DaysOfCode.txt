@@ -19,3 +19,4 @@ Day 18 - Added the Skills module with the tables and stuff.
 Day 19 - Completed 10/14 modules of the project for PT1.
 Day 20 - Completed 2 more modules of the project that I am working on. I will try my best to finish them tomorrow and begin the testing phase.
 Day 21 - Stuck in the place of changing profile picture.
+Day 22 - Still stuck in that bug. Anyways, today I got to experiment a bit with the frameset tag. After an hour of using it, I felt like it is kind of redundant and all those stuff that is being done using that could be done in a better way.
