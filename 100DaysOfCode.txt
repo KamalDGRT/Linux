@@ -22,3 +22,4 @@ Day 21 - Stuck in the place of changing profile picture.
 Day 22 - Still stuck in that bug. Anyways, today I got to experiment a bit with the frameset tag. After an hour of using it, I felt like it is kind of redundant and all those stuff that is being done using that could be done in a better way.
 Day 23 - Finally!! After 3 days, I figured out how to update profile picture for a given user in the PT1 project. I will implement using the same logic for the Company profile module.
 Day 24 - Implemented the image upload option for company logo too. So, now all the major modules are over. Only the themes option and checking for bugs is left. I Will try to complete the project by this weekend.
+Day 25 - Started doing the set of themes to be done.
