@@ -24,3 +24,4 @@ Day 23 - Finally!! After 3 days, I figured out how to update profile picture for
 Day 24 - Implemented the image upload option for company logo too. So, now all the major modules are over. Only the themes option and checking for bugs is left. I Will try to complete the project by this weekend.
 Day 25 - Started doing the set of themes to be done.
 Day 26 - Day 1 of Linux. Revised about the different ways to open a terminal, what each word on the terminal means, the directories present in Linux, some basic commands in Linux and 5 different ways to create files.
+Day 27 - Created alphabets using the graphics available in Turbo C++.
