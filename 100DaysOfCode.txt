@@ -28,3 +28,4 @@ Day 27 - Created alphabets using the graphics available in Turbo C++.
 Day 28 - Created the deathly hallows sybmol using graphics in Turbo C++.
 Day 29 - Tried to display the strings using the individual alphabets that I created.
 Day 30 - Implemented a graphics program in TurboCPP to find the intersection of 2 lines. 
+Day 31 - Created the boilerplate template for yii2 advanced project template that will be used as the starting point for all the upcoming projects.
