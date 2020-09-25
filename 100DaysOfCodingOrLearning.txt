@@ -32,3 +32,4 @@ Day 31 - Created the boilerplate template for yii2 advanced project template tha
 Day 32 - Today I didn't code anything but rather revised about Finite automata, DFA, NFA and NFA to DFA because of the internals tomorrow. 
 Day 33 - Tried drawing a circle on the screen with a logic of my own. I noticed that there are some gaps in between. I wonder how the developers of TurboCpp handled this.
 Day 34 - Built a simple memory game using the graphics available in TurboCPP. Here, it would just show a random number and the user has to type it. If the user types the number displayed, the next set of numbers appear. If not, the program is terminated.
+Day 35 - I revised the basics of HTML and CSS for the internal exam tomorrow.
