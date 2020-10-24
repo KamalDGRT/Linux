@@ -1,0 +1,65 @@
+Zoom Application
+https://tecadmin.net/install-zoom-client-on-fedora/
+
+How to install gnome Tweak tool
+https://linuxconfig.org/how-to-install-gnome-tweak-tool-on-fedora-31
+
+Minimizing all windows
+https://forums.fedoraforum.org/showthread.php?165328-shortcut-to-minimize-all-open-windows
+
+Discord
+https://linuxconfig.org/how-to-install-discord-on-linux
+
+Snap package manager
+https://tecrobust.com/install-snap-on-linux-fedora-arch-opensuse-centos-debian-more/
+
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+sudo systemctl start --now snapd.socket
+
+
+VideoDownloading
+https://www.2daygeek.com/youtube-dl-youtube-video-downloader-for-linux/
+
+NVIDIA drivers
+https://rpmfusion.org/Howto/NVIDIA
+sudo dnf -y install nvidia-settings
+
+Chromium browser
+https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/
+
+Xampp
+https://computingforgeeks.com/how-to-install-xampp-on-fedora/
+
+GitHub Desktop
+https://pcfg.eu/posts/how-to-install-github-desktop-in-fedora-31/
+
+C++ compiler
+https://www.tecmint.com/install-c-c-compiler-and-development-tool-in-centos-fedora-redhat/
+
+Android Studio
+https://fedoraproject.org/wiki/Android_Studio
+
+
+Fira Code
+$ sudo dnf install fira-code-fonts
+
+https://accu.org/journals/overload/2/4/toms_1445/
+
+Battery life
+
+https://www.tecmint.com/tlp-increase-and-optimize-linux-battery-life/
+
+https://github.com/hackbnw/faustus
+
+Fanmodes:
+cat /sys/devices/platform/faustus/fan_boost_mode
+0 - normal
+1 - overboost
+2 - silent
+
+
+KVM
+https://computingforgeeks.com/how-to-install-kvm-on-fedora/
+
+
