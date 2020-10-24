@@ -24,6 +24,8 @@ https://www.2daygeek.com/youtube-dl-youtube-video-downloader-for-linux/
 NVIDIA drivers
 https://rpmfusion.org/Howto/NVIDIA
 sudo dnf -y install nvidia-settings
+https://askubuntu.com/questions/61396/how-do-i-install-the-nvidia-drivers
+
 
 Chromium browser
 https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/
