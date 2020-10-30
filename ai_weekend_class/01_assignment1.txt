@@ -1,0 +1,291 @@
+Question 1
+
+Create a copy of the given numpy array using .copy(), change the copy's value and print both arrays.
+
+For example:
+
+Input:
+No Input
+
+Result:
+
+[[1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]]
+[[0. 0. 0. 0. 0. 0.]
+ [1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1. 1.]]
+
+
+Answer:
+
+import numpy as np
+x=np.ones((4,6))
+y= x.copy()
+
+y[0,:]=0
+
+print(x)
+
+print(y)
+
+------------------------------------------------------------
+
+Question 2
+
+Create an array of ones (all elements in the array is one) of shape (3, 5) [three rows and 5 columns]. Print this array.
+
+For example:
+
+Input:
+No Input
+
+Result:
+
+[[1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]
+ [1. 1. 1. 1. 1.]]
+
+Answer:
+
+import numpy as np
+x=np.ones((3,5))
+print(x)
+
+
+------------------------------------------------------------
+
+Question 3
+
+Given the following array,
+
+X = [[2, 5],
+     [1, 5],
+     [0, 7]]
+
+Write numpy slicing code to get the following as output:
+
+1. [2, 1, 0]
+2. [1, 5]
+3. 7
+4. [2, 7, 0]  (hint, use a list of indices)
+
+For example:
+
+Input:
+No Input
+
+Result:
+1. [2 1 0]
+2. [1 5]
+3. 7
+4. [2 7 0]
+
+Answer:
+
+import numpy as np
+X = np.array([[2, 5],[1, 5],[0, 7]])
+
+print("1.", X[0:3,0])
+print("2.", X[1,:])
+print("3.", X[-1,-1:][0])
+print("4.", X[[0 ,2 ,2 ],[0 ,1 ,0]])
+
+------------------------------------------------------------
+
+Question 4
+
+Write a program, which will find all such numbers between a (input) and b (input) (both included) such that each digit of the number is an even number.
+
+For example:
+
+Input:
+2000
+2004
+
+Result:
+2000,2002,2004
+
+Answer:
+
+a = int(input())
+b = int(input())
+lst = []
+
+for i in range(a, b+1):
+    flag = 1
+    for j in str(i):        
+        if ord(j)%2 != 0:   
+            flag = 0        
+    if flag == 1:
+        lst.append(str(i))  
+
+print(",".join(lst))
+
+--------------------------------------------------------
+
+Question 5 
+
+Write a program which takes 2 digits, X,Y as input and generates a 2-dimensional array. The element value in the i-th row and j-th column of the array should be i*j. Note: i=0,1.., X-1; j=0,1,¡Y-1.
+
+For example:
+
+Input:
+2
+2
+
+Result:
+[[0, 0], [0, 1]]
+
+Answer:
+
+X = int(input())
+Y = int(input())
+
+final_array = []
+
+for i in range(0,X):
+    temp_array = []
+    for j in range(0,Y):
+        temp_array.append(i*j)
+    final_array.append(temp_array)
+    
+
+print(final_array)    
+
+------------------------------------------------------------
+
+Question 6 
+
+Create a class in Python to represent fractions. The internal representation contains two integers (the numerator and denominator).
+
+The functions in the class should include: 
+
+* multiplication (a/b * c/d) 
+
+* print the fraction (in the form a/b) (hint: use __str__ function) 
+
+* invert the fraction (a/b becomes b/a)
+
+Note: Edit the given code and use the same class and function names.
+
+class Fraction:
+    def __init__(self, num, den=1):
+        self.num = num
+        self.den = den
+
+    def __str__(self):
+        return(str(self.num)+"/"+str(self.den))
+
+    def multiply(self, other):
+        if isinstance(other, int):
+            other = Fraction(other)
+        return (self.num   * other.num) / (self.den * other.den)
+    
+    def invert(self):
+        self.num, self.den = self.den, self.num
+
+frac = Fraction(3,4)
+frac2 = Fraction(2,5)
+print("Fraction 1: {} || Fraction 2: {}".format(frac.__str__(),frac2.__str__()))
+print("Mutilplied Value:")
+mul = frac.multiply(frac2)
+print(mul)
+frac.invert()
+print("After Inverting:")
+print(frac)
+
+
+------------------------------------------------------------
+
+Question 7
+
+Create a numpy array of dimension=2, shape=2,5 and print its shape, dimensions, size and datatype
+
+For example:
+
+Input:
+No Input
+
+Result:
+Dim:  2
+Shape: (2, 5)
+Size:  10
+
+Answer:
+import numpy as np
+ 
+arr = np.array( [[ 1, 2, 3, 4, 5],
+                 [ 4, 2, 5, 6, 7]] )
+ 
+print("Dim: ", arr.ndim)
+print("Shape:", arr.shape)
+print("Size: ", arr.size)
+
+------------------------------------------------------------
+
+Question 8
+
+Get a list of comma seperated integers as input from the user and convert it into a Numpy array. Then print the Numpy array.
+
+For example:
+
+Input:
+1,2,3,4
+
+Result:
+[1 2 3 4]
+
+Answer:
+import numpy as np
+entries = list(map(int, input().split(",")))
+arr = np.array(entries)
+print(arr)
+
+------------------------------------------------------------
+
+Question 9
+
+Use a list comprehension to square each odd number in a list. The list is input by a sequence of comma-separated numbers.
+
+For example:
+
+Input:
+1,2,3,4,5,6,7,8,9
+
+Result:
+1,9,25,49,81
+
+Answer:
+list1 = list(map(int, input().split(",")))
+#list1 = [10, 21, 4, 45, 66, 93] 
+  
+lst = [str(num * num) for num in list1 if num % 2 == 1] 
+  
+print(",".join(lst))
+
+------------------------------------------------------------
+
+Question 10
+
+With a given integral number n, write a program to generate a dictionary that contains (i, i*i) such that is an integral number between 1 and n (both included). and then the program should print the dictionary.
+
+For example:
+
+Input
+2
+
+Result
+{1: 1, 2: 4}
+
+number = int(input())
+
+numberDict = {}
+for i in range(1, number+1):
+    numberDict[i] = i*i
+
+print(numberDict)
+
+------------------------------------------------------------
