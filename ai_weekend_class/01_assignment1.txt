@@ -280,6 +280,7 @@ Input
 Result
 {1: 1, 2: 4}
 
+Answer:
 number = int(input())
 
 numberDict = {}
