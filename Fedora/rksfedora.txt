@@ -32,6 +32,15 @@ https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-ch
 
 Xampp
 https://computingforgeeks.com/how-to-install-xampp-on-fedora/
+sudo dnf install libnsl
+sudo dnf install mysql-server
+https://computingforgeeks.com/install-and-configure-phpmyadmin-on-fedora/
+
+
+PHP
+sudo dnf -y install httpd php php-cli php-php-gettext php-mbstring php-mcrypt php-mysqlnd php-pear php-curl php-gd php-xml php-bcmath php-zip
+sudo dnf -y install mariadb-server mariadb
+sudo systemctl status mariadb
 
 GitHub Desktop
 https://pcfg.eu/posts/how-to-install-github-desktop-in-fedora-31/
