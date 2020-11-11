@@ -23,84 +23,84 @@ https://github.com/john-smilga/react-advanced-2020
 
 
 ⭐️ Course Contents ⭐️
-⌨️ (00:00) Intro 
-⌨️ (01:09) About React 
-⌨️ (06:51) Goals 
-⌨️ (08:50) Structure 
-⌨️ (09:46) Course Requirements 
-⌨️ (11:45) Dev Environment Setup 
-⌨️ (16:26) Text Editor Setup 
-⌨️ (18:20) Command Line Basics 
-⌨️ (25:00) NPM Basics 
-⌨️ (35:07) Create-React-App 
-⌨️ (37:05) Install Create-React-App 
-⌨️ (43:19) Folder Structure 
-⌨️ (52:25) Clean Boilerplate 
-⌨️ (54:00) First Component 
-⌨️ (1:04:13) Text Editor Setup 
-⌨️ (1:12:29) First Component In Detail 
-⌨️ (1:19:18) JSX Rules 
-⌨️ (1:28:55) Nested Components And Tools 
-⌨️ (1:34:50) Mini Book Project 
-⌨️ (1:42:59) CSS Basics 
-⌨️ (1:54:41) JSX Css 
-⌨️ (2:01:31) JSX Javascript 
-⌨️ (2:09:30) Props 
-⌨️ (2:25:41) Props Destructuring 
-⌨️ (2:29:44) Props - Children 
-⌨️ (2:36:13) Simple List 
-⌨️ (2:45:12) Proper List 
-⌨️ (2:52:49) Key Prop And Spread Operator 
-⌨️ (2:58:52) Event Basics 
-⌨️ (3:11:12) Import And Export Statements 
-⌨️ (3:23:25) Free Hosting 
-⌨️ (3:28:22) Advanced Intro 
-⌨️ (3:30:42) Get Starter Project 
-⌨️ (3:31:35) Install Starter 
-⌨️ (3:33:43) Starter Overview 
-⌨️ (3:39:00) UseState - Simple Use Case 
-⌨️ (3:48:44) UseState - Basics 
-⌨️ (4:00:47) General Rules Of Hooks 
-⌨️ (4:03:39) UseState - Array Example 
-⌨️ (4:17:27) UseState - Object Example 
-⌨️ (4:23:00) UseState - Multiple State Values 
-⌨️ (4:26:17) Simple Counter 
-⌨️ (4:32:10) Functional Update Form 
-⌨️ (4:44:55) Matching Project 
-⌨️ (4:47:27) useEffect - Basics 
-⌨️ (4:57:47) useEffect - Conditional 
-⌨️ (5:01:40) useEffect - Dependency List 
-⌨️ (5:07:13) useEffect - Cleanup Function 
-⌨️ (5:19:24) useEffect - Fetch Data 
-⌨️ (5:31:29) Multiple Returns 
-⌨️ (5:37:09) Multiple Returns - Fetching Data 
-⌨️ (5:52:07) Short - Circuit Evaluation 
+⌨️ (00:00:00) Intro 
+⌨️ (00:01:09) About React 
+⌨️ (00:06:51) Goals 
+⌨️ (00:08:50) Structure 
+⌨️ (00:09:46) Course Requirements 
+⌨️ (00:11:45) Dev Environment Setup 
+⌨️ (00:16:26) Text Editor Setup 
+⌨️ (00:18:20) Command Line Basics 
+⌨️ (00:25:00) NPM Basics 
+⌨️ (00:35:07) Create-React-App 
+⌨️ (00:37:05) Install Create-React-App 
+⌨️ (00:43:19) Folder Structure 
+⌨️ (00:52:25) Clean Boilerplate 
+⌨️ (00:54:00) First Component 
+⌨️ (01:04:13) Text Editor Setup 
+⌨️ (01:12:29) First Component In Detail 
+⌨️ (01:19:18) JSX Rules 
+⌨️ (01:28:55) Nested Components And Tools 
+⌨️ (01:34:50) Mini Book Project 
+⌨️ (01:42:59) CSS Basics 
+⌨️ (01:54:41) JSX Css 
+⌨️ (02:01:31) JSX Javascript 
+⌨️ (02:09:30) Props 
+⌨️ (02:25:41) Props Destructuring 
+⌨️ (02:29:44) Props - Children 
+⌨️ (02:36:13) Simple List 
+⌨️ (02:45:12) Proper List 
+⌨️ (02:52:49) Key Prop And Spread Operator 
+⌨️ (02:58:52) Event Basics 
+⌨️ (03:11:12) Import And Export Statements 
+⌨️ (03:23:25) Free Hosting 
+⌨️ (03:28:22) Advanced Intro 
+⌨️ (03:30:42) Get Starter Project 
+⌨️ (03:31:35) Install Starter 
+⌨️ (03:33:43) Starter Overview 
+⌨️ (03:39:00) UseState - Simple Use Case 
+⌨️ (03:48:44) UseState - Basics 
+⌨️ (04:00:47) General Rules Of Hooks 
+⌨️ (04:03:39) UseState - Array Example 
+⌨️ (04:17:27) UseState - Object Example 
+⌨️ (04:23:00) UseState - Multiple State Values 
+⌨️ (04:26:17) Simple Counter 
+⌨️ (04:32:10) Functional Update Form 
+⌨️ (04:44:55) Matching Project 
+⌨️ (04:47:27) useEffect - Basics 
+⌨️ (04:57:47) useEffect - Conditional 
+⌨️ (05:01:40) useEffect - Dependency List 
+⌨️ (05:07:13) useEffect - Cleanup Function 
+⌨️ (05:19:24) useEffect - Fetch Data 
+⌨️ (05:31:29) Multiple Returns 
+⌨️ (05:37:09) Multiple Returns - Fetching Data 
+⌨️ (05:52:07) Short - Circuit Evaluation 
 ⌨️ (6:02:50) Ternary Operator 
-⌨️ (6:11:30) Show/Hide Component 
-⌨️ (6:20:15) Form Basics 
-⌨️ (6:28:53) Controlled Inputs 
-⌨️ (6:38:09) Add Item To The List 
-⌨️ (6:50:32) Multiple Inputs 
-⌨️ (7:06:29) useRef 
-⌨️ (7:16:20) useReducer - UseState Setup 
-⌨️ (7:29:52) useReducer - Refactor 
-⌨️ (7:37:15) useReducer - Add Item 
-⌨️ (7:53:14) useReducer - Remove Item 
-⌨️ (8:00:56) Prop Drilling - 
-⌨️ (8:14:36) Context API / - useContext 
-⌨️ (8:26:22) Custom Hooks - useFetch 
-⌨️ (8:38:09) PropTypes - Setup 
-⌨️ (8:47:48) PropTypes - Images 
-⌨️ (8:55:48) PropTypes - Default Values 
-⌨️ (9:00:41) React Router Intro 
-⌨️ (9:05:52) React Router - Basic Setup 
-⌨️ (9:15:50) React Router - Error And Switch Component 
-⌨️ (9:18:51) React Router - Links 
-⌨️ (9:23:22) React Router - URL Params And Placeholder 
-⌨️ (9:37:51) React Optimization Warning 
-⌨️ (9:41:21) React.memo 
-⌨️ (9:49:50) useCallback 
-⌨️ (9:58:00) useMemo 
+⌨️ (06:11:30) Show/Hide Component 
+⌨️ (06:20:15) Form Basics 
+⌨️ (06:28:53) Controlled Inputs 
+⌨️ (06:38:09) Add Item To The List 
+⌨️ (06:50:32) Multiple Inputs 
+⌨️ (07:06:29) useRef 
+⌨️ (07:16:20) useReducer - UseState Setup 
+⌨️ (07:29:52) useReducer - Refactor 
+⌨️ (07:37:15) useReducer - Add Item 
+⌨️ (07:53:14) useReducer - Remove Item 
+⌨️ (08:00:56) Prop Drilling - 
+⌨️ (08:14:36) Context API / - useContext 
+⌨️ (08:26:22) Custom Hooks - useFetch 
+⌨️ (08:38:09) PropTypes - Setup 
+⌨️ (08:47:48) PropTypes - Images 
+⌨️ (08:55:48) PropTypes - Default Values 
+⌨️ (09:00:41) React Router Intro 
+⌨️ (09:05:52) React Router - Basic Setup 
+⌨️ (09:15:50) React Router - Error And Switch Component 
+⌨️ (09:18:51) React Router - Links 
+⌨️ (09:23:22) React Router - URL Params And Placeholder 
+⌨️ (09:37:51) React Optimization Warning 
+⌨️ (09:41:21) React.memo 
+⌨️ (09:49:50) useCallback 
+⌨️ (09:58:00) useMemo 
 ⌨️ (10:04:15) useCallback - Fetch Example
 
 
