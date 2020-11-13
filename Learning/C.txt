@@ -1,3 +1,4 @@
+kamaldgrt@gmail.com
 WHILE LOOP,for loop(entry controlled loop)
 
 initialization of loop control variable
@@ -853,3 +854,169 @@ int delatpos(SLL**h)
 		}
 	}
 }
+
+
+*************************************************************************************************************
+
+DLL Double linked list....
+
+
+typedef struct dll
+{
+
+	struct dll*plink;
+	int data;
+	struct dll*nlink;
+}DLL;
+
+
+plink---->points to previous node address
+nlink points to next node address.....
+
+*************************************************************************************************
+
+void addatbeg(DLL**,DLL**);
+DLL* create_node(DLL**,int);
+
+int main() 
+{
+
+	DLL*head=NULL,*newnode;
+	newnode=create_node(head,100);
+	addatbeg(&newnode,&head);
+
+
+
+
+
+}
+
+
+
+void addatbeg(DLL**n,DLL**h)
+{
+		if(*h==NULL)
+		{
+			printf("LIST IS EMPTY:\n");
+			*h=*n;
+			return;
+		}
+		else
+		{
+			currptr=*h;
+			(*n)->nlink=currptr;
+			*h=*n;
+			currptr->plink=*n;
+		}
+}		
+
+
+_____________________________________________________________________________________
+
+STACK AND QUEUE.....
+
+Stack--->
+Top-->points to topmost node in the datastructure....
+
+
+_-------------------------------------------------------------------------------------------------------------
+
+PUSH
+POP
+
+----------------------------------------------------------------------------------------------------------------
+
+QUEUE
+
+FIFO
+front,rear
+
+
+
+#define QUEUE_SIZE 10
+#include<stdio.h>
+int count=0;
+
+typedef struct myqueue
+{
+		int data;
+		struct myqueue*link;
+}MYQUEUE;
+
+MYQUEUE create_node(MYQUEUE**,MYQUEUE**,int);
+void addnode(MYQUEUE**,MYQUEUE**,MYQUEUE**);
+
+int main()
+{
+	MYQUEUE*front=NULL,*rear=NULL,*newnode=NULL;
+	newnode=create_node(&front,&rear,100);
+	addnode(&newnode,&front,&rear);
+	
+
+}
+
+MYQUEUE* create_node(MYQUEUE**f,MYQUEUE**r,int d)
+{
+		MYQUEUE*newnode=(MYQUEUE*)malloc(sizeof(MYQUEUE));
+		if(newnode==NULL)
+		{
+			printf("memalloc failed:\n");
+			exit(0);
+		}
+
+		else
+		{
+			newnode->data=d;
+			newnode->link=NULL;
+		}
+}
+							
+--------------------------------------------------------------------------------------------------------------------------
+
+
+void addnode(MYQUEUE**n,MYQUEUE**f,MYQUEUE**r)
+{
+	if(*f==*r==NULL)
+	{
+		printf("QUEUE is Empty:\n");
+		*f=*r=*n;
+		return;
+	}
+	else
+	{
+		(*r)->link=*n;
+		*r=*n;
+		return;
+	}
+}
+
+-------------------------------------------------------------------------------------------------------------------
+Datastructures   	LINEAR DS
+
+Non linear DS
+
+Trees-->Binary search tree
+
+	
+11,78,12,34,67,89,23,56.....
+
+
+LINKED LIST...
+
+
+typedef struct sll
+{
+	int data;
+	struct sll*link;
+}SLL;
+
+
+Real word application:
+
+typedef struct mystruct
+{
+	char ename[10];
+	int eid;
+	float sal;
+	struct mystruct *nlink;
+}EMP;
