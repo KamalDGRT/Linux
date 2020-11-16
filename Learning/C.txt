@@ -943,7 +943,7 @@ typedef struct myqueue
 		struct myqueue*link;
 }MYQUEUE;
 
-MYQUEUE create_node(MYQUEUE**,MYQUEUE**,int);
+MYQUEUE *create_node(MYQUEUE**,MYQUEUE**,int);
 void addnode(MYQUEUE**,MYQUEUE**,MYQUEUE**);
 
 int main()
@@ -1020,3 +1020,300 @@ typedef struct mystruct
 	float sal;
 	struct mystruct *nlink;
 }EMP;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+https://meet.google.com/jfk-wwqi-urs
+
+#include<stdio.h>
+#include<stdlib.h>
+
+#define TRUE 1
+#define FALSE 0
+
+typedef struct btreenode
+{
+struct btreenode *leftchild;
+int data;
+struct btreenode *rightchild;
+}BNODE;
+
+void insert(BNODE**,int);
+void inorder(BNODE*);
+void delete(BNODE**,int);
+void search(BNODE**,int,BNODE**,BNODE**,int*);
+//void del_tree(BNODE**,int);
+
+void main()
+{
+BNODE* bt;
+int i=0,num,a[]={11,9,13,8,10,12,14,15,7};
+bt=NULL;
+while(i<=8)
+{
+ insert(&bt,a[i]);
+ i++;
+}
+
+printf("binary tree before deletion:");
+inorder(bt);
+
+/*del_tree(&bt,13);
+printf("binary tree after deletion:");
+inorder(bt);*/
+
+
+
+
+delete(&bt,10);
+printf("\n binary tree after deletion of node 10:");
+inorder(bt);
+
+delete(&bt,14);
+printf("\n Binary tree after deletion of node 14:");
+inorder(bt);
+
+delete(&bt,7);
+printf("\n binary tree after deletion of node 8:");
+inorder(bt);
+
+delete(&bt,13);
+printf("\n binary tree after deletion:");
+inorder(bt);
+
+}
+
+
+
+
+// inserts a new node in a binary search tree BST
+
+void insert(BNODE **sr,int num)
+{
+if(*sr==NULL)  //Tree is empty so insert the first root node
+{
+ *sr=(BNODE*)malloc(sizeof(BNODE));
+ 
+ (*sr)->leftchild=NULL;
+ (*sr)->data=num;
+ (*sr)->rightchild=NULL;
+
+}
+else   //search the node to which new node will be attached
+{
+ if(num<(*sr)->data)
+  insert(&((*sr)->leftchild),num);
+ else
+  //else traverse to right
+  insert(&((*sr)->rightchild),num);
+}
+return;
+}
+
+/*void del_tree(BNODE** ptr,int item)
+{
+int flag=0;
+BNODE* parent;
+
+while((*ptr!=NULL)&&(flag==0))
+{
+ if(item<(*ptr)->data)
+ {
+  parent=*ptr;
+  *ptr=(*ptr)->leftchild;
+ }
+ else if(item>(*ptr)->data)
+ {
+  parent=*ptr;
+  *ptr=(*ptr)->rightchild;
+ }
+ else
+ {
+  (*ptr)->data=item;
+  flag=1;
+ }
+ }
+
+if(flag==0)
+{
+ printf("ITEM doesnot exist:no deletion\n");
+ return;
+}
+
+//DECIDE THE CASE OF DELETION
+//CASE-1 NODE HAS NO CHILD
+
+if(((*ptr)->leftchild==NULL)&&((*ptr)->rightchild==NULL))                //Node has no child
+{
+ if(parent->leftchild==*ptr)
+  parent->leftchild=NULL;
+ else
+  parent->rightchild=NULL;
+ free(*ptr);
+}
+
+
+//CASE-2
+else if((((*ptr)->leftchild==NULL)&&((*ptr)->rightchild!=NULL))||(((*ptr)->leftchild!=NULL)&&((*ptr)->rightchild==NULL)))
+{
+ if(parent->leftchild==*ptr)
+ {
+  if((*ptr)->leftchild==NULL)
+   parent->leftchild=(*ptr)->rightchild;
+  else
+   parent->leftchild=(*ptr)->leftchild;
+
+ }
+ if(parent->rightchild==*ptr)
+ {
+  if((*ptr)->leftchild==NULL)
+   parent->rightchild=(*ptr)->rightchild;
+  else
+   parent->rightchild=(*ptr)->leftchild;
+ }
+}
+
+}*/
+
+//deletes a node from the binary search tree
+
+void delete(BNODE** root,int num)
+{
+int found;
+BNODE*parent,*x,*xsucc;
+
+//if tree is empty
+if(*root==NULL)
+{
+ printf("\n tree is empty");
+ return;
+}
+
+parent=x=NULL;
+
+//call to search function to find the node to be deleted
+
+search(root,num,&parent,&x,&found);
+
+//if node to be deleted is not found
+if(found==FALSE)
+{
+ printf("Data to be deleted,not found");
+ return;
+}
+
+//if node to be deleted has two children
+if(x->leftchild!=NULL && x->rightchild!=NULL)
+{
+ parent=x;
+ xsucc=x->rightchild;
+ 
+ while(xsucc->leftchild!=NULL)
+ {
+  parent=xsucc;
+  xsucc=xsucc->leftchild;
+ }
+
+ 
+ x->data=xsucc->data;
+ x=xsucc;
+}
+
+//if node to be deleted has no child
+if(x->leftchild==NULL && x->rightchild==NULL)
+{
+ if(parent->rightchild==x)
+  parent->rightchild=NULL;
+ else
+  parent->leftchild=NULL;
+ free(x);
+ return;
+}
+
+//if the node to be deleted has only rightchild
+if(x->leftchild==NULL && x->rightchild!=NULL)
+{
+ if(parent->leftchild==x)
+  parent->leftchild=x->rightchild;
+ else
+  parent->rightchild=x->rightchild;
+ free(x);
+ return;
+}
+
+//if the node to be deleted has only leftchild
+if(x->leftchild==NULL && x->rightchild!=NULL)
+{
+ if(parent->leftchild==x)
+  parent->leftchild=x->leftchild;
+ else
+  parent->rightchild=x->leftchild;
+ free(x);
+ return;
+}
+}
+
+
+//returns the address of the node to be deleted,address of its  parent and whether the node  is found or not
+void search(BNODE** root,int num,BNODE **par,BNODE **x,int * found)
+{
+
+BNODE *q;
+q=*root;  
+*found=FALSE;
+*par=NULL;
+
+while(q!=NULL)
+{
+ //if node to be deleted is found
+ if(q->data==num)
+ {
+  *found=TRUE;
+  *x=q;
+  return;
+ }
+ 
+ if(q->data>num)
+ {
+  *par=q;
+  q=q->leftchild;
+ }
+ 
+ else
+ {
+  *par=q;
+  q=q->rightchild;
+ }
+}
+}
+
+//traverse a binary search tree
+
+void inorder(BNODE* sr)
+{
+if(sr!=NULL)
+{
+ inorder(sr->leftchild);
+ 
+ //print the data of the node whose leftchild is NULL or the path has already been traversed
+ printf("\n%d\t",sr->data);
+ inorder(sr->rightchild);
+}
+else
+ return;
+}
+tchild=x->rightchild;
+ free(x);
+ return;
+}
+
+//if the node to be deleted has only leftchild
+if(x->leftchild==NULL && x->rightchild!=NULL)
+{
+ if(parent->leftchild==x)
+  parent->leftchild=x->leftchild;
+ else
+  parent->rightchild=x->leftchild;
+ free(x);
+ return;
+}
+}
