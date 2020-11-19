@@ -623,8 +623,7 @@ struct student
 
 s1.d1.date
 
-
-kamaldgrt@gmail.com
+---------------------------
 
 Union,enum,preprocessor directives,LINKED LIST,trees,search,sort,command line args,
 variable number of arguments,Files...
