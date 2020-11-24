@@ -1,0 +1,4 @@
+GPA - Sem1 - 9.09
+GPA - Sem2 - 8.61
+GPA - Sem3 - 8.78
+GPA - Sem4 - 9.375
