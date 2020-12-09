@@ -74,3 +74,5 @@ KVM
 https://computingforgeeks.com/how-to-install-kvm-on-fedora/
 
 
+PhpMyAdmin
+https://www.itzgeek.com/how-tos/linux/fedora-how-tos/install-phpmyadmin-4-3-3-on-fedora-21.html
