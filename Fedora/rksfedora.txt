@@ -76,3 +76,12 @@ https://computingforgeeks.com/how-to-install-kvm-on-fedora/
 
 PhpMyAdmin
 https://www.itzgeek.com/how-tos/linux/fedora-how-tos/install-phpmyadmin-4-3-3-on-fedora-21.html
+
+cd /var/lib/mysql
+ls
+rm -r *
+mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+systemctl start mysqld
+systemctl start mysql.service
+systemctl start mariadb
+mysql
