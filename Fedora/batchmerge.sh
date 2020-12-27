@@ -1,5 +1,5 @@
-mkdir bmux;
-echo "Creating bumx/ to store the output of mkvmerge"
+mkdir bmuxmp4;
+echo "Creating bmuxmp4/ to store the output of mkvmerge"
 echo ""
 
 count=1
@@ -26,17 +26,17 @@ for f in *.mp4;
  --track-order 0:0,0:1,1:0;
 
     echo ""
-    echo "Moving Muxed File to bmux/"
-    mv "${outputfile}" bmux/
-    echo "Going inside bmux/"
-    cd bmux/
+    echo "Moving Muxed File to bmuxmp4/"
+    mv "${outputfile}" bmuxmp4/
+    echo "Going inside bmuxmp4/"
+    cd bmuxmp4/
     echo "Renaming the file"
     mv "${outputfile}" "${finalname}"
+    mkvpropedit "${finalname}" --set title="" --delete-track-statistics-tags --tags all:
     echo "Renamed the file!"
-    echo "Coming out of bmux/"
+    echo "Coming out of bmuxmp4/"
     cd ..
     echo "-------------------------------------------------------------"
     echo ""
     count=`expr $count + 1`
 done
-
