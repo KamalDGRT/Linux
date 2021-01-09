@@ -44,6 +44,7 @@ for f in *."${container}";
  --output "${outputfile}" \
  --language 0:en \
  --language 1:en \
+ --no-subtitles \
  '(' "${inputfile}" ')'\
  --sub-charset 0:UTF-8\
  --language 0:en\
