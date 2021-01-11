@@ -4,29 +4,26 @@ echo ""
 
 count=1
 for file in *.mkv;
-  do name=`echo "$file"`
+  do 
+    name=`echo "$file"`
     outputfile=`echo "${name%.mkv}_1.mkv"`
-    echo "${count}"
-    echo "Multiplexing file : ${outputfile}"
-    inputfile="${name}"
-    finalname=`echo "${name%.mkv}.mkv"`
+    directory=`pwd`
+    inputfile="${directory}/${name}"
+    outputfile="${name%.mkv}_1.mkv"
+    outputfilepath="${directory}/nosubsmkv/${name%.mkv}_1.mkv"
+    finalname="${name%.mkv}.mkv"
 
+    echo "File Number   : ${count}"
     echo "Input File    : ${inputfile}"
     echo "Output File   : ${outputfile}"
-
-	mkvmerge -o "${outputfile}" --no-subtitles "$inputfile"
-
     echo ""
-    echo "Moving Muxed File to nosubsmkv/"
-    mv "${outputfile}" nosubsmkv/
-    echo "Going inside nosubsmkv/"
-    cd nosubsmkv/
-    echo "Renaming the file"
-    mv "${outputfile}" "${finalname}"
-    mkvpropedit "${finalname}" --set title="" --delete-track-statistics-tags --tags all:
-    echo "Renamed the file!"
-    echo "Coming out of nosubsmkv/"
-    cd ..
+
+    echo "Creating the matroska file using ffmpeg"
+    ffmpeg -i "${inputfile}" -c copy -map 0:v -map 0:a "${outputfilepath}" -v quiet -stats
+
+    mv "nosubsmkv/${outputfile}" "nosubsmkv/${finalname}"
+    echo "Removing the metadata!"
+    mkvpropedit "nosubsmkv/${finalname}" --set title="" --delete-track-statistics-tags --tags all:
     echo "-------------------------------------------------------------"
     echo ""
     count=`expr $count + 1`
