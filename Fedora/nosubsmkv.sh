@@ -22,6 +22,7 @@ for file in *.mkv;
     ffmpeg -i "${inputfile}" -c copy -map 0:v -map 0:a "${outputfilepath}" -v quiet -stats
 
     mv "nosubsmkv/${outputfile}" "nosubsmkv/${finalname}"
+    echo ""
     echo "Removing the metadata!"
     mkvpropedit "nosubsmkv/${finalname}" --set title="" --delete-track-statistics-tags --tags all:
     echo "-------------------------------------------------------------"
