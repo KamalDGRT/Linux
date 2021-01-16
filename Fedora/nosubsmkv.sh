@@ -1,10 +1,16 @@
-mkdir nosubsmkv;
-echo "Creating nosubsmkv/ to store the output of mkvmerge"
-echo ""
+#!/bin/bash
+
+# Creating directory to store the output files
+if [[ ! -d nosubsmkv/ ]]
+then
+    mkdir nosubsmkv;
+    echo "Creating nosubsmkv/ to store the output of mkvmerge"
+    echo ""    
+fi
 
 count=1
 for file in *.mkv;
-  do 
+do 
     name=`echo "$file"`
     outputfile=`echo "${name%.mkv}_1.mkv"`
     directory=`pwd`
