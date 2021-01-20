@@ -21,14 +21,17 @@ After adding a permanent alias, this command has been executed to get the follow
 
 ![Command Execution](https://github.com/KamalDGRT/static/blob/master/RottenScripts/img/03_nosubsmkv_command.png)
 
-#### *Checking if the files are created*
+#### *Track listing of the original files*
 
-Let's check if the files have been created:
+Let's see the various tracks available in the matroska files.
 
-1. Using the Command Line Interface.
-2. Using the Graphical Interface.
+![Checking](https://github.com/KamalDGRT/static/blob/master/RottenScripts/img/04_trackinfo_original.png)
 
-![Checking](https://github.com/KamalDGRT/static/blob/master/RottenScripts/img/04_nosubsmkv_output.png)
+#### *Track listing of the new files*
+
+Let's see the various tracks available in the new matroska files.
+
+![Checking](https://github.com/KamalDGRT/static/blob/master/RottenScripts/img/05_trackinfo_new.png)
 
 ## Author
 
