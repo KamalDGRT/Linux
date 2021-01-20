@@ -9,6 +9,8 @@ then
 fi
 
 count=1
+
+# Traversing throuugh the matroska files present in the directory
 for file in *.mkv;
 do 
     name=`echo "$file"`
