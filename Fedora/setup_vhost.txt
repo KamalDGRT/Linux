@@ -1,0 +1,24 @@
+https://www.tecmint.com/apache-virtual-hosting-in-centos/
+
+
+1. Install httpd
+
+2. create the folders 
+
+sudo mkdir /etc/httpd/sites-available
+sudo mkdir /etc/httpd/sites-enabled
+
+3.  open this file
+subl /etc/httpd/conf/httpd.conf
+
+4. add this line at the end of /etc/httpd/conf/httpd.conf
+
+IncludeOptional sites-enabled/*.conf
+
+5. create the .conf file in sites-enabled/
+
+
+<your url>.conf
+
+vcard.kamal.conf
+
