@@ -28,13 +28,6 @@ count=`ls -1 *.${container} 2>/dev/null | wc -l`
 if [ $count != 0 ] 
   then
 
-  # Creating a directory (if it isn't present) to store the subtitles
-  if [[ ! -d subs/ ]]
-    then
-      mkdir subs
-      echo "Created subs/ folder to store subtitles!"
-  fi
-
   # Traversing through the files with the specified container
   for file in *.${container};
     do 
