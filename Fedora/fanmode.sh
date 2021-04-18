@@ -1,14 +1,15 @@
 #!/usr/bin/bash
-fbm=`cat /sys/devices/platform/faustus/fan_boost_mode`
+fbm=`cat /sys/devices/platform/asus-nb-wmi/fan_boost_mode`
 if [ $fbm == 0 ]
 then
-	echo "Fan Mode: Normal"
+	echo "Fan Mode: Balanced"
 elif [ $fbm == 1 ]
 then
-	echo "Fan Mode: Overboost"
+	echo "Fan Mode: Turbo"
 elif [ $fbm == 2 ]
 then
 	echo "Fan Mode: Silent"
 else
 	echo "Invalid Fan Mode"
 fi
+
