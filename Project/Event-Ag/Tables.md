@@ -163,3 +163,29 @@
 | updated_at | Updated At | integer(11) |
 | updated_by | Updated By | integer(11) |
 
+### Table 13: prize
+
+| Column Name |Field Name | Type |
+|----|---|---|
+| id | ID | integer(11) |
+| event_id | Event ID | intger(11) |
+| title | Title | string(32) |
+| prize | Prize | string(128) |
+| caption | Caption | string(128) |
+| created_at | Created At | integer(11) |
+| created_by | Created By | integer(11) |
+| updated_at | Updated At | integer(11) |
+| updated_by | Updated By | integer(11) |
+
+### Table 14: feedback
+
+| Column Name |Field Name | Type |
+|----|---|---|
+| id | ID | integer(11) |
+| event_id | Event ID | intger(11) |
+| feedback | Feedback | text |
+| rating | Rating | integer(5) |
+| created_at | Created At | integer(11) |
+| created_by | Created By | integer(11) |
+| updated_at | Updated At | integer(11) |
+| updated_by | Updated By | integer(11) |
