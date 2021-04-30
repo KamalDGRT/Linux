@@ -1,0 +1,54 @@
+1. How to install Brave in Manjaro
+
+https://techviewleo.com/install-brave-browser-on-manjaro-arch-linux/
+
+X Kill
+https://forum.manjaro.org/t/how-to-create-a-custom-xkill-shotcut/55058
+
+Zoom Application
+https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux#h_5562a050-fe90-4372-90ca-cb3bb3e8f310
+
+Installing Zoom through Terminal Worked.
+
+Flatpak
+https://wiki.manjaro.org/index.php/Flatpak
+
+Spotify
+https://wiki.manjaro.org/index.php/Spotify
+https://linuxhint.com/install_spotify_manjaro/
+Installed the snapd
+then installed the spotify
+
+
+Added SSH for Git
+https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
+
+Tried to insall Anaconda.
+Did not work.
+Attempting with venv.
+
+VSCode
+http://umaranis.com/2018/07/05/installing-visual-studio-code-vscode-on-manjaro-linux/
+Method1
+
+Creating Virtual Environments for Python projects
+https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#:~:text=To%20create%20a%20virtual%20environment,virtualenv%20in%20the%20below%20commands.&text=The%20second%20argument%20is%20the,project%20and%20call%20it%20env%20.
+
+Deleting a virutal environment created using venv
+- Deactivate the virutal environment
+- Then delete the `env` folder
+
+Sublime Text
+https://www.sublimetext.com/docs/3/linux_repositories.html
+
+Tree Command
+https://discover.manjaro.org/packages/tree
+
+Gurcharn Das - India Unbound
+
+Xampp
+- Downloaded that .run file
+- Made that as an executable: `chmod +x <isntaller>.run`
+- executed using `sudo ./<installername>.run`
+
