@@ -52,3 +52,11 @@ Xampp
 - Made that as an executable: `chmod +x <isntaller>.run`
 - executed using `sudo ./<installername>.run`
 
+
+
+Lampp in Manjaro
+https://forum.manjaro.org/t/howto-install-apache-mariadb-mysql-php-lamp/13000
+https://www.youtube.com/watch?v=rqNhQ-M5sT4&t=185s
+had to enable iconv
+https://stackoverflow.com/questions/47953312/yii2-exception-yii-db-exception-with-message-could-not-find-driver
+enabled gd, pdo_mysql extensions in php.ini
