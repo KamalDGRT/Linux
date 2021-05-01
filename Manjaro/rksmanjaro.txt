@@ -60,3 +60,72 @@ https://www.youtube.com/watch?v=rqNhQ-M5sT4&t=185s
 had to enable iconv
 https://stackoverflow.com/questions/47953312/yii2-exception-yii-db-exception-with-message-could-not-find-driver
 enabled gd, pdo_mysql extensions in php.ini
+
+Virtual Host
+https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-arch-linux
+https://stackoverflow.com/a/10144709
+
+This actually worked:
+https://www.youtube.com/watch?v=XZs4tUKmZY8
+
+0. Started the httpd and mysql service
+
+1. I created a directory inside the srv/http
+
+sudo mkdir projectname
+
+2. I gave the access to all users.
+
+sudo chmod 777 -R projectname
+
+3. Added that folder as a virtual host in this file:
+
+sudo subl /etc/httpd/conf/extra/httpd-vhosts.conf
+
+
+This was the content:
+<VirtualHost *:80>
+ServerName projectname.kamal
+
+DocumentRoot "/srv/http/projectname"
+
+    <Directory "/srv/http/projectname">
+        # use mod_rewrite for pretty URL support
+        RewriteEngine on
+        # If a directory or a file exists, use the request directly
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        # Otherwise forward the request to index.php
+        RewriteRule . index.php
+        # use index.php as index file
+        DirectoryIndex index.php
+        # ...other settings...
+        # Apache 2.4
+        Require all granted
+
+        ## Apache 2.2
+        # Order allow,deny
+        # Allow from all
+    </Directory>
+
+</VirtualHost>
+
+4. Added this to the /etc/hosts
+
+127.0.1.1  projectname.kamal
+
+5. Restarted the httpd service:
+
+sudo systemctl restart httpd
+
+6. Cloned the github repo to a different folder in Dekstop.
+
+7. Moved its content into /srv/http/portfolio
+
+8. php init
+
+9. composer update
+
+10. Changed the dbname and password in common/config/main-local.php
+
+11. php yii migrate
