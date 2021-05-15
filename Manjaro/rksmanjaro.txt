@@ -129,3 +129,9 @@ sudo systemctl restart httpd
 10. Changed the dbname and password in common/config/main-local.php
 
 11. php yii migrate
+
+
+Java JDK8
+https://linuxconfig.org/how-to-install-java-on-manjaro-linux
+
+sudo pacman -S jre8-openjdk-headless jre8-openjdk jdk8-openjdk openjdk8-doc openjdk8-src
