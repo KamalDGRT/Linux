@@ -37,6 +37,29 @@ Here's the output of `neofetch` after installation:
 
 ---
 
+### Connecting the Laptop to WiFi
+
+Connecting your laptop to a internet source is the very first thing that
+you should do when you boot up your Arch Linux Live USB. This is because
+you will be downloading various packages from the internet. So, if you
+have a good stable internet, you won't be having much trouble
+installing Arch.
+
+Here's how I did it when I booted up from the Arch Linux Live USB:
+
+- 1. Type `ip a`. This will list out the network devices.
+- 1. Type `ip link set wlan0 up`
+- 1. Type `systemctl enable --now dhcpcd.service`
+- 1. Type `iwctl` in the Command Line Interface Installation screen.
+
+```bash
+[root@archiso~] # iwctl
+```
+
+```bash
+[iwd] 
+```
+
 ### Partitions
 
 Here is how I am going to partition my 1TB HDD.
@@ -47,3 +70,5 @@ Here is how I am going to partition my 1TB HDD.
 | /dev/sda2      | 100G           | /           |
 | /dev/sda3      | 600G           | /home       |
 | /dev/sda4      | Remaining size | /mywin      |
+
+I am just planning before the actual installation begins.
