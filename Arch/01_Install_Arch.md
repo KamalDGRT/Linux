@@ -1,5 +1,13 @@
 # Arch Linux Install Instructions
 
+### Disclaimer
+
+> The following steps worked on my Laptop. So, when you try to follow these
+> steps and ended up bricking your laptop, I am not responsible for it.
+> You chose to setup a install on the go distro. Be patient.
+> You are experimenting new stuff. That is good. But like all actions,
+> they do have consequences. So, I hope you know what are doing.
+
 This file contains the steps that I followed while installing
 Arch Linux in my Laptop.
 
