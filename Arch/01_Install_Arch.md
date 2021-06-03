@@ -148,6 +148,6 @@ file systems for them.
 [root@archiso~] # mount /dev/sda3 /home
 ```
 
-```s
+```bash
 [root@archiso~] # mount /dev/sda4 /mywin
 ```
