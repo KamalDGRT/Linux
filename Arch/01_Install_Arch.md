@@ -152,11 +152,17 @@ file systems for them.
 [root@archiso~] # mount /dev/sda4 /mywin
 ```
 
-### Installing Base packages.
+---
+
+### Installing Base packages
 
 ```bash
 [root@archiso~] # pacstrap /mnt base linux linux-firmware nano
 ```
+
+---
+
+### Generating the `fstab` file
 
 ```bash
 [root@archiso~] # genfstab -U /mnt >> /mnt/etc/fstab
@@ -166,9 +172,18 @@ file systems for them.
 [root@archiso~] # cat /mnt /etc/fstab
 ```
 
+---
+
+### Changing the mount point
+
 ```bash
 [root@archiso~] # arch-chroot /mnt
 ```
+
+---
+
+### Creating a Swap partition
+
 
 ```bash
 [root@archiso /] # fallocate -l 4GB /swapfile
@@ -196,13 +211,27 @@ Add this in the end of the file:
 /swapfile    none    swap    0    0
 ```
 
+---
+
+### Adding Local TimeZone
+
 ```bash
 [root@archiso /] # ln -sf /user/share/zoneinfo/Asia/Kolkata /etc/localtime
 ```
 
+---
+
+### Syncing the hardware and software clock
+
+
 ```bash
 [root@archiso /] # hwclock --systohc
 ```
+
+---
+
+### Generating locale(s)
+
 
 ```bash
 [root@archiso /] # nano /etc/locale.gen
@@ -226,6 +255,10 @@ en_US.UTF-8 UTF-8
 LANG=en_US.UTF-8
 ```
 
+---
+
+### Setting up the host configurations
+
 ```bash
 [root@archiso /] # nano /etc/hostname
 ```
@@ -246,6 +279,9 @@ titan
 
 ---
 
+### Installing GRUB and other important packages
+
+
 ```bash
 [root@archiso /] # pacman -S grub efibootmgr networkmanager network-manager-applet wireless_tools wpa_supplicant dialog os-prober mtools dosfstools base-devel linux-headers
 ```
@@ -258,23 +294,45 @@ titan
 [root@archiso /] # grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+---
+
+### Creating the root user password
+
+
 ```bash
 [root@archiso /] # passwd
 ```
+
+---
+
+### Exiting the mount point
+
 
 ```bash
 [root@archiso /] # exit
 ```
 
+---
+
+### Unmounting all the mount points
+
+
 ```bash
 [root@archiso ~] # umount -a
 ```
+
+---
+
+### Rebooting
+
 
 ```bash
 [root@archiso ~] # reboot
 ```
 
 ---
+
+### Setting up the newly installed Arch Linux
 
 Login as root user.
 
@@ -287,6 +345,11 @@ Login as root user.
 ```
 
 Scroll down and activate a connection.
+
+---
+
+#### Creating the normal user and giving him the sudo permissions
+
 
 ```bash
 [root@titan /] # useradd -m -G wheel kamal
@@ -306,24 +369,30 @@ Uncomment the line that contains this:
 %wheel ALL=(ALL) ALL
 ```
 
+---
+
+#### Installing graphic driver packages
+
+Do this step if you have NVIDIA graphic card in your system.
+
 ```bash
 [root@titan /] # pacman -S nvidia nvidia-utils nvidia-settings
 ```
+
+---
+
+#### Installing XORG windowing system
 
 ```bash
 [root@titan /] # pacman -S xorg xterm xorg-init
 ```
 
+---
+
+#### Installing GNOME Deskop Environment
+
 ```bash
 [root@titan /] # pacman -S gnome gnome-extra
-```
-
-```bash
-[root@titan /] # pacman -S neofetch bash-completion
-```
-
-```bash
-[root@titan /] # pacman -S pulseaudio pulseaudo-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
 ```
 
 ```bash
@@ -338,12 +407,20 @@ Uncomment the line that contains this:
 [root@titan /] # systemctl start gdm
 ```
 
----
+#### Updating the system and installing packages for audio
 
 Login into the normal user.
 
 ```bash
 [kamal@titan ~] # sudo pacman -Syyu
+```
+
+```bash
+[kamal@titan ~] # sudo pacman -S neofetch bash-completion
+```
+
+```bash
+[kamal@titan ~] # sudo pacman -S pulseaudio pulseaudo-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
 ```
 
 ```bash
