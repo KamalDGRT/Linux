@@ -21,7 +21,7 @@ Here's the output of `neofetch` after installation:
                `+oooooo:                 Kernel: 5.12.8-arch1-1
                -+oooooo+:                Uptime: 51 mins
              `/:-:++oooo+:               Packages: 984 (pacman)
-            `/++++/+++++++:              Shell: bash 5.1.8
+            `/++++/+++++++:              Shell: js 5.1.8
            `/++++++++++++++:             Resolution: 1920x1080
           `/+++ooooooooooooo/`           DE: GNOME 40.1
          ./ooosssso++osssssso+`          WM: Mutter
@@ -52,19 +52,19 @@ Here's how I did it when I booted up from the Arch Linux Live USB:
 - 1. Type `systemctl enable --now dhcpcd.service`
 - 1. Type `iwctl` in the Command Line Interface Installation screen.
 
-```bash
+```js
 [root@archiso~] # iwctl
 ```
 
-```bash
+```js
 [iwd] # device list
 ```
 
-```bash
+```js
 [iwd] # station wlan0 get-networks
 ```
 
-```bash
+```js
 [iwd] # station wlan0 connect <WiFi-Name>
 ```
 
@@ -98,25 +98,25 @@ file systems for them.
 
 ##### EFI Partition
 
-```bash
+```js
 [root@archiso~] # mkfs.fat -F32 /dev/sda1
 ```
 
 ##### Root Partition
 
-```bash
+```js
 [root@archiso~] # mkfs.ext4 /dev/sda2
 ```
 
 ##### Home Partition
 
-```bash
+```js
 [root@archiso~] # mkfs.ext4 /dev/sda3
 ```
 
 ##### Separate Partition for backups
 
-```bash
+```js
 [root@archiso~] # mkfs.ext4 /dev/sda4
 ```
 
@@ -124,31 +124,31 @@ file systems for them.
 
 ### Creating Mount Points
 
-```bash
+```js
 [root@archiso~] # mount /dev/sda2 /mnt
 ```
 
-```bash
+```js
 [root@archiso~] # mkdir -p /mnt/boot/EFI
 ```
 
-```bash
+```js
 [root@archiso~] # mkdir -p /mnt/home
 ```
 
-```bash
+```js
 [root@archiso~] # mkdir -p /mnt/mywin
 ```
 
-```bash
+```js
 [root@archiso~] # mount /dev/sda1 /mnt/boot/EFI
 ```
 
-```bash
+```js
 [root@archiso~] # mount /dev/sda3 /home
 ```
 
-```bash
+```js
 [root@archiso~] # mount /dev/sda4 /mywin
 ```
 
@@ -156,7 +156,7 @@ file systems for them.
 
 ### Installing Base packages
 
-```bash
+```js
 [root@archiso~] # pacstrap /mnt base linux linux-firmware nano
 ```
 
@@ -164,11 +164,11 @@ file systems for them.
 
 ### Generating the `fstab` file
 
-```bash
+```js
 [root@archiso~] # genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
-```bash
+```js
 [root@archiso~] # cat /mnt /etc/fstab
 ```
 
@@ -176,7 +176,7 @@ file systems for them.
 
 ### Changing the mount point
 
-```bash
+```js
 [root@archiso~] # arch-chroot /mnt
 ```
 
@@ -185,23 +185,23 @@ file systems for them.
 ### Creating a Swap partition
 
 
-```bash
+```js
 [root@archiso /] # fallocate -l 4GB /swapfile
 ```
 
-```bash
+```js
 [root@archiso /] # chmod 600 /swapfile
 ```
 
-```bash
+```js
 [root@archiso /] # mkswap /swapfile
 ```
 
-```bash
+```js
 [root@archiso /] # swapon /swapfile
 ```
 
-```bash
+```js
 [root@archiso /] # nano /etc/fstab
 ```
 
@@ -215,7 +215,7 @@ Add this in the end of the file:
 
 ### Adding Local TimeZone
 
-```bash
+```js
 [root@archiso /] # ln -sf /user/share/zoneinfo/Asia/Kolkata /etc/localtime
 ```
 
@@ -224,7 +224,7 @@ Add this in the end of the file:
 ### Syncing the hardware and software clock
 
 
-```bash
+```js
 [root@archiso /] # hwclock --systohc
 ```
 
@@ -233,7 +233,7 @@ Add this in the end of the file:
 ### Generating locale(s)
 
 
-```bash
+```js
 [root@archiso /] # nano /etc/locale.gen
 ```
 
@@ -243,11 +243,11 @@ Uncomment the locale that you want. I will be uncommenting:
 en_US.UTF-8 UTF-8
 ```
 
-```bash
+```js
 [root@archiso /] # locale-gen
 ```
 
-```bash
+```js
 [root@archiso /] # nano /etc/locale.conf
 ```
 
@@ -259,7 +259,7 @@ LANG=en_US.UTF-8
 
 ### Setting up the host configurations
 
-```bash
+```js
 [root@archiso /] # nano /etc/hostname
 ```
 
@@ -267,7 +267,7 @@ LANG=en_US.UTF-8
 titan
 ```
 
-```bash
+```js
 [root@archiso /] # nano /etc/hosts
 ```
 
@@ -282,15 +282,15 @@ titan
 ### Installing GRUB and other important packages
 
 
-```bash
+```js
 [root@archiso /] # pacman -S grub efibootmgr networkmanager network-manager-applet wireless_tools wpa_supplicant dialog os-prober mtools dosfstools base-devel linux-headers
 ```
 
-```bash
+```js
 [root@archiso /] # grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB
 ```
 
-```bash
+```js
 [root@archiso /] # grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
@@ -299,7 +299,7 @@ titan
 ### Creating the root user password
 
 
-```bash
+```js
 [root@archiso /] # passwd
 ```
 
@@ -308,7 +308,7 @@ titan
 ### Exiting the mount point
 
 
-```bash
+```js
 [root@archiso /] # exit
 ```
 
@@ -317,7 +317,7 @@ titan
 ### Unmounting all the mount points
 
 
-```bash
+```js
 [root@archiso ~] # umount -a
 ```
 
@@ -326,7 +326,7 @@ titan
 ### Rebooting
 
 
-```bash
+```js
 [root@archiso ~] # reboot
 ```
 
@@ -336,11 +336,11 @@ titan
 
 Login as root user.
 
-```bash
+```js
 [root@titan /] # systemctl start NetworkManager
 ```
 
-```bash
+```js
 [root@titan /] # nmtui
 ```
 
@@ -351,15 +351,15 @@ Scroll down and activate a connection.
 #### Creating the normal user and giving him the sudo permissions
 
 
-```bash
+```js
 [root@titan /] # useradd -m -G wheel kamal
 ```
 
-```bash
+```js
 [root@titan /] # passwd kamal
 ```
 
-```bash
+```js
 [root@titan /] # EDITOR=nano visudo
 ```
 
@@ -375,7 +375,7 @@ Uncomment the line that contains this:
 
 Do this step if you have NVIDIA graphic card in your system.
 
-```bash
+```js
 [root@titan /] # pacman -S nvidia nvidia-utils nvidia-settings
 ```
 
@@ -383,7 +383,7 @@ Do this step if you have NVIDIA graphic card in your system.
 
 #### Installing XORG windowing system
 
-```bash
+```js
 [root@titan /] # pacman -S xorg xterm xorg-init
 ```
 
@@ -391,19 +391,19 @@ Do this step if you have NVIDIA graphic card in your system.
 
 #### Installing GNOME Deskop Environment
 
-```bash
+```js
 [root@titan /] # pacman -S gnome gnome-extra
 ```
 
-```bash
+```js
 [root@titan /] # pacman -S gdm
 ```
 
-```bash
+```js
 [root@titan /] # systemctl enable gdm
 ```
 
-```bash
+```js
 [root@titan /] # systemctl start gdm
 ```
 
@@ -411,19 +411,19 @@ Do this step if you have NVIDIA graphic card in your system.
 
 Login into the normal user.
 
-```s
+```js
 [kamal@titan ~] $ sudo pacman -Syyu
 ```
 
-```json
-[kamal@titan ~] $ sudo pacman -S neofetch bash-completion
+```js
+[kamal@titan ~] $ sudo pacman -S neofetch js-completion
 ```
 
 ```js
 [kamal@titan ~] $ sudo pacman -S pulseaudio pulseaudo-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
 ```
 
-```t
+```js
 [kamal@titan ~] $ reboot
 ```
 
