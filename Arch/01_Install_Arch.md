@@ -52,19 +52,19 @@ Here's how I did it when I booted up from the Arch Linux Live USB:
 - 1. Type `systemctl enable --now dhcpcd.service`
 - 1. Type `iwctl` in the Command Line Interface Installation screen.
 
-```s
+```bash
 [root@archiso~] # iwctl
 ```
 
-```s
+```bash
 [iwd] # device list
 ```
 
-```s
+```bash
 [iwd] # station wlan0 get-networks
 ```
 
-```s
+```bash
 [iwd] # station wlan0 connect <WiFi-Name>
 ```
 
@@ -98,25 +98,25 @@ file systems for them.
 
 ##### EFI Partition
 
-```s
+```bash
 [root@archiso~] # mkfs.fat -F32 /dev/sda1
 ```
 
 ##### Root Partition
 
-```s
+```bash
 [root@archiso~] # mkfs.ext4 /dev/sda2
 ```
 
 ##### Home Partition
 
-```s
+```bash
 [root@archiso~] # mkfs.ext4 /dev/sda3
 ```
 
 ##### Separate Partition for backups
 
-```s
+```bash
 [root@archiso~] # mkfs.ext4 /dev/sda4
 ```
 
@@ -124,30 +124,230 @@ file systems for them.
 
 ### Creating Mount Points
 
-```s
+```bash
 [root@archiso~] # mount /dev/sda2 /mnt
 ```
 
-```s
+```bash
 [root@archiso~] # mkdir -p /mnt/boot/EFI
 ```
 
-```s
+```bash
 [root@archiso~] # mkdir -p /mnt/home
 ```
 
-```s
+```bash
 [root@archiso~] # mkdir -p /mnt/mywin
 ```
 
-```s
+```bash
 [root@archiso~] # mount /dev/sda1 /mnt/boot/EFI
 ```
 
-```s
+```bash
 [root@archiso~] # mount /dev/sda3 /home
 ```
 
 ```bash
 [root@archiso~] # mount /dev/sda4 /mywin
 ```
+
+### Installing Base packages.
+
+```bash
+[root@archiso~] # pacstrap /mnt base linux linux-firmware nano
+```
+
+```bash
+[root@archiso~] # genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+```bash
+[root@archiso~] # cat /mnt /etc/fstab
+```
+
+```bash
+[root@archiso~] # arch-chroot /mnt
+```
+
+```bash
+[root@archiso /] # fallocate -l 4GB /swapfile
+```
+
+```bash
+[root@archiso /] # chmod 600 /swapfile
+```
+
+```bash
+[root@archiso /] # mkswap /swapfile
+```
+
+```bash
+[root@archiso /] # swapon /swapfile
+```
+
+```bash
+[root@archiso /] # nano /etc/fstab
+```
+
+Add this in the end of the file:
+
+```t
+/swapfile    none    swap    0    0
+```
+
+```bash
+[root@archiso /] # ln -sf /user/share/zoneinfo/Asia/Kolkata /etc/localtime
+```
+
+```bash
+[root@archiso /] # hwclock --systohc
+```
+
+```bash
+[root@archiso /] # nano /etc/locale.gen
+```
+
+Uncomment the locale that you want. I will be uncommenting:
+
+```s
+en_US.UTF-8 UTF-8
+```
+
+```bash
+[root@archiso /] # locale-gen
+```
+
+```bash
+[root@archiso /] # nano /etc/locale.conf
+```
+
+```s
+LANG=en_US.UTF-8
+```
+
+```bash
+[root@archiso /] # nano /etc/hostname
+```
+
+```s
+titan
+```
+
+```bash
+[root@archiso /] # nano /etc/hosts
+```
+
+```s
+127.0.0.1        localhost
+::1              localhost
+127.0.1.1        titan.localdomain titan
+```
+
+---
+
+```bash
+[root@archiso /] # pacman -S grub efibootmgr networkmanager network-manager-applet wireless_tools wpa_supplicant dialog os-prober mtools dosfstools base-devel linux-headers
+```
+
+```bash
+[root@archiso /] # grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=GRUB
+```
+
+```bash
+[root@archiso /] # grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+```bash
+[root@archiso /] # passwd
+```
+
+```bash
+[root@archiso /] # exit
+```
+
+```bash
+[root@archiso ~] # umount -a
+```
+
+```bash
+[root@archiso ~] # reboot
+```
+
+---
+
+Login as root user.
+
+```bash
+[root@titan /] # systemctl start NetworkManager
+```
+
+```bash
+[root@titan /] # nmtui
+```
+
+Scroll down and activate a connection.
+
+```bash
+[root@titan /] # useradd -m -G wheel kamal
+```
+
+```bash
+[root@titan /] # passwd kamal
+```
+
+```bash
+[root@titan /] # EDITOR=nano visudo
+```
+
+Uncomment the line that contains this:
+
+```t
+%wheel ALL=(ALL) ALL
+```
+
+```bash
+[root@titan /] # pacman -S nvidia nvidia-utils nvidia-settings
+```
+
+```bash
+[root@titan /] # pacman -S xorg xterm xorg-init
+```
+
+```bash
+[root@titan /] # pacman -S gnome gnome-extra
+```
+
+```bash
+[root@titan /] # pacman -S neofetch bash-completion
+```
+
+```bash
+[root@titan /] # pacman -S pulseaudio pulseaudo-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
+```
+
+```bash
+[root@titan /] # pacman -S gdm
+```
+
+```bash
+[root@titan /] # systemctl enable gdm
+```
+
+```bash
+[root@titan /] # systemctl start gdm
+```
+
+---
+
+Login into the normal user.
+
+```bash
+[kamal@titan ~] # sudo pacman -Syyu
+```
+
+```bash
+[kamal@titan ~] # reboot
+```
+
+---
