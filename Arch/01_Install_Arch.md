@@ -416,7 +416,7 @@ Login into the normal user.
 ```
 
 ```js
-[kamal@titan ~] $ sudo pacman -S neofetch js-completion
+[kamal@titan ~] $ sudo pacman -S neofetch bash-completion
 ```
 
 ```js
