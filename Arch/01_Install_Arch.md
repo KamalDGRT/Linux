@@ -411,20 +411,20 @@ Do this step if you have NVIDIA graphic card in your system.
 
 Login into the normal user.
 
-```bash
-[kamal@titan ~] # sudo pacman -Syyu
+```s
+[kamal@titan ~] $ sudo pacman -Syyu
 ```
 
-```bash
-[kamal@titan ~] # sudo pacman -S neofetch bash-completion
+```json
+[kamal@titan ~] $ sudo pacman -S neofetch bash-completion
 ```
 
-```bash
-[kamal@titan ~] # sudo pacman -S pulseaudio pulseaudo-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
+```js
+[kamal@titan ~] $ sudo pacman -S pulseaudio pulseaudo-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
 ```
 
-```bash
-[kamal@titan ~] # reboot
+```t
+[kamal@titan ~] $ reboot
 ```
 
 ---
