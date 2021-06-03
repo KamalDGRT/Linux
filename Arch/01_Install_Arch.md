@@ -52,23 +52,102 @@ Here's how I did it when I booted up from the Arch Linux Live USB:
 - 1. Type `systemctl enable --now dhcpcd.service`
 - 1. Type `iwctl` in the Command Line Interface Installation screen.
 
-```bash
+```s
 [root@archiso~] # iwctl
 ```
 
-```bash
-[iwd] 
+```s
+[iwd] # device list
 ```
+
+```s
+[iwd] # station wlan0 get-networks
+```
+
+```s
+[iwd] # station wlan0 connect <WiFi-Name>
+```
+
+Replace `<WiFi-Name>` with your WiFi Name.
+
+Type your WiFi password.
+
+```s
+[iwd] # exit
+```
+
+---
 
 ### Partitions
 
-Here is how I am going to partition my 1TB HDD.
+- Here is how I am going to partition my 1TB HDD.
 
-| Partition Name | Partition Size | Mount Point |
-| -------------- | -------------- | ----------- |
-| /dev/sda1      | 500M           | /boot/EFI   |
-| /dev/sda2      | 100G           | /           |
-| /dev/sda3      | 600G           | /home       |
-| /dev/sda4      | Remaining size | /mywin      |
+| Partition Name | Partition Size | Partition Type          | Mount Point |
+| -------------- | -------------- | ----------------------- | ----------- |
+| /dev/sda1      | 500M           | FAT32 Linux EFI Partion | /boot/EFI   |
+| /dev/sda2      | 100G           | ext4 Linux File System  | /           |
+| /dev/sda3      | 600G           | ext4 Linux File System  | /home       |
+| /dev/sda4      | Remaining size | ext4 Linux File System  | /mywin      |
 
-I am just planning before the actual installation begins.
+- I am just planning before the actual installation begins.
+- I am using `cfdisk` command to partition my disk.
+- You can use whatever command suits you.
+
+After creating those partitions you need to create proper
+file systems for them.
+
+##### EFI Partition
+
+```s
+[root@archiso~] # mkfs.fat -F32 /dev/sda1
+```
+
+##### Root Partition
+
+```s
+[root@archiso~] # mkfs.ext4 /dev/sda2
+```
+
+##### Home Partition
+
+```s
+[root@archiso~] # mkfs.ext4 /dev/sda3
+```
+
+##### Separate Partition for backups
+
+```s
+[root@archiso~] # mkfs.ext4 /dev/sda4
+```
+
+---
+
+### Creating Mount Points
+
+```s
+[root@archiso~] # mount /dev/sda2 /mnt
+```
+
+```s
+[root@archiso~] # mkdir -p /mnt/boot/EFI
+```
+
+```s
+[root@archiso~] # mkdir -p /mnt/home
+```
+
+```s
+[root@archiso~] # mkdir -p /mnt/mywin
+```
+
+```s
+[root@archiso~] # mount /dev/sda1 /mnt/boot/EFI
+```
+
+```s
+[root@archiso~] # mount /dev/sda3 /home
+```
+
+```s
+[root@archiso~] # mount /dev/sda4 /mywin
+```
