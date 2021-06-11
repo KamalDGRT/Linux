@@ -446,3 +446,29 @@ installation should now be secure.
 
 Thanks for using MariaDB!
 ```
+
+### Step 4: Intalling PHP + PHP Extensions + phpMyAdmin
+
+- PHP
+
+```js
+sudo pacman -S php php-apache 
+```
+
+- PHP Extensions
+
+```js
+sudp pacman -S php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis php-snmp
+```
+
+- phpMyAdmin
+
+```js
+sudo pacman -S phpmyadmin
+```
+
+- Composer:  PHP Package manager
+
+```js
+sudo pacman -S composer
+```
