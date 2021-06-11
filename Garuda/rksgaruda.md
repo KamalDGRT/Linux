@@ -115,3 +115,11 @@ sudo nano /srv/http/index.html
 - Now, open your web browser and navigate to `http://localhost`
 
 - You will be seeing the output of the HTML code that we typed above.
+
+#### Step 3: Install MariaDB
+
+- Run the following command to install MariaDB:
+
+```js
+sudo pacman -S mysql
+```
