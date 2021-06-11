@@ -123,3 +123,326 @@ sudo nano /srv/http/index.html
 ```js
 sudo pacman -S mysql
 ```
+
+```
+:: There are 2 providers available for mysql:
+:: Repository extra
+   1) mariadb
+:: Repository community
+   2) percona-server
+
+Enter a number (default=1): 
+```
+
+- Press `Enter` key in the keyboard.
+
+```js
+resolving dependencies...
+looking for conflicting packages...
+
+Packages (1) mariadb-10.5.10-1
+
+Total Installed Size:  235.54 MiB
+
+:: Proceed with installation? [Y/n]
+```
+
+- Press `y` or `Y`. 
+
+- And then it goes on to show an output something like the one below:
+
+```js
+:: Proceed with installation? [Y/n] y
+(1/1) checking keys in keyring        [---------------------] 100%
+(1/1) checking package integrity      [---------------------] 100%
+(1/1) loading package files           [---------------------] 100%
+(1/1) checking for file conflicts     [---------------------] 100%
+(1/1) checking available disk space   [---------------------] 100%
+:: Processing package changes...
+(1/1) installing mariadb              [---------------------] 100%
+
+:: You need to initialize the MariaDB data directory prior to starting
+   the service. This can be done with mariadb-install-db command, e.g.:
+   mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+Optional dependencies for mariadb
+    cracklib: for cracklib plugin [installed]
+    curl: for ha_s3 plugin [installed]
+    galera: for MariaDB cluster with Galera WSREP
+    python-mysqlclient: for myrocks_hotbackup
+    perl-dbd-mariadb: for mariadb-hotcopy, mariadb-convert-table-format and mariadb-setpermission
+:: Running post-transaction hooks...
+( 1/10) Syncing all file systems...
+( 2/10) Creating system user accounts...
+( 3/10) Reloading system manager configuration...
+( 4/10) Creating temporary files...
+Failed to write file "/sys/module/pcie_aspm/parameters/policy": Operation not permitted
+error: command failed to execute correctly
+( 5/10) Arming ConditionNeedsUpdate...
+( 6/10) Foreign/AUR package notification
+snapd 2.51-1
+( 7/10) Orphaned package notification...
+botan 2.18.1-1
+cmake 3.20.3-1
+electron 12.0.9-1
+go 2:1.16.5-1
+go-tools 4:0.1.2-1
+gtkspell3 3.0.10-2
+kfiredragonhelper 5.0.6-1
+libcurl-gnutls 7.77.0-1
+libzip 1.7.3-2
+lua51 5.1.5-9
+mujs 1.1.2-1
+oniguruma 6.9.7.1-1
+python-docutils 0.16-4
+python-flask-compress 1.8.0-1
+python-flask-gravatar 0.5.0-5
+python-flask-migrate 3.0.0-1
+python-flask-paranoid 0.2-6
+python-flask-security-too 4.0.1-1
+python-gssapi 1.6.12-2
+python-ldap3 2.9-1
+python-pexpect 4.8.0-3
+python-simplejson 3.17.2-4
+python-sqlparse 0.4.1-3
+python-sshtunnel 0.4.0-1
+qtkeychain-qt5 0.12.0-1
+ripgrep 12.1.1-1
+rnnoise 0.4.1-1
+stunnel 5.59-1
+swig 4.0.2-2
+wireplumber 0.3.96-1
+xosd 2.2.14-10
+( 8/10) Checking for .pacnew and .pacsave files...
+.pac* files found:
+/etc/httpd/conf/httpd.conf.pacsave
+/etc/httpd/conf/extra/httpd-vhosts.conf.pacsave
+/etc/pacman.conf.pacnew
+/etc/pacman.d/mirrorlist.pacnew
+/etc/paru.conf.pacnew
+/etc/systemd/system.conf.pacnew
+/etc/systemd/user.conf.pacnew
+Please check and merge
+( 9/10) Updating pkgfile database...
+(10/10) Syncing all file systems...
+```
+
+-  You need to initialize the MariaDB data directory prior to starting
+    the service. This can be done with `mariadb-install-db` command:
+
+```js
+sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+```
+
+- The above command will show an output similar to this:
+
+```js
+Installing MariaDB/MySQL system tables in '/var/lib/mysql' ...
+OK
+
+To start mysqld at boot time you have to copy
+support-files/mysql.server to the right place for your system
+
+
+Two all-privilege accounts were created.
+One is root@localhost, it has no password, but you need to
+be system 'root' user to connect. Use, for example, sudo mysql
+The second is mysql@localhost, it has no password either, but
+you need to be the system 'mysql' user to connect.
+After connecting you can set the password, if you would need to be
+able to connect as any of these users with a password and without sudo
+
+See the MariaDB Knowledgebase at https://mariadb.com/kb or the
+MySQL manual for more instructions.
+
+You can start the MariaDB daemon with:
+cd '/usr' ; /usr/bin/mysqld_safe --datadir='/var/lib/mysql'
+
+You can test the MariaDB daemon with mysql-test-run.pl
+cd '/usr/mysql-test' ; perl mysql-test-run.pl
+
+Please report any problems at https://mariadb.org/jira
+
+The latest information about MariaDB is available at https://mariadb.org/.
+You can find additional information about the MySQL part at:
+https://dev.mysql.com
+Consider joining MariaDB's strong and vibrant community:
+https://mariadb.org/get-involved/
+```
+
+- Enable MySQL service to start at boot:
+
+```bash
+sudo systemctl enable mysqld
+```
+
+- Start the MySQL service:
+
+```js
+sudo systemctl start mysqld
+```
+
+- You can verify whether MariaDB is running or not using command:
+
+```js
+sudo systemctl status mysqld
+```
+
+- The above command will show an output similar to this:
+
+```js
+● mariadb.service - MariaDB 10.5.10 database server
+     Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled)
+     Active: active (running) since Sat 2021-06-12 00:10:17 IST; 1min 17s ago
+       Docs: man:mariadbd(8)
+             https://mariadb.com/kb/en/library/systemd/
+    Process: 345550 ExecStartPre=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+    Process: 345618 ExecStartPre=/bin/sh -c [ ! -e /usr/bin/galera_recovery ] && VAR= ||   VAR=`cd /usr/bin/..; /usr/bin/galera_recovery`; [ $? -eq 0 ]   && systemctl set-environment _WSREP_START_POSITION=$VAR || exit 1 (code=exited>
+    Process: 345749 ExecStartPost=/bin/sh -c systemctl unset-environment _WSREP_START_POSITION (code=exited, status=0/SUCCESS)
+   Main PID: 345656 (mariadbd)
+     Status: "Taking your SQL requests now..."
+      Tasks: 8 (limit: 9308)
+     Memory: 68.8M
+        CPU: 182ms
+     CGroup: /system.slice/mariadb.service
+             └─345656 /usr/bin/mariadbd
+
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] InnoDB: 10.5.10 started; log sequence number 45106; transaction id 20
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] InnoDB: Buffer pool(s) load completed at 210612  0:10:17
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] Server socket created on IP: '::'.
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] Reading of all Master_info entries succeeded
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] Added new Master_info '' to hash table
+Jun 12 00:10:17 titan mariadbd[345656]: 2021-06-12  0:10:17 0 [Note] /usr/bin/mariadbd: ready for connections.
+Jun 12 00:10:17 titan mariadbd[345656]: Version: '10.5.10-MariaDB'  socket: '/run/mysqld/mysqld.sock'  port: 3306  Arch Linux
+Jun 12 00:10:17 titan systemd[1]: Started MariaDB 10.5.10 database server.
+```
+
+- ##### Setup MySQL/MariaDB root user password
+
+As you may know, it is recommended to setup a password for database root user.
+
+Run the following command to setup MariaDB root user password:
+
+```js
+sudo mysql_secure_installation
+```
+- The above command will result in something like this:
+
+```js
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we'll need the current
+password for the root user. If you've just installed MariaDB, and
+haven't set the root password yet, you should just press enter here.
+
+Enter current password for root (enter for none): 
+```
+
+- Like the above message in the terminal says: Press `Enter`.
+
+```js
+OK, successfully used password, moving on...
+
+Setting the root password or using the unix_socket ensures that nobody
+can log into the MariaDB root user without the proper authorisation.
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Switch to unix_socket authentication [Y/n] 
+```
+
+- Press `Enter`.
+
+```js
+Enabled successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+You already have your root account protected, so you can safely answer 'n'.
+
+Change the root password? [Y/n] 
+```
+
+- Press `Enter`.
+
+```js
+New password: 
+```
+
+- Enter a new password for the MySQL. You will be using this 
+    for the `phpMyAdmin` too. So, remember it.
+
+
+```js
+Re-enter new password: 
+```
+
+- Re-enter the password that you have typed above.
+
+```js
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] 
+```
+
+- Press `Enter`.
+
+```js
+ ... Success!
+
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] 
+```
+
+- Press `Enter`.
+
+```js
+ ... Success!
+
+By default, MariaDB comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] 
+```
+
+- Press `Enter`.
+
+```js
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] 
+```
+
+- Press `Enter`.
+
+```js
+ ... Success!
+
+Cleaning up...
+
+All done!  If you've completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+```
