@@ -9,9 +9,9 @@ LAMP is the the acronym of Linux, Apache, MySQL/MariaDB, PHP/Perl.
 
 ###### Tested on
 
-- Manjaro Linux x86_64
-- Arch Linux x86_64
-- Garuda Soaring Eagle x86_64
+-   Manjaro Linux x86_64
+-   Arch Linux x86_64
+-   Garuda Soaring Eagle x86_64
 
 #### Step 1: Update your system
 
@@ -23,19 +23,19 @@ sudo pacman -Syyu
 
 #### Step 2: Install Apache
 
-- After updating the system, install Apache web server using the command:
+-   After updating the system, install Apache web server using the command:
 
 ```js
 sudo pacman -S apache
 ```
 
-- Edit the `/etc/httpd/conf/httpd.conf` file
+-   Edit the `/etc/httpd/conf/httpd.conf` file
 
 ```js
 sudo nano /etc/httpd/conf/httpd.conf
 ```
 
-- Search and comment out the following line if it is not already:
+-   Search and comment out the following line if it is not already:
 
 ```js
 [...]
@@ -43,21 +43,21 @@ sudo nano /etc/httpd/conf/httpd.conf
 [...]
 ```
 
-- Save and close the file.
+-   Save and close the file.
 
-- Enable Apache service to start at boot:
+-   Enable Apache service to start at boot:
 
 ```bash
 sudo systemctl enable httpd
 ```
 
-- Restart the Apache service:
+-   Restart the Apache service:
 
 ```js
 sudo systemctl restart httpd
 ```
 
-- Verify the status of Apache:
+-   Verify the status of Apache:
 
 ```js
 sudo systemctl status httpd
@@ -87,38 +87,38 @@ Jun 10 08:12:50 titan httpd[595]: AH00112: Warning: DocumentRoot [/etc/httpd/doc
 Jun 10 08:12:50 titan httpd[595]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress thi>
 ```
 
-- ##### Testing Apache
+-   ##### Testing Apache
 
-- Let us create a sample page in the Apache root directory, i.e `/srv/http`.
+-   Let us create a sample page in the Apache root directory, i.e `/srv/http`.
 
 ```bash
 sudo nano /srv/http/index.html
 ```
 
-- Add the following lines:
+-   Add the following lines:
 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Welcome</title>
-</head>
-<body>
-    <h2>Welcome to my Web Server test page</h2>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Welcome</title>
+    </head>
+    <body>
+        <h2>Welcome to my Web Server test page</h2>
+    </body>
 </html>
 ```
 
-- Now, open your web browser and navigate to `http://localhost`
+-   Now, open your web browser and navigate to `http://localhost`
 
-- You will be seeing the output of the HTML code that we typed above.
+-   You will be seeing the output of the HTML code that we typed above.
 
 #### Step 3: Install MariaDB
 
-- Run the following command to install MariaDB:
+-   Run the following command to install MariaDB:
 
 ```js
 sudo pacman -S mysql
@@ -131,10 +131,10 @@ sudo pacman -S mysql
 :: Repository community
    2) percona-server
 
-Enter a number (default=1): 
+Enter a number (default=1):
 ```
 
-- Press `Enter` key in the keyboard.
+-   Press `Enter` key in the keyboard.
 
 ```js
 resolving dependencies...
@@ -147,9 +147,9 @@ Total Installed Size:  235.54 MiB
 :: Proceed with installation? [Y/n]
 ```
 
-- Press `y` or `Y`. 
+-   Press `y` or `Y`.
 
-- And then it goes on to show an output something like the one below:
+-   And then it goes on to show an output something like the one below:
 
 ```js
 :: Proceed with installation? [Y/n] y
@@ -226,14 +226,14 @@ Please check and merge
 (10/10) Syncing all file systems...
 ```
 
--  You need to initialize the MariaDB data directory prior to starting
+-   You need to initialize the MariaDB data directory prior to starting
     the service. This can be done with `mariadb-install-db` command:
 
 ```js
 sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 ```
 
-- The above command will show an output similar to this:
+-   The above command will show an output similar to this:
 
 ```js
 Installing MariaDB/MySQL system tables in '/var/lib/mysql' ...
@@ -269,25 +269,25 @@ Consider joining MariaDB's strong and vibrant community:
 https://mariadb.org/get-involved/
 ```
 
-- Enable MySQL service to start at boot:
+-   Enable MySQL service to start at boot:
 
 ```bash
 sudo systemctl enable mysqld
 ```
 
-- Start the MySQL service:
+-   Start the MySQL service:
 
 ```js
 sudo systemctl start mysqld
 ```
 
-- You can verify whether MariaDB is running or not using command:
+-   You can verify whether MariaDB is running or not using command:
 
 ```js
 sudo systemctl status mysqld
 ```
 
-- The above command will show an output similar to this:
+-   The above command will show an output similar to this:
 
 ```js
 ● mariadb.service - MariaDB 10.5.10 database server
@@ -318,7 +318,7 @@ Jun 12 00:10:17 titan mariadbd[345656]: Version: '10.5.10-MariaDB'  socket: '/ru
 Jun 12 00:10:17 titan systemd[1]: Started MariaDB 10.5.10 database server.
 ```
 
-- ##### Setup MySQL/MariaDB root user password
+-   ##### Setup MySQL/MariaDB root user password
 
 As you may know, it is recommended to setup a password for database root user.
 
@@ -327,7 +327,8 @@ Run the following command to setup MariaDB root user password:
 ```js
 sudo mysql_secure_installation
 ```
-- The above command will result in something like this:
+
+-   The above command will result in something like this:
 
 ```js
 NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
@@ -337,10 +338,10 @@ In order to log into MariaDB to secure it, we'll need the current
 password for the root user. If you've just installed MariaDB, and
 haven't set the root password yet, you should just press enter here.
 
-Enter current password for root (enter for none): 
+Enter current password for root (enter for none):
 ```
 
-- Like the above message in the terminal says: Press `Enter`.
+-   Like the above message in the terminal says: Press `Enter`.
 
 ```js
 OK, successfully used password, moving on...
@@ -350,10 +351,10 @@ can log into the MariaDB root user without the proper authorisation.
 
 You already have your root account protected, so you can safely answer 'n'.
 
-Switch to unix_socket authentication [Y/n] 
+Switch to unix_socket authentication [Y/n]
 ```
 
-- Press `Enter`.
+-   Press `Enter`.
 
 ```js
 Enabled successfully!
@@ -363,24 +364,23 @@ Reloading privilege tables..
 
 You already have your root account protected, so you can safely answer 'n'.
 
-Change the root password? [Y/n] 
+Change the root password? [Y/n]
 ```
 
-- Press `Enter`.
+-   Press `Enter`.
 
 ```js
-New password: 
+New password:
 ```
 
-- Enter a new password for the MySQL. You will be using this 
+-   Enter a new password for the MySQL. You will be using this
     for the `phpMyAdmin` too. So, remember it.
 
-
 ```js
-Re-enter new password: 
+Re-enter new password:
 ```
 
-- Re-enter the password that you have typed above.
+-   Re-enter the password that you have typed above.
 
 ```js
 Password updated successfully!
@@ -394,10 +394,10 @@ them.  This is intended only for testing, and to make the installation
 go a bit smoother.  You should remove them before moving into a
 production environment.
 
-Remove anonymous users? [Y/n] 
+Remove anonymous users? [Y/n]
 ```
 
-- Press `Enter`.
+-   Press `Enter`.
 
 ```js
  ... Success!
@@ -405,10 +405,10 @@ Remove anonymous users? [Y/n]
 Normally, root should only be allowed to connect from 'localhost'.  This
 ensures that someone cannot guess at the root password from the network.
 
-Disallow root login remotely? [Y/n] 
+Disallow root login remotely? [Y/n]
 ```
 
-- Press `Enter`.
+-   Press `Enter`.
 
 ```js
  ... Success!
@@ -417,10 +417,10 @@ By default, MariaDB comes with a database named 'test' that anyone can
 access.  This is also intended only for testing, and should be removed
 before moving into a production environment.
 
-Remove test database and access to it? [Y/n] 
+Remove test database and access to it? [Y/n]
 ```
 
-- Press `Enter`.
+-   Press `Enter`.
 
 ```js
  - Dropping test database...
@@ -431,10 +431,10 @@ Remove test database and access to it? [Y/n]
 Reloading the privilege tables will ensure that all changes made so far
 will take effect immediately.
 
-Reload privilege tables now? [Y/n] 
+Reload privilege tables now? [Y/n]
 ```
 
-- Press `Enter`.
+-   Press `Enter`.
 
 ```js
  ... Success!
@@ -449,26 +449,179 @@ Thanks for using MariaDB!
 
 ### Step 4: Intalling PHP + PHP Extensions + phpMyAdmin
 
-- PHP
+-   PHP
 
 ```js
-sudo pacman -S php php-apache 
+sudo pacman -S php php-apache
 ```
 
-- PHP Extensions
+-   PHP Extensions
 
 ```js
 sudp pacman -S php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis php-snmp
 ```
 
-- phpMyAdmin
+-   phpMyAdmin
 
 ```js
 sudo pacman -S phpmyadmin
 ```
 
-- Composer:  PHP Package manager
+-   Composer: PHP Package manager
 
 ```js
 sudo pacman -S composer
 ```
+
+-   Now let us edit the configurations to make it all work.
+
+-   After PHP is installed, we need to configure Apache PHP module.
+    To do so, edit `/etc/httpd/conf/httpd.conf` file,
+
+```js
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+- Find the following line and comment it out:
+
+```js
+[...]
+# LoadModule mpm_event_module modules/mod_mpm_event.so
+[...]
+```
+
+- Uncomment or add the line:
+
+```js
+LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+```
+
+- Then, add the following lines at the bottom for php8:
+
+```js
+LoadModule php_module modules/libphp.so
+AddHandler php-script php
+Include conf/extra/php_module.conf
+```
+
+- Save and close the file.
+
+- ###### Test PHP
+
+Now create a `test.php` file in the Apache root directory.
+
+```js
+sudo nano /srv/http/test.php
+```
+
+- Add the following lines:
+
+```php
+<?php
+phpinfo();
+?>
+```
+
+- Restart the `httpd` service.
+
+```js
+sudo systemctl restart httpd
+```
+
+- Open up your web browser and navigate to `http://localhost/test.php`.
+
+- ##### Configuring phpMyAdmin
+
+- `phpMyAdmin` is a graphical MySQL/MariaDB administration tool
+    that can be used to create, edit and delete databases.
+
+- Lets configure that. Edit `php.ini` file:
+
+```js
+sudo nano /etc/php/php.ini
+```
+
+- Make sure the following lines are uncommented.
+
+```conf
+[...]
+extension=bz2
+extension=mysqli
+[...]
+```
+
+- Save and close the file.
+
+- Next, create a configuration file for `phpMyAdmin`:
+
+```js
+sudo nano /etc/httpd/conf/extra/phpmyadmin.conf
+```
+
+- Add the following lines:
+
+```xml
+Alias /phpmyadmin "/usr/share/webapps/phpMyAdmin"
+<Directory "/usr/share/webapps/phpMyAdmin">
+DirectoryIndex index.php
+AllowOverride All
+Options FollowSymlinks
+Require all granted
+</Directory>
+```
+
+- Then, open Apache configuration file:
+
+```js
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+- Add the following line at the end:
+
+```nim
+Include conf/extra/phpmyadmin.conf
+```
+
+- Save and close the file.
+
+- Restart the `httpd` service again.
+
+```js
+sudo systemctl restart httpd
+```
+
+- ##### Test phpMyAdmin
+
+- Open your browser and navigate to `http://localhost/phpmyadmin`.
+
+- You might see an error that says "The configuration file now needs
+    a secret passphrase (blowfish_secret)" at the bottom of phpMyAdmin
+    dashboard.
+
+- To get rid of this error, edit 
+    `/etc/webapps/phpmyadmin/config.inc.php` file.
+
+```js
+sudo nano /etc/webapps/phpmyadmin/config.inc.php
+```
+
+- Find the following line and specify bluefish secret passphrase:
+
+```php
+$cfg['blowfish_secret'] = '`MyP@$S`'; 
+/* 
+    YOU MUST FILL IN THIS FOR COOKIE AUTH!
+    Length of the passphrase: 32 Characters is preferred.
+/**
+```
+
+- Save and close the file. Restart Apache service.
+
+```
+sudo systemctl restart httpd
+```
+
+- The error will be gone now.
+
+> That’s all for now. At this stage, you have a working
+> LAMP stack, and is ready to host your websites.
