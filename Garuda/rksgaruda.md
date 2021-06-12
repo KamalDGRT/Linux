@@ -629,7 +629,7 @@ sudo systemctl restart httpd
 > That’s all for now. At this stage, you have a working
 > LAMP stack, and is ready to host your websites.
 
-### Virtual Hosting of Yii2 project
+### Step 5: Virtual Hosting of Yii2 project
 
 -   Open `httpd.conf` file.
 
