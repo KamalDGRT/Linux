@@ -482,7 +482,7 @@ sudo pacman -S composer
 sudo nano /etc/httpd/conf/httpd.conf
 ```
 
-- Find the following line and comment it out:
+-   Find the following line and comment it out:
 
 ```js
 [...]
@@ -490,13 +490,13 @@ sudo nano /etc/httpd/conf/httpd.conf
 [...]
 ```
 
-- Uncomment or add the line:
+-   Uncomment or add the line:
 
 ```js
 LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
 ```
 
-- Then, add the following lines at the bottom for php8:
+-   Then, add the following lines at the bottom for php8:
 
 ```js
 LoadModule php_module modules/libphp.so
@@ -504,9 +504,9 @@ AddHandler php-script php
 Include conf/extra/php_module.conf
 ```
 
-- Save and close the file.
+-   Save and close the file.
 
-- ###### Test PHP
+-   ###### Test PHP
 
 Now create a `test.php` file in the Apache root directory.
 
@@ -514,7 +514,7 @@ Now create a `test.php` file in the Apache root directory.
 sudo nano /srv/http/test.php
 ```
 
-- Add the following lines:
+-   Add the following lines:
 
 ```php
 <?php
@@ -522,43 +522,46 @@ phpinfo();
 ?>
 ```
 
-- Restart the `httpd` service.
+-   Restart the `httpd` service.
 
 ```js
 sudo systemctl restart httpd
 ```
 
-- Open up your web browser and navigate to `http://localhost/test.php`.
+-   Open up your web browser and navigate to `http://localhost/test.php`.
 
-- ##### Configuring phpMyAdmin
+-   ##### Configuring phpMyAdmin
 
-- `phpMyAdmin` is a graphical MySQL/MariaDB administration tool
+-   `phpMyAdmin` is a graphical MySQL/MariaDB administration tool
     that can be used to create, edit and delete databases.
 
-- Lets configure that. Edit `php.ini` file:
+-   Lets configure that. Edit `php.ini` file:
 
 ```js
 sudo nano /etc/php/php.ini
 ```
 
-- Make sure the following lines are uncommented.
+-   Make sure the following lines are uncommented.
 
-```conf
+```js
 [...]
 extension=bz2
+extension=gd
+extension=iconv
 extension=mysqli
+extension=pdo_mysql
 [...]
 ```
 
-- Save and close the file.
+-   Save and close the file.
 
-- Next, create a configuration file for `phpMyAdmin`:
+-   Next, create a configuration file for `phpMyAdmin`:
 
 ```js
 sudo nano /etc/httpd/conf/extra/phpmyadmin.conf
 ```
 
-- Add the following lines:
+-   Add the following lines:
 
 ```xml
 Alias /phpmyadmin "/usr/share/webapps/phpMyAdmin"
@@ -570,58 +573,187 @@ Require all granted
 </Directory>
 ```
 
-- Then, open Apache configuration file:
+-   Then, open Apache configuration file:
 
 ```js
 sudo nano /etc/httpd/conf/httpd.conf
 ```
 
-- Add the following line at the end:
+-   Add the following line at the end:
 
 ```nim
 Include conf/extra/phpmyadmin.conf
 ```
 
-- Save and close the file.
+-   Save and close the file.
 
-- Restart the `httpd` service again.
+-   Restart the `httpd` service again.
 
 ```js
 sudo systemctl restart httpd
 ```
 
-- ##### Test phpMyAdmin
+-   ##### Test phpMyAdmin
 
-- Open your browser and navigate to `http://localhost/phpmyadmin`.
+-   Open your browser and navigate to `http://localhost/phpmyadmin`.
 
-- You might see an error that says "The configuration file now needs
+-   You might see an error that says "The configuration file now needs
     a secret passphrase (blowfish_secret)" at the bottom of phpMyAdmin
     dashboard.
 
-- To get rid of this error, edit 
+-   To get rid of this error, edit
     `/etc/webapps/phpmyadmin/config.inc.php` file.
 
 ```js
 sudo nano /etc/webapps/phpmyadmin/config.inc.php
 ```
 
-- Find the following line and specify bluefish secret passphrase:
+-   Find the following line and specify bluefish secret passphrase:
 
 ```php
-$cfg['blowfish_secret'] = '`MyP@$S`'; 
-/* 
+$cfg['blowfish_secret'] = '`MyP@$S`';
+/*
     YOU MUST FILL IN THIS FOR COOKIE AUTH!
     Length of the passphrase: 32 Characters is preferred.
-/**
+/*
 ```
 
-- Save and close the file. Restart Apache service.
+-   Save and close the file. Restart Apache service.
 
 ```
 sudo systemctl restart httpd
 ```
 
-- The error will be gone now.
+-   The error will be gone now.
 
 > That’s all for now. At this stage, you have a working
 > LAMP stack, and is ready to host your websites.
+
+### Virtual Hosting of Yii2 project
+
+-   Open `httpd.conf` file.
+
+```js
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+-   Uncomment the line that has the `httpd-vhosts.conf`
+
+```js
+[...]
+# Virtual hosts
+Include conf/extra/httpd-vhosts.conf
+[...]
+```
+
+-   Restart the `httpd` service.
+
+```js
+sudo systemctl restart httpd
+```
+
+-   Open the `httpd-vhosts.conf` file.
+
+```js
+sudo nano /etc/httpd/conf/extra/httpd-vhosts.conf
+```
+
+-   Remove the default hosting configurations. It will look
+    something like this:
+
+```xml
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host.example.com
+    DocumentRoot "/etc/httpd/docs/dummy-host.example.com"
+    ServerName dummy-host.example.com
+    ServerAlias www.dummy-host.example.com
+    ErrorLog "/var/log/httpd/dummy-host.example.com-error_log"
+    CustomLog "/var/log/httpd/dummy-host.example.com-access_log" common
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host2.example.com
+    DocumentRoot "/etc/httpd/docs/dummy-host2.example.com"
+    ServerName dummy-host2.example.com
+    ErrorLog "/var/log/httpd/dummy-host2.example.com-error_log"
+    CustomLog "/var/log/httpd/dummy-host2.example.com-access_log" common
+</VirtualHost>
+```
+
+-   #### Setting up the First Virtual Host: localhost
+
+-   Add these at the end of the `httpd-vhosts.conf` file.
+-   We are adding these lines to allow us to run the normal PHP project/stuff.
+
+```xml
+<VirtualHost *:80>
+ServerName localhost
+DocumentRoot "/srv/http"
+
+    <Directory "/srv/http">
+        # use mod_rewrite for pretty URL support
+        RewriteEngine on
+        # If a directory or a file exists, use the request directly
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        # Otherwise forward the request to index.php
+        RewriteRule . index.php
+        # use index.php as index file
+        DirectoryIndex index.php
+        # ...other settings...
+        # Apache 2.4
+        Require all granted
+
+        ## Apache 2.2
+        # Order allow,deny
+        # Allow from all
+    </Directory>
+
+</VirtualHost>
+```
+
+-   #### Setting up the Second Virtual Host
+
+-   Now let's add the virtual host for the project.
+
+```xml
+<VirtualHost *:80>
+ServerName mynewyii2project.testing
+DocumentRoot "/srv/http/myproject"
+
+    <Directory "/srv/http/myproject">
+        # use mod_rewrite for pretty URL support
+        RewriteEngine on
+        # If a directory or a file exists, use the request directly
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        # Otherwise forward the request to index.php
+        RewriteRule . index.php
+        # use index.php as index file
+        DirectoryIndex index.php
+        # ...other settings...
+        # Apache 2.4
+        Require all granted
+
+        ## Apache 2.2
+        # Order allow,deny
+        # Allow from all
+    </Directory>
+
+</VirtualHost>
+```
+
+-   Replace `mynewyii2project.testing` in `ServerName` with the URL that you would like
+    to execute yii2 project.
+
+-   Replace `myproject` with the project folder name.
+
+-   Save and close the `httpd-vhosts.conf` file.
+
+-   #### Adding the URL to hosts
+
+-   Open `/etc/hosts` file and add your project URL.
+
+```js
+sudo nano /etc/hosts
+```
