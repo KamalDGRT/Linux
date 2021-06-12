@@ -458,7 +458,7 @@ sudo pacman -S php php-apache
 -   PHP Extensions
 
 ```js
-sudp pacman -S php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis php-snmp
+sudo pacman -S php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis php-snmp
 ```
 
 -   phpMyAdmin
@@ -713,6 +713,82 @@ DocumentRoot "/srv/http"
 ```
 
 -   #### Setting up the Second Virtual Host
+
+-   In Windows, we add the PHP stuff in the `xampp\htdocs` folder. In
+    Arch Based distros, we add it in `/srv/http` directory.
+
+-   Create a folder in that location with administrative permissions.
+
+```js
+sudo mkdir myproject
+```
+
+-   Now change the permissions for that folder.
+
+```js
+sudo chmod 777 -R myproject
+```
+
+-   Go inside that folder .
+
+```js
+cd myproject
+```
+
+-   Cone the yii2 project from GitHub or any other source.
+
+-   I prefer the SSH way, so I am cloning this way. If you are comfortable
+    with the HTTPS way, feel free to do the same.
+
+```js
+git clone git@github.com:KamalDGRT/yii2-portfolio.git
+```
+
+-   Now this will create a new folder inside `/srv/http/myproject/`.
+-   So, we need to bring them all one step outside into the `myproject`.
+
+-   This command will move all the normal files one step outside.
+
+```js
+mv -vf yii2-portfolio/* .
+```
+
+-   This command will move the hidden files one step outside.
+
+```js
+mv -vf yii2-portfolio/.* .
+```
+
+-   We now no longer the empty folder. So, lets remove that.
+
+```js
+rmdir yii2-portfolio
+```
+
+-   Do the usual steps for setting up the Yii2 Project
+
+    -   Initialize it in either Production / Development mode
+    -   `composer update`
+    -   Change the database configuration in `common/config/main-local.php`
+    -   `php yii migrate`
+
+-   Enable the rewrite module in `httpd.conf`
+
+```js
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+Uncomment / add this line:
+
+```js
+LoadModule rewrite_module modules/mod_rewrite.so
+```
+
+-   Restart the `httpd` service
+
+```js
+sudo systemctl restart httpd
+```
 
 -   Now let's add the virtual host for the project.
 
