@@ -420,7 +420,7 @@ Login into the normal user.
 ```
 
 ```js
-[kamal@titan ~] $ sudo pacman -S pulseaudio pulseaudo-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
+[kamal@titan ~] $ sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware
 ```
 
 ```js
