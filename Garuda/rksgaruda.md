@@ -13,6 +13,8 @@ LAMP is the the acronym of Linux, Apache, MySQL/MariaDB, PHP/Perl.
 -   Arch Linux x86_64
 -   Garuda Soaring Eagle x86_64
 
+---
+
 #### Step 1: Update your system
 
 Run the following command as root user to update your Arch-Based Linux:
@@ -20,6 +22,8 @@ Run the following command as root user to update your Arch-Based Linux:
 ```js
 sudo pacman -Syyu
 ```
+
+---
 
 #### Step 2: Install Apache
 
@@ -29,11 +33,15 @@ sudo pacman -Syyu
 sudo pacman -S apache
 ```
 
+---
+
 -   Edit the `/etc/httpd/conf/httpd.conf` file
 
 ```js
 sudo nano /etc/httpd/conf/httpd.conf
 ```
+
+---
 
 -   Search and comment out the following line if it is not already:
 
@@ -43,6 +51,8 @@ sudo nano /etc/httpd/conf/httpd.conf
 [...]
 ```
 
+---
+
 -   Save and close the file.
 
 -   Enable Apache service to start at boot:
@@ -51,17 +61,23 @@ sudo nano /etc/httpd/conf/httpd.conf
 sudo systemctl enable httpd
 ```
 
+---
+
 -   Restart the Apache service:
 
 ```js
 sudo systemctl restart httpd
 ```
 
+---
+
 -   Verify the status of Apache:
 
 ```js
 sudo systemctl status httpd
 ```
+
+---
 
 ###### Sample Output
 
@@ -87,6 +103,8 @@ Jun 10 08:12:50 titan httpd[595]: AH00112: Warning: DocumentRoot [/etc/httpd/doc
 Jun 10 08:12:50 titan httpd[595]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress thi>
 ```
 
+---
+
 -   ##### Testing Apache
 
 -   Let us create a sample page in the Apache root directory, i.e `/srv/http`.
@@ -94,6 +112,8 @@ Jun 10 08:12:50 titan httpd[595]: AH00558: httpd: Could not reliably determine t
 ```bash
 sudo nano /srv/http/index.html
 ```
+
+---
 
 -   Add the following lines:
 
@@ -112,9 +132,13 @@ sudo nano /srv/http/index.html
 </html>
 ```
 
+---
+
 -   Now, open your web browser and navigate to `http://localhost`
 
 -   You will be seeing the output of the HTML code that we typed above.
+
+---
 
 #### Step 3: Install MariaDB
 
@@ -226,12 +250,16 @@ Please check and merge
 (10/10) Syncing all file systems...
 ```
 
+---
+
 -   You need to initialize the MariaDB data directory prior to starting
     the service. This can be done with `mariadb-install-db` command:
 
 ```js
 sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 ```
+
+---
 
 -   The above command will show an output similar to this:
 
@@ -269,11 +297,15 @@ Consider joining MariaDB's strong and vibrant community:
 https://mariadb.org/get-involved/
 ```
 
+---
+
 -   Enable MySQL service to start at boot:
 
 ```bash
 sudo systemctl enable mysqld
 ```
+
+---
 
 -   Start the MySQL service:
 
@@ -281,11 +313,15 @@ sudo systemctl enable mysqld
 sudo systemctl start mysqld
 ```
 
+---
+
 -   You can verify whether MariaDB is running or not using command:
 
 ```js
 sudo systemctl status mysqld
 ```
+
+---
 
 -   The above command will show an output similar to this:
 
@@ -318,6 +354,8 @@ Jun 12 00:10:17 titan mariadbd[345656]: Version: '10.5.10-MariaDB'  socket: '/ru
 Jun 12 00:10:17 titan systemd[1]: Started MariaDB 10.5.10 database server.
 ```
 
+---
+
 -   ##### Setup MySQL/MariaDB root user password
 
 As you may know, it is recommended to setup a password for database root user.
@@ -327,6 +365,8 @@ Run the following command to setup MariaDB root user password:
 ```js
 sudo mysql_secure_installation
 ```
+
+---
 
 -   The above command will result in something like this:
 
@@ -447,6 +487,8 @@ installation should now be secure.
 Thanks for using MariaDB!
 ```
 
+---
+
 ### Step 4: Intalling PHP + PHP Extensions + phpMyAdmin
 
 -   PHP
@@ -455,11 +497,15 @@ Thanks for using MariaDB!
 sudo pacman -S php php-apache
 ```
 
+---
+
 -   PHP Extensions
 
 ```js
 sudo pacman -S php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis php-snmp
 ```
+
+---
 
 -   phpMyAdmin
 
@@ -467,16 +513,22 @@ sudo pacman -S php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis php-
 sudo pacman -S phpmyadmin
 ```
 
+---
+
 -   Composer: PHP Package manager
 
 ```js
 sudo pacman -S composer
 ```
 
+---
+
 -   Now let us edit the configurations to make it all work.
 
 -   After PHP is installed, we need to configure Apache PHP module.
     To do so, edit `/etc/httpd/conf/httpd.conf` file,
+
+---
 
 ```js
 sudo nano /etc/httpd/conf/httpd.conf
@@ -506,6 +558,8 @@ Include conf/extra/php_module.conf
 
 -   Save and close the file.
 
+---
+
 -   ###### Test PHP
 
 Now create a `test.php` file in the Apache root directory.
@@ -513,6 +567,8 @@ Now create a `test.php` file in the Apache root directory.
 ```js
 sudo nano /srv/http/test.php
 ```
+
+---
 
 -   Add the following lines:
 
@@ -529,6 +585,8 @@ sudo systemctl restart httpd
 ```
 
 -   Open up your web browser and navigate to `http://localhost/test.php`.
+
+---
 
 -   ##### Configuring phpMyAdmin
 
@@ -555,6 +613,8 @@ extension=pdo_mysql
 
 -   Save and close the file.
 
+---
+
 -   Next, create a configuration file for `phpMyAdmin`:
 
 ```js
@@ -572,6 +632,8 @@ Options FollowSymlinks
 Require all granted
 </Directory>
 ```
+
+---
 
 -   Then, open Apache configuration file:
 
@@ -592,6 +654,8 @@ Include conf/extra/phpmyadmin.conf
 ```js
 sudo systemctl restart httpd
 ```
+
+---
 
 -   ##### Test phpMyAdmin
 
@@ -628,6 +692,8 @@ sudo systemctl restart httpd
 
 > That’s all for now. At this stage, you have a working
 > LAMP stack, and is ready to host your websites.
+
+---
 
 ### Step 5: Virtual Hosting of Yii2 project
 
@@ -680,6 +746,8 @@ sudo nano /etc/httpd/conf/extra/httpd-vhosts.conf
 </VirtualHost>
 ```
 
+---
+
 -   #### Setting up the First Virtual Host: localhost
 
 -   Add these at the end of the `httpd-vhosts.conf` file.
@@ -711,6 +779,8 @@ DocumentRoot "/srv/http"
 
 </VirtualHost>
 ```
+
+---
 
 -   #### Setting up the Second Virtual Host
 
@@ -833,3 +903,5 @@ DocumentRoot "/srv/http/myproject"
 ```js
 sudo nano /etc/hosts
 ```
+
+---
