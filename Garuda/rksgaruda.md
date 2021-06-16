@@ -865,6 +865,26 @@ rmdir yii2-portfolio
     -   Change the database configuration in `common/config/main-local.php`
     -   `php yii migrate`
 
+-   Lets change permissions for the runtime folders.
+
+-   Open the terminal at the root directory of the project and execute:
+
+```js
+chmod 777 -R assets/
+```
+
+```js
+chmod 777 -R admin/assets/
+```
+
+```js
+chmod 777 -R frontend/runtime
+```
+
+```js
+chmod 777 -R backend/runtime
+```
+
 ---
 
 -   Now let's add the virtual host for the project in `httpd-vhosts.conf`.
