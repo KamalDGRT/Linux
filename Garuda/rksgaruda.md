@@ -556,7 +556,7 @@ AddHandler php-script php
 Include conf/extra/php_module.conf
 ```
 
--   To Enable the rewrite module in `httpd.conf` 
+-   To Enable the rewrite module in `httpd.conf`
     uncomment / add this line:
 
 ```js
@@ -827,7 +827,7 @@ sudo chmod 777 -R myproject
 cd myproject
 ```
 
--   Cone the yii2 project from GitHub or any other source.
+-   Clone the yii2 project from GitHub or any other source.
 
 -   I prefer the SSH way, so I am cloning this way. If you are comfortable
     with the HTTPS way, feel free to do the same.
@@ -837,6 +837,7 @@ git clone git@github.com:KamalDGRT/yii2-portfolio.git
 ```
 
 -   Now this will create a new folder inside `/srv/http/myproject/`.
+
 -   So, we need to bring them all one step outside into the `myproject`.
 
 -   This command will move all the normal files one step outside.
@@ -863,6 +864,8 @@ rmdir yii2-portfolio
     -   `composer update`
     -   Change the database configuration in `common/config/main-local.php`
     -   `php yii migrate`
+
+---
 
 -   Now let's add the virtual host for the project in `httpd-vhosts.conf`.
 
@@ -900,6 +903,8 @@ DocumentRoot "/srv/http/myproject"
 
 -   Save and close the `httpd-vhosts.conf` file.
 
+---
+
 -   #### Adding the URL to hosts
 
 -   Open `/etc/hosts` file and add your project URL.
@@ -907,5 +912,27 @@ DocumentRoot "/srv/http/myproject"
 ```js
 sudo nano /etc/hosts
 ```
+
+-   In that add this line below the line that has this IP: `127.0.1.1`:
+
+```
+127.0.1.1     mynewyii2project.testing
+```
+
+-   You can notice that it is the same URL that we gave in `httpd-vhosts.conf`.
+
+-   So, yeah. It should be the same one in order to make the virtual host work.
+
+-   Restart the `httpd` service.
+
+```js
+sudo systemctl restart httpd
+```
+
+---
+
+-   Now, open your web browser and navigate to `http://mynewyii2project.testing`
+
+-   You will be seeing the output of the yii2 project code in that URL.
 
 ---
