@@ -556,7 +556,29 @@ AddHandler php-script php
 Include conf/extra/php_module.conf
 ```
 
+-   To Enable the rewrite module in `httpd.conf` 
+    uncomment / add this line:
+
+```js
+LoadModule rewrite_module modules/mod_rewrite.so
+```
+
+-   Find the config that starts like `<Directory "/srv/http">`.
+-   In that config, make the changes like this:
+
+```java
+AllowOverride All
+```
+
+![Image](https://i.imgur.com/NpB3XMM.png)
+
 -   Save and close the file.
+
+-   Restart the `httpd` service
+
+```js
+sudo systemctl restart httpd
+```
 
 ---
 
@@ -842,25 +864,7 @@ rmdir yii2-portfolio
     -   Change the database configuration in `common/config/main-local.php`
     -   `php yii migrate`
 
--   Enable the rewrite module in `httpd.conf`
-
-```js
-sudo nano /etc/httpd/conf/httpd.conf
-```
-
-Uncomment / add this line:
-
-```js
-LoadModule rewrite_module modules/mod_rewrite.so
-```
-
--   Restart the `httpd` service
-
-```js
-sudo systemctl restart httpd
-```
-
--   Now let's add the virtual host for the project.
+-   Now let's add the virtual host for the project in `httpd-vhosts.conf`.
 
 ```xml
 <VirtualHost *:80>
