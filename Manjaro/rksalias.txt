@@ -1,0 +1,63 @@
+alias nf=neofetch
+
+# Conf files
+alias gdmconf='subl /etc/gdm/custom.conf'
+alias phpconf='subl /etc/php/php.ini'
+alias hconf='subl /etc/httpd/conf/httpd.conf'
+alias vconf='subl /etc/httpd/conf/extra/httpd-vhosts.conf'
+alias ehost='subl /etc/hosts'
+
+
+# Git Related Aliases
+alias clone='git clone'
+alias add='git add .'
+alias commit='git commit -m'
+alias push='git push'
+
+
+# PHP Related Aliases
+alias compup='composer update'
+
+
+# Yii2 Related Aliases
+alias yii2='cd /srv/http/yii2'
+alias ynadv='composer create-project --prefer-dist yiisoft/yii2-app-advanced'
+alias pinit='php init'
+alias pymig='php yii migrate'
+alias ccmlocal='code common/config/main-local.php'
+alias scmlocal='subl common/config/main-local.php'
+
+
+# Shell Related Aliases
+alias bconf='subl ~/.bashrc'
+alias baconf='subl ~/.bash_aliases'
+alias zconf='subl ~/.zshrc'
+alias sbash='source ~/.bashrc'
+
+
+# System Related
+alias pinstall='sudo pacman -S'
+alias premove='sudo pacman -Rdd'
+alias sinstall='sudo snap install'
+alias sremove='sudo snap remove'
+alias restart='sudo systemctl restart'
+alias chpermd='chmod 777 -R'
+alias schpermd='sudo chmod 777 -R'
+
+
+# Laravel Related Aliases
+export PATH=~/.config/composer/vendor/bin:$PATH
+
+alias lnew='laravel new'
+alias paserve='php artisan serve'
+alias pakeygen='php artisan key:generate'
+alias pamig='php artisan migrate'
+
+
+# Files related:
+alias rrm='rm -rvf'
+alias srrm='sudo rm -rvf'
+alias mvf='mv -vf'
+alias smvf='sudo mv -vf'
+alias cpr='cp -rvf'
+alias scpr='sudo cp -rvf'
