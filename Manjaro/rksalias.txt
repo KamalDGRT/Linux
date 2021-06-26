@@ -23,6 +23,7 @@ alias compup='composer update'
 alias yii2='cd /srv/http/yii2'
 alias ynadv='composer create-project --prefer-dist yiisoft/yii2-app-advanced'
 alias pinit='php init'
+alias yfixperm='~/RKS_FILES/GitRep/rkswrites/Garuda/yfixperm.sh'
 alias pymig='php yii migrate'
 alias ccmlocal='code common/config/main-local.php'
 alias scmlocal='subl common/config/main-local.php'
@@ -61,3 +62,21 @@ alias mvf='mv -vf'
 alias smvf='sudo mv -vf'
 alias cpr='cp -rvf'
 alias scpr='sudo cp -rvf'
+
+
+# Python Related Aliases
+alias py='python'
+alias pvenv='py -m venv env'
+alias seba='source env/bin/activate'
+alias genreq='py -m pip freeze > requirements.txt'
+
+
+# Multiplexing Related Scripts
+
+alias batchextractsubs='~/RKS_FILES/GitRep/rkswrites/Fedora/batchextractsubs.sh'
+alias batchmux='~/RKS_FILES/GitRep/rkswrites/Fedora/batchmux.sh'
+alias cbatch='~/RKS_FILES/GitRep/rkswrites/Fedora/cbatch.sh'
+alias emptysubs='~/RKS_FILES/GitRep/rkswrites/Fedora/emptysubs.sh'
+alias mkv2mp4='~/RKS_FILES/GitRep/rkswrites/Fedora/mkv2mp4.sh'
+alias nosubsmkv='~/RKS_FILES/GitRep/rkswrites/Fedora/nosubsmkv.sh'
+alias rmtag='~/RKS_FILES/GitRep/rkswrites/Fedora/rmtag.sh'
