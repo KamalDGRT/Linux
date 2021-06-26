@@ -3,6 +3,7 @@
 # Add your GitHub details here:
 GITHUB_USERNAME=""
 GITHUB_EMAIL_ID=""
+GIT_CLI_EDITOR=""
 
 banner() {
     msg="| $* |"
@@ -29,6 +30,9 @@ git config --global user.name "${GITHUB_USERNAME}"
 
 printf "\n - Configuring GitHub email address as: ${GITHUB_EMAIL_ID}"
 git config --global user.email "${GITHUB_EMAIL_ID}"
+
+printf "\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
+git config --global core. editor "${GIT_CLI_EDITOR}"
 
 printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
 printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
@@ -119,7 +123,45 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 | sudo tee -a /etc/pacman.conf
 
 printf "\nUpdatig pacman and installing Sublime Text..."
-
 yes | sudo pacman -Syu sublime-text
 
 pause
+
+
+banner "Installing: Zoom Video Conferencing App"
+
+printf "\n - Going inside the Downloads folder..."
+cd Downloads
+
+printf "\n - Downloading the Zoom application..."
+wget https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz
+
+printf "\n - Starting the zoom installation..."
+yes | sudo pacman -U zoom_x86_64.pkg.tar.xz
+
+printf "\n - Coming out of the Downloads folder..."
+cd
+
+pause
+
+
+banner "Installing: MKVToolNix GUI"
+yes | sudo pacman -S mkvtoolnix-gui
+pause
+
+
+banner "Installing: qBittorrent"
+yes | sudo pacman -S qbittorrent
+pause
+
+
+banner "Installing: Fira Code Font and Vim Editor"
+sudo pacman -S ttf-fira-code vim
+pause
+
+banner "Installing Aliases and Scripts"
+
+aliasfile="\n"
+aliasfile+="if [ -f ~/.rksalias ]; then\n"
+aliasfile+=". ~/.rksalias\n"
+aliasfile+="fi\n"
