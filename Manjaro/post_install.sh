@@ -327,7 +327,7 @@ rks_gnome_themes() {
         printf "\nCreating .themes at location ~/"
         mkdir ~/.themes
     fi
-    
+
     printf "\n\nChecking if ~/.icons directory exists..."
     if [ -d ~/.icons ]
     then
