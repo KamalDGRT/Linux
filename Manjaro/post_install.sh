@@ -23,6 +23,29 @@ pause() {
 }
 
 
+show_grub() {
+    clear
+    banner "Showing the GRUB menu at boot"
+    printf "\n\nThe script will now open a file in nano editor."
+    printf "\nIn that file, there will be a line that looks like this:"
+    printf "\n\n     GRUB_TIMEOUT=5\n\n"
+    printf "\nNow, just change the value of GRUB_TIMEOUT to -1."
+    printf "\n\nJust do that and the script will take care of the rest."
+    printf "\n\nNote:"
+    printf "\n\n     To save the file in nano : Ctrl + O"
+    printf "\n     To close the file in nano : Ctrl + X\n\n"
+
+    read -p "$(echo -e 'Press any key to edit the file. . . \n\b')"
+    sudo nano /etc/default/grub
+    
+    banner "Showing the GRUB menu at boot"
+    printf "\n\nGenerating the new GRUB configuration\n\n"
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+    printf "\n\nGRUB config updated. It will be reflected in the next boot.\n\n"
+}
+
+
 nf_bash_xclip() {
     banner "Installing: neofetch bash-completion xorg-xclip"
     yes | sudo pacman -S neofetch bash-completion xorg-xclip
@@ -32,36 +55,42 @@ nf_bash_xclip() {
 gitsetup() {
     banner "Setting up SSH for git and GitHub"
     
-    printf "\n - Configuring GitHub username as: ${GITHUB_USERNAME}"
-    git config --global user.name "${GITHUB_USERNAME}"
-    
-    printf "\n - Configuring GitHub email address as: ${GITHUB_EMAIL_ID}"
-    git config --global user.email "${GITHUB_EMAIL_ID}"
-    
-    printf "\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
-    git config --global core.editor "${GIT_CLI_EDITOR}"
-    
-    printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
-    printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
-    ssh-keygen -t ed25519 -C "${GITHUB_EMAIL_ID}"
-    
-    printf "\n\nAdding your SSH key to the ssh-agent..\n"
-    
-    printf "\n - Start the ssh-agent in the background.."
-    eval "$(ssh-agent -s)"
-    
-    print "\n\n - Adding your SSH private key to the ssh-agent"
-    ssh-add ~/.ssh/id_ed25519
-    
-    printf "\n - Copying the SSH Key Content to the Clipboard..."
-    
-    printf "\n\nLog in into your GitHub account in the browser (if you have not)"
-    printf "\nOpen this link https://github.com/settings/keys in the browser."
-    printf "\nClik on New SSH key."
-    xclip -selection clipboard < ~/.ssh/id_ed25519.pub
-    printf "\nGive a title for the SSH key."
-    printf "\nPaste the clipboard content in the textarea box below the title."
-    printf "\nClick on Add SSH key."
+    if [ $GITHUB_EMAIL_ID != "" && $GITHUB_USERNAME != "" && $GIT_CLI_EDITOR != ""]
+    then
+        printf "\n - Configuring GitHub username as: ${GITHUB_USERNAME}"
+        git config --global user.name "${GITHUB_USERNAME}"
+        
+        printf "\n - Configuring GitHub email address as: ${GITHUB_EMAIL_ID}"
+        git config --global user.email "${GITHUB_EMAIL_ID}"
+        
+        printf "\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
+        git config --global core.editor "${GIT_CLI_EDITOR}"
+        
+        printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
+        printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
+        ssh-keygen -t ed25519 -C "${GITHUB_EMAIL_ID}"
+        
+        printf "\n\nAdding your SSH key to the ssh-agent..\n"
+        
+        printf "\n - Start the ssh-agent in the background.."
+        eval "$(ssh-agent -s)"
+        
+        print "\n\n - Adding your SSH private key to the ssh-agent"
+        ssh-add ~/.ssh/id_ed25519
+        
+        printf "\n - Copying the SSH Key Content to the Clipboard..."
+        
+        printf "\n\nLog in into your GitHub account in the browser (if you have not)"
+        printf "\nOpen this link https://github.com/settings/keys in the browser."
+        printf "\nClik on New SSH key."
+        xclip -selection clipboard < ~/.ssh/id_ed25519.pub
+        printf "\nGive a title for the SSH key."
+        printf "\nPaste the clipboard content in the textarea box below the title."
+        printf "\nClick on Add SSH key."
+    else
+        printf "\nYou have not provided the configuration for Git Setup."
+        printf "\nAdd them at the top of this script file and run it again."
+    fi
 }
 
 
@@ -204,6 +233,7 @@ install_all_menu() {
     printf "\nInstall: Fira Code Font and Vim Editor"
 }
 
+
 install_all() {
     yes | sudo pacman -S neofetch bash-completion xorg-xclip pulseaudio \
     pulseaudio-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware \
@@ -220,6 +250,7 @@ install_all() {
     zoom_app
 }
 
+
 menu_logo() {
     printf "\n\n
     ░█▀▀█ █▀▀█ █▀▀ ▀▀█▀▀ 　 ▀█▀ █▀▀▄ █▀▀ ▀▀█▀▀ █▀▀█ █── █──
@@ -227,6 +258,7 @@ menu_logo() {
     ░█─── ▀▀▀▀ ▀▀▀ ──▀── 　 ▄█▄ ▀──▀ ▀▀▀ ──▀── ▀──▀ ▀▀▀ ▀▀▀
     \n\n"
 }
+
 
 ask_user() {
     msg="$*"
@@ -260,6 +292,7 @@ ask_user() {
         clear && ask_user ""
     fi
 }
+
 
 prompt_each_install() {
     if ask_user "Install: neofetch bash-completion xorg-xclip ?"
@@ -363,6 +396,7 @@ prompt_each_install() {
 
 
 main_menu_content() {
+    clear
     menu_logo
     
     printf "\n This script will install and configure some stuff for you."
@@ -373,14 +407,17 @@ main_menu_content() {
     printf "\n    Here, the script will prompt you for each install.\n\n"
 }
 
+
 main_menu() {
     main_menu_content
-    if ask_user "So, do you want to install everything?"; then
+    if ask_user "So, do you want to install everything?"
+    then
         printf "\nInstalling All\n"
-        elif ask_user "So I guess you want to be prompted for each install?"; then
+    elif ask_user "So I guess you want to be prompted for each install?"
+    then
         printf "\nBeginning Install With Prompt\n"
     fi
 }
 
 
-main_menu
+show_grub
