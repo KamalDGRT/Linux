@@ -5,7 +5,7 @@ GITHUB_USERNAME=""
 GITHUB_EMAIL_ID=""
 GIT_CLI_EDITOR=""
 
-CHOICE=1
+clear
 
 banner() {
     printf "\n\n\n"
@@ -210,7 +210,7 @@ install_all() {
     php php-apache php-cgi php-fpm php-gd php-embed php-intl php-imap \
     php-redis php-snmp phpmyadmin brave telegram-desktop vlc discord \
     mkvtoolnix-gui qbittorrent ttf-fira-code vim fakeroot
-
+    
     gitsetup
     sublime_text
     package_managers
@@ -221,49 +221,164 @@ install_all() {
 }
 
 menu_logo() {
-    printf "\n
+    printf "\n\n
     ░█▀▀█ █▀▀█ █▀▀ ▀▀█▀▀ 　 ▀█▀ █▀▀▄ █▀▀ ▀▀█▀▀ █▀▀█ █── █──
     ░█▄▄█ █──█ ▀▀█ ──█── 　 ░█─ █──█ ▀▀█ ──█── █▄▄█ █── █──
     ░█─── ▀▀▀▀ ▀▀▀ ──▀── 　 ▄█▄ ▀──▀ ▀▀▀ ──▀── ▀──▀ ▀▀▀ ▀▀▀
     \n\n"
 }
 
-ask_user() {    
+ask_user() {
     msg="$*"
-    
+    edge="#~~~~~~~~~~~~#"
     printf "\n${msg}\n"
-    printf "
-    #~~~~~~~~~~~~#
-    | 1.) Yes    |
-    | 2.) No     |
-    | 3.) Quit   |
-    #~~~~~~~~~~~~#\n\n"
-
+    
+    printf "    ${edge}\n";
+    printf "    | 1.) Yes    |\n"
+    printf "    | 2.) No     |\n"
+    printf "    | 3.) Quit   |\n"
+    printf "    ${edge}\n";
+    
     read -e -p "Please select 1, 2, or 3 :   " choice
-
-    if [ "$choice" == "1" ]; then
+    
+    if [ "$choice" == "1" ]
+    then
+        printf "\n\n"
         return 0
-
-    elif [ "$choice" == "2" ]; then
+        
+    elif [ "$choice" == "2" ]
+    then
+        printf "\n\n\n"
         return 1
-
-    elif [ "$choice" == "3" ]; then
+        
+    elif [ "$choice" == "3" ]
+    then
         clear && exit 0
-
+        
     else
         echo "Please select 1, 2, or 3." && sleep 3
-        clear && ask_user
+        clear && ask_user ""
+    fi
+}
+
+prompt_each_install() {
+    if ask_user "Install: neofetch bash-completion xorg-xclip ?"
+    then
+        nf_bash_xclip
+    else
+        printf "\nSkipping: neofetch bash-completion xorg-clip..\n"
+    fi
+    
+    if ask_user "Set up SSH for git and GitHub ?";
+    then
+        gitsetup
+    else
+        printf "\nSkipping: Git and GitHub SSH setup..\n"
+    fi
+    
+    if ask_user "Install: Pulse Audio & Alsa Tools ?"
+    then
+        audio_tools
+    else
+        printf "\nSkipping: Audio Tools installation..\n"
+    fi
+    
+    if ask_user "Install: LAMP Stack Packages ?"
+    then
+        lampp_stack
+    else
+        printf "\nSkipping: LAMP Stack Installtion..\n"
+    fi
+    
+    if ask_user "Install: Package Managers: composer npm yay snapd"
+    then
+        package_managers
+    else
+        printf "\nSkipping: Package Managers: composer npm yay snapd.\n"
+    fi
+    
+    if ask_user "Install: Brave Browser, Telegram, VLC & Discord"
+    then
+        brave_tel_vlc_discord
+    else
+        printf "\nSkipping: Brave Browser, Telegram, VLC & Discord..\n"
+    fi
+    
+    if ask_user "Install: Snap Package: OBS Studio"
+    then
+        obs_studio
+    else
+        printf "\nSkipping: Snap Package OBS Studio..\n"
+    fi
+    
+    if ask_user "Install: Snap Package: Spotify"
+    then
+        s_spotify
+    else
+        printf "\nSkipping: neofetch bash-completion xorg-clip..\n"
+    fi
+    
+    if ask_user "Install: Snap Package: Microsoft Visual Studio Code"
+    then
+        vscode
+    else
+        printf "\nSkipping: VS Code Installation..\n"
+    fi
+    
+    if ask_user "Install: Sublime Text"
+    then
+        sublime_text
+    else
+        printf "\nSkipping: Sublime Text Installation..\n"
+    fi
+    
+    if ask_user "Install: Zoom Video Conferencing App"
+    then
+        zoom_app
+    else
+        printf "\nSkipping: Zoom App Installation..\n"
+    fi
+    
+    if ask_user "Install: MKVToolNix GUI"
+    then
+        mkvtoolnix_gui
+    else
+        printf "\nSkipping: MKVToolNix GUI Installation..\n"
+    fi
+    
+    if ask_user "Install: qBittorrent"
+    then
+        s_qbittorrent
+    else
+        printf "\nSkipping: qBittorrent Installation..\n"
+    fi
+    
+    if ask_user "Install: Fira Code Font and Vim Editor"
+    then
+        fira_code_vim
+    else
+        printf "\nSkipping: Vim & Fira Code Font Installation..\n"
     fi
 }
 
 
-main_menu() {
+main_menu_content() {
     menu_logo
+    
+    printf "\n This script will install and configure some stuff for you."
+    printf "\n How you want it to install, it is upto you."
+    printf "\n\n 1. You can install everything it provides."
+    printf "\n    This is best suited for fresh OS installs."
+    printf "\n\n 2. Install selectively."
+    printf "\n    Here, the script will prompt you for each install.\n\n"
+}
 
-    if ask_user "Wanna install everything?"; then
+main_menu() {
+    main_menu_content
+    if ask_user "So, do you want to install everything?"; then
         printf "\nInstalling All\n"
-    else
-        printf "\nNothing done\n"
+        elif ask_user "So I guess you want to be prompted for each install?"; then
+        printf "\nBeginning Install With Prompt\n"
     fi
 }
 
