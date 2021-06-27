@@ -119,7 +119,97 @@ lampp_stack() {
 }
 
 configure_lamp_stack() {
+    banner "Configuring: LAMP Stack Packages"
 
+    printf "\nCreating a directory to clone the KamalDGRT/manjaro-conf repo.."
+    if [ -d ~/RKS_FILES/GitRep ]; then
+        printf "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/RKS_FILES/GitRep
+    fi
+
+    printf "\nGoing inside ~/RKS_FILES/GitRep"
+    cd ~/RKS_FILES/GitRep
+
+    if [ -d ~/RKS_FILES/GitRep/manjaro-conf ]; then
+        printf "\nRepository exists. \nSkipping the cloning step..\n"
+    else
+        printf "\nCloning the GitHub Repo\n"
+        git clone https://github.com/KamalDGRT/manjaro-conf.git
+    fi
+
+    printf "\nGoing inside manjaro-conf directory..."
+    cd manjaro-conf
+
+    printf "\n\nCreating backup of the current httpd.conf file..."
+    sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.backup
+
+    printf "\nCreating backup of the current httpd-vhosts.conf file..."
+    sudo cp /etc/httpd/conf/extra/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf.backup
+
+    printf "\nCreating backup of the current php.ini file..."
+    sudo cp /etc/php/php.ini /etc/php/php.ini.backup
+
+    printf "\n\nCopying the file from repo: httpd.conf"
+    sudo cp lampp/httpd.conf /etc/httpd/conf/httpd.conf
+
+    printf "\nCopying the file from repo: httpd-vhosts.conf"
+    sudo cp lampp/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf
+
+    printf "\nCopying the file from repo: php.ini"
+    sudo cp lampp/php.ini /etc/php/php.ini
+
+    printf "\nCopying the file from repo: phpmyadmin.conf"
+    sudo cp lampp/phpmyadmin.conf /etc/httpd/conf/extra/phpmyadmin.conf
+
+    printf "\nCopying the file from repo: index.html"
+    sudo cp lampp/index.html /srv/html/index.html
+
+    printf "\nCopying the file from repo: test.php"
+    sudo cp lampp/test /srv/html/test.php
+
+    printf "\n\nInstalling MySQL databases\n"
+    sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+    printf "\nEnabling MySQL service to start at boot..."
+    sudo systemctl enable mysqld
+
+    printf "\nStarting the MySQL service..."
+    sudo systemctl start mysqld
+
+    printf "\n\nSetting MySQL root user password as : Test@12345"
+    printf "\nYou can change it later using:"
+    printf "\n\n       sudo mysqladmin -u root password '<password>'"
+    printf "\n\nReplace <password> with the password that you wanto have."
+
+    yes | sudo mysql_secure_installation
+    sudo mysqladmin -u root password 'Test@12345'
+
+    printf "\n\n\nEnabling Apache to start at boot..."
+    sudo systemctl enable httpd
+
+    printf "\nRestarting the Apache service..."
+    sudo systemctl restart httpd
+
+    printf "\nCreating tmp directory for phpMyAdmin.."
+    sudo mkdir -p /usr/share/webapps/phpMyAdmin/tmp/
+
+    printf "\nChanging permissions of the /tmp directory..."
+    sudo chmod 777 /usr/share/webapps/phpMyAdmin/tmp/
+
+    printf "\nGenerating & Copying a string to clipboard for the blowfish_secret.."
+    openssl rand -base64 32 | xclip -selection clipboard
+
+    printf "\n\nNow, a file will be opened in the nano editor."
+    printf "\nPaste the clipboard content in line 16 of that file."
+    pause
+
+    sudo nano /etc/webapps/phpmyadmin/config.inc.php
+
+    printf "\n\nChecking if the LAMPP packages are installed correctly:"
+    printf "\n    Apache    :  http://localhost"
+    printf "\n     PHP      :  http://localhost/test.php"
+    printf "\n  phpMyAdmin  :  http://localhost/phpmyadmin"
 }
 
 
@@ -147,7 +237,6 @@ obs_studio() {
 s_spotify() {
     banner "Installing Snap Package: Spotify"
     sudo snap install spotify
-    pause
 }
 
 vscode() {
@@ -381,13 +470,18 @@ install_all() {
         mkvtoolnix-gui qbittorrent ttf-fira-code vim fakeroot base-devel \ 
     gtk-engine-murrine gtk-engines
 
+    enable_grub_menu
+    enable_xorg_windowing
     gitsetup
+    aliases_and_scripts
     sublime_text
     package_managers
+    configure_lamp_stack
+    rks_gnome_themes
+    zoom_app
     obs_studio
     spotify
     vscode
-    zoom_app
 }
 
 menu_logo() {
@@ -529,10 +623,11 @@ main_menu_content() {
 main_menu() {
     main_menu_content
     if ask_user "So, do you want to install everything?"; then
-        printf "\nInstalling All\n"
+        install_all_menu
+        install_all
     elif ask_user "So I guess you want to be prompted for each install?"; then
         printf "\nBeginning Install With Prompt\n"
     fi
 }
 
-rks_gnome_themes
+main_menu
