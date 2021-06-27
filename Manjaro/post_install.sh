@@ -23,21 +23,21 @@ pause() {
 }
 
 
-show_grub() {
+enable_grub_menu() {
+    # Find & Replace part contributed by: https://github.com/nanna7077
     clear
     banner "Showing the GRUB menu at boot"
-    printf "\n\nThe script will now open a file in nano editor."
+    printf "\n\nThe script will change the grub default file."
+    printf "\n\nThe file is: /etc/default/grub\n"
     printf "\nIn that file, there will be a line that looks like this:"
     printf "\n\n     GRUB_TIMEOUT=5\n\n"
-    printf "\nNow, just change the value of GRUB_TIMEOUT to -1."
-    printf "\n\nJust do that and the script will take care of the rest."
-    printf "\n\nNote:"
-    printf "\n\n     To save the file in nano : Ctrl + O"
-    printf "\n     To close the file in nano : Ctrl + X\n\n"
+    printf "\nThe script will change the value of GRUB_TIMEOUT to -1.\n"
 
-    read -p "$(echo -e 'Press any key to edit the file. . . \n\b')"
-    sudo nano /etc/default/grub
-    
+    SUBJECT='/etc/default/grub'
+    SEARCH_FOR='GRUB_TIMEOUT='
+    sudo sed -i "/^$SEARCH_FOR/c\GRUB_TIMEOUT=-1" $SUBJECT
+    printf "\n/etc/default/grub file changed.\n"
+
     banner "Showing the GRUB menu at boot"
     printf "\n\nGenerating the new GRUB configuration\n\n"
     sudo grub-mkconfig -o /boot/grub/grub.cfg
@@ -205,13 +205,84 @@ fira_code_vim() {
 }
 
 
-aliases_and_scripts(){
+aliases_and_scripts() {
     banner "Installing Aliases and Scripts"
     
     aliasfile="\n"
     aliasfile+="if [ -f ~/.rksalias ]; then\n"
     aliasfile+=". ~/.rksalias\n"
     aliasfile+="fi\n"
+
+    printf "\nCreating a directory to clone the KamalDGRT/rkswrites repo.."
+    if [ -d ~/RKS_FILES/GitRep ]
+    then
+        printf "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/RKS_FILES/GitRep
+    fi
+
+    printf "\nGoing inside ~/RKS_FILES/GitRep"
+    cd ~/RKS_FILES/GitRep
+
+    if [ -d ~/RKS_FILES/GitRep/rkswrites ]
+    then
+        printf "\nRepository exists. \nSkipping the cloning step..\n"
+    else
+        printf "\nCloning the GitHub Repo\n"
+        git clone https://github.com/KamalDGRT/rkswrites.git
+    fi
+
+    printf "\nGoing inside rkswrites directory..."
+    cd rkswrites
+
+    printf "\nCreating the file with aliases to the ~/ location.."
+    printf "\n\nChecking if the alias file exists..."
+    if [ -f ~/RKS_FILES/GitRep/rkswrites/Manjaro/rksalias.txt ]
+    then
+        printf "\nAlias file exists.."
+        cp Manjaro/rksalias.txt ~/.rksalias
+    else
+        printf "\nAlias file not found.."
+
+        printf "\nMoving into /tmp directoroy.."
+        cd /tmp
+
+        printf "\nGetting the file from GitHub"
+        wget https://raw.githubusercontent.com/KamalDGRT/rkswrites/master/Manjaro/rksalias.txt
+
+        printf "\nMoving the file to ~/"
+        mv rksalias.txt ~/.rksalias
+    fi
+
+    printf "\n\nAdding the aliases to the fish conf.."
+    if [ -f ~/.config/fish/config.​fish ]
+    then
+        ~/.config/fish/config.​fish >> printf "${aliasfile}"
+        printf "\nAliases added successfully to fish shell."
+    else
+        printf "\nYour OS does not have fish shell.\nSkipping..."
+    fi
+
+    printf "\n\nAdding the aliases to the BASH shell.."
+    if [ -f ~/.bashrc ]
+    then
+        printf "${aliasfile}" >> ~/.bashrc 
+        printf "\nAliases added successfully to BASH"
+    else
+        printf "\nYour OS does not have BASH shell.\nSkipping..."
+    fi
+
+    printf "\n\nAdding the aliases to the ZSH shell.."
+    if [ -f ~/.zshrc ]
+    then
+        printf "${aliasfile}" >> ~/.zshrc
+        printf "\nAliases added successfully to ZSH"
+    else
+        printf "\nYour OS does not have ZSH shell.\nSkipping..."
+    fi
+
+    printf "\n\nTo make the aliases, close and reopen the terminals that"
+    printf " are using those shells.\n"
 }
 
 
@@ -419,5 +490,4 @@ main_menu() {
     fi
 }
 
-
-show_grub
+aliases_and_scripts
