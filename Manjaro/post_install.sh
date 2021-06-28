@@ -62,8 +62,8 @@ enable_xorg_windowing() {
 }
 
 nf_bash_xclip() {
-    banner "Installing: neofetch bash-completion xorg-xclip"
-    yes | sudo pacman -S neofetch bash-completion xorg-xclip
+    banner "Installing: neofetch bash-completion xclip"
+    yes | sudo pacman -S neofetch bash-completion xclip
 }
 
 gitsetup() {
@@ -151,22 +151,22 @@ configure_lamp_stack() {
     sudo cp /etc/php/php.ini /etc/php/php.ini.backup
 
     printf "\n\nCopying the file from repo: httpd.conf"
-    sudo cp lampp/httpd.conf /etc/httpd/conf/httpd.conf
+    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/httpd.conf /etc/httpd/conf/httpd.conf
 
     printf "\nCopying the file from repo: httpd-vhosts.conf"
-    sudo cp lampp/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf
+    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf
 
     printf "\nCopying the file from repo: php.ini"
-    sudo cp lampp/php.ini /etc/php/php.ini
+    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/php.ini /etc/php/php.ini
 
     printf "\nCopying the file from repo: phpmyadmin.conf"
-    sudo cp lampp/phpmyadmin.conf /etc/httpd/conf/extra/phpmyadmin.conf
+    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/phpmyadmin.conf /etc/httpd/conf/extra/phpmyadmin.conf
 
     printf "\nCopying the file from repo: index.html"
-    sudo cp lampp/index.html /srv/html/index.html
+    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/index.html /srv/http/index.html
 
     printf "\nCopying the file from repo: test.php"
-    sudo cp lampp/test /srv/html/test.php
+    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/test /srv/http/test.php
 
     printf "\n\nInstalling MySQL databases\n"
     sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
@@ -202,7 +202,6 @@ configure_lamp_stack() {
 
     printf "\n\nNow, a file will be opened in the nano editor."
     printf "\nPaste the clipboard content in line 16 of that file."
-    pause
 
     sudo nano /etc/webapps/phpmyadmin/config.inc.php
 
@@ -211,7 +210,6 @@ configure_lamp_stack() {
     printf "\n     PHP      :  http://localhost/test.php"
     printf "\n  phpMyAdmin  :  http://localhost/phpmyadmin"
 }
-
 
 package_managers() {
     banner "Installing Package Managers: composer npm yay snapd"
@@ -443,7 +441,6 @@ rks_gnome_themes() {
     cd "${currentDirectory}"
 }
 
-
 install_all_menu() {
     printf "\nThis will do the following:\n"
     printf "\nInstall: neofetch bash-completion xorg-xclip"
@@ -463,12 +460,12 @@ install_all_menu() {
 }
 
 install_all() {
-    yes | sudo pacman -S neofetch bash-completion xorg-xclip pulseaudio \
+    sudo pacman -S neofetch bash-completion pulseaudio \
         pulseaudio-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware \
         php php-apache php-cgi php-fpm php-gd php-embed php-intl php-imap \
         php-redis php-snmp phpmyadmin brave telegram-desktop vlc discord \
-        mkvtoolnix-gui qbittorrent ttf-fira-code vim fakeroot base-devel \ 
-    gtk-engine-murrine gtk-engines
+        mkvtoolnix-gui qbittorrent ttf-fira-code vim fakeroot base-devel \
+        gtk-engine-murrine gtk-engines
 
     enable_grub_menu
     enable_xorg_windowing
