@@ -63,7 +63,7 @@ enable_xorg_windowing() {
 
 nf_bash_xclip() {
     banner "Installing: neofetch bash-completion xclip"
-    yes | sudo pacman -S neofetch bash-completion xclip
+    yes | sudo pacman -S  --needed neofetch bash-completion xclip
 }
 
 gitsetup() {
@@ -85,10 +85,10 @@ gitsetup() {
 
         printf "\n\nAdding your SSH key to the ssh-agent..\n"
 
-        printf "\n - Start the ssh-agent in the background.."
+        printf "\n - Start the ssh-agent in the background..\n"
         eval "$(ssh-agent -s)"
 
-        printf "\n\n - Adding your SSH private key to the ssh-agent"
+        printf "\n\n - Adding your SSH private key to the ssh-agent\n"
         ssh-add ~/.ssh/id_ed25519
 
         printf "\n - Copying the SSH Key Content to the Clipboard..."
@@ -100,6 +100,7 @@ gitsetup() {
         printf "\nGive a title for the SSH key."
         printf "\nPaste the clipboard content in the textarea box below the title."
         printf "\nClick on Add SSH key.\n\n"
+        pause
     else
         printf "\nYou have not provided the configuration for Git Setup."
         printf "\nAdd them at the top of this script file and run it again."
@@ -108,14 +109,14 @@ gitsetup() {
 
 audio_tools() {
     banner "Installing: Pulse Audio & Alsa Tools"
-    yes | sudo pacman -S pulseaudio pulseaudio-alsa pavucontrol alsa-utils \
+    yes | sudo pacman -S  --needed pulseaudio pulseaudio-alsa pavucontrol alsa-utils \
         alsa-ucm-conf sof-firmware
 }
 
 lampp_stack() {
     banner "Installing: LAMP Stack Packages"
-    yes | sudo pacman -S php php-apache php-cgi php-fpm php-gd php-embed php-intl php-imap \
-        php-redis php-snmp phpmyadmin
+    yes | sudo pacman -S  --needed apache mariadb php php-apache php-cgi php-fpm php-gd \
+        php-embed php-intl php-imap php-redis php-snmp phpmyadmin
 }
 
 configure_lamp_stack() {
@@ -166,7 +167,7 @@ configure_lamp_stack() {
     sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/index.html /srv/http/index.html
 
     printf "\nCopying the file from repo: test.php"
-    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/test /srv/http/test.php
+    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/test.php /srv/http/test.php
 
     printf "\n\nInstalling MySQL databases\n"
     sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
@@ -213,7 +214,7 @@ configure_lamp_stack() {
 
 package_managers() {
     banner "Installing Package Managers: composer npm yay snapd"
-    yes | sudo pacman -S composer nodejs npm yay snapd
+    yes | sudo pacman -S --needed composer nodejs npm yay snapd
 
     printf "\nEnabling the snap daemon..."
     sudo systemctl enable --now snapd.socket
@@ -224,7 +225,7 @@ package_managers() {
 
 brave_tel_vlc_discord() {
     banner "Installing: Brave Browser, Telegram, VLC & Discord"
-    yes | sudo pacman -S brave telegram-desktop vlc discord
+    yes | sudo pacman -S  --needed brave telegram-desktop vlc discord
 }
 
 obs_studio() {
@@ -232,7 +233,7 @@ obs_studio() {
     sudo snap install obs-studio
 }
 
-s_spotify() {
+installSpotify() {
     banner "Installing Snap Package: Spotify"
     sudo snap install spotify
 }
@@ -284,17 +285,17 @@ zoom_app() {
 
 mkvtoolnix_gui() {
     banner "Installing: MKVToolNix GUI"
-    yes | sudo pacman -S mkvtoolnix-gui
+    yes | sudo pacman -S  --needed mkvtoolnix-gui
 }
 
 s_qbittorrent() {
     banner "Installing: qBittorrent"
-    yes | sudo pacman -S qbittorrent
+    yes | sudo pacman -S  --needed qbittorrent
 }
 
 fira_code_vim() {
     banner "Installing: Fira Code Font and Vim Editor"
-    yes | sudo pacman -S ttf-fira-code vim
+    yes | sudo pacman -S  --needed ttf-fira-code vim
 }
 
 aliases_and_scripts() {
@@ -460,12 +461,12 @@ install_all_menu() {
 }
 
 install_all() {
-    sudo pacman -S neofetch bash-completion pulseaudio \
+    yes | sudo pacman -S --needed neofetch bash-completion pulseaudio \
         pulseaudio-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware \
         php php-apache php-cgi php-fpm php-gd php-embed php-intl php-imap \
         php-redis php-snmp phpmyadmin brave telegram-desktop vlc discord \
         mkvtoolnix-gui qbittorrent ttf-fira-code vim fakeroot base-devel \
-        gtk-engine-murrine gtk-engines
+        gtk-engine-murrine gtk-engines apache mariadb
 
     enable_grub_menu
     enable_xorg_windowing
@@ -477,7 +478,7 @@ install_all() {
     rks_gnome_themes
     zoom_app
     obs_studio
-    spotify
+    installSpotify
     vscode
 }
 
@@ -520,10 +521,29 @@ ask_user() {
 }
 
 prompt_each_install() {
+
+    if ask_user "Enable GRUB menu ?"; then
+        enable_grub_menu
+    else
+        printf "\nSkipping: Enable GRUB menu..\n"
+    fi
+
     if ask_user "Install: neofetch bash-completion xorg-xclip ?"; then
         nf_bash_xclip
     else
         printf "\nSkipping: neofetch bash-completion xorg-clip..\n"
+    fi
+
+    if ask_user "\nInstall: Fira Code Font and Vim Editor"; then
+        fira_code_vim
+    else
+        printf "\nSkipping: Vim & Fira Code Font Installation..\n"
+    fi
+
+    if ask_user "Add Aliases and Scripts?"; then
+        aliases_and_scripts
+    else
+        printf "\nSkipping: Aliases and Scripts..\n"
     fi
 
     if ask_user "Set up SSH for git and GitHub ?"; then
@@ -538,8 +558,15 @@ prompt_each_install() {
         printf "\nSkipping: Audio Tools installation..\n"
     fi
 
+    if ask_user "Do you want to change the GNOME themes?"; then
+        rks_gnome_themes
+    else
+        printf "\nSkipping: Configuring GNOME thmes...\n"
+    fi
+
     if ask_user "Install: LAMP Stack Packages ?"; then
         lampp_stack
+        configure_lamp_stack
     else
         printf "\nSkipping: LAMP Stack Installtion..\n"
     fi
@@ -554,24 +581,6 @@ prompt_each_install() {
         brave_tel_vlc_discord
     else
         printf "\nSkipping: Brave Browser, Telegram, VLC & Discord..\n"
-    fi
-
-    if ask_user "Install: Snap Package: OBS Studio"; then
-        obs_studio
-    else
-        printf "\nSkipping: Snap Package OBS Studio..\n"
-    fi
-
-    if ask_user "Install: Snap Package: Spotify"; then
-        s_spotify
-    else
-        printf "\nSkipping: neofetch bash-completion xorg-clip..\n"
-    fi
-
-    if ask_user "Install: Snap Package: Microsoft Visual Studio Code"; then
-        vscode
-    else
-        printf "\nSkipping: VS Code Installation..\n"
     fi
 
     if ask_user "Install: Sublime Text"; then
@@ -598,10 +607,22 @@ prompt_each_install() {
         printf "\nSkipping: qBittorrent Installation..\n"
     fi
 
-    if ask_user "Install: Fira Code Font and Vim Editor"; then
-        fira_code_vim
+    if ask_user "Install: Snap Package: OBS Studio"; then
+        obs_studio
     else
-        printf "\nSkipping: Vim & Fira Code Font Installation..\n"
+        printf "\nSkipping: Snap Package OBS Studio..\n"
+    fi
+
+    if ask_user "Install: Snap Package: Spotify"; then
+        installSpotify
+    else
+        printf "\nSkipping: Snap Package: Spotify.\n"
+    fi
+
+    if ask_user "Install: Snap Package: Microsoft Visual Studio Code"; then
+        vscode
+    else
+        printf "\nSkipping: VS Code Installation..\n"
     fi
 }
 
@@ -624,6 +645,7 @@ main_menu() {
         install_all
     elif ask_user "So I guess you want to be prompted for each install?"; then
         printf "\nBeginning Install With Prompt\n"
+        prompt_each_install
     fi
 }
 
