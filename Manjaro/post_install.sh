@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Add your GitHub details here:
-GITHUB_USERNAME="KamalDGRT"
-GITHUB_EMAIL_ID="kamaldgrt@gmail.com"
-GIT_CLI_EDITOR="vim"
+GITHUB_USERNAME=""
+GITHUB_EMAIL_ID=""
+GIT_CLI_EDITOR=""
 
 clear
 
@@ -63,7 +63,7 @@ enable_xorg_windowing() {
 
 nf_bash_xclip() {
     banner "Installing: neofetch bash-completion xclip"
-    yes | sudo pacman -S  --needed neofetch bash-completion xclip
+    sudo pacman -S --needed  --noconfirm neofetch bash-completion xclip
 }
 
 gitsetup() {
@@ -88,7 +88,7 @@ gitsetup() {
         printf "\n - Start the ssh-agent in the background..\n"
         eval "$(ssh-agent -s)"
 
-        printf "\n\n - Adding your SSH private key to the ssh-agent\n"
+        printf "\n\n - Adding your SSH private key to the ssh-agent\n\n"
         ssh-add ~/.ssh/id_ed25519
 
         printf "\n - Copying the SSH Key Content to the Clipboard..."
@@ -109,14 +109,15 @@ gitsetup() {
 
 audio_tools() {
     banner "Installing: Pulse Audio & Alsa Tools"
-    yes | sudo pacman -S  --needed pulseaudio pulseaudio-alsa pavucontrol alsa-utils \
-        alsa-ucm-conf sof-firmware
+    sudo pacman -S --needed  --noconfirm pulseaudio pulseaudio-alsa \
+        pavucontrol alsa-utils alsa-ucm-conf sof-firmware
 }
 
 lampp_stack() {
     banner "Installing: LAMP Stack Packages"
-    yes | sudo pacman -S  --needed apache mariadb php php-apache php-cgi php-fpm php-gd \
-        php-embed php-intl php-imap php-redis php-snmp phpmyadmin
+    sudo pacman -S --needed  --noconfirm apache mariadb php php-apache \
+        php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis \
+        php-snmp phpmyadmin
 }
 
 configure_lamp_stack() {
@@ -214,7 +215,7 @@ configure_lamp_stack() {
 
 package_managers() {
     banner "Installing Package Managers: composer npm yay snapd"
-    yes | sudo pacman -S --needed composer nodejs npm yay snapd
+    sudo pacman -S --needed --noconfirm composer nodejs npm yay snapd
 
     printf "\nEnabling the snap daemon..."
     sudo systemctl enable --now snapd.socket
@@ -225,7 +226,7 @@ package_managers() {
 
 brave_tel_vlc_discord() {
     banner "Installing: Brave Browser, Telegram, VLC & Discord"
-    yes | sudo pacman -S  --needed brave telegram-desktop vlc discord
+    sudo pacman -S --needed  --noconfirm brave telegram-desktop vlc discord
 }
 
 obs_studio() {
@@ -264,7 +265,7 @@ sublime_text() {
         sudo tee -a /etc/pacman.conf
 
     printf "\nUpdatig pacman and installing Sublime Text..."
-    yes | sudo pacman -Syu sublime-text
+    sudo pacman -Syu --needed --noconfirm sublime-text
 }
 
 zoom_app() {
@@ -277,7 +278,7 @@ zoom_app() {
     wget https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz
 
     printf "\n - Starting the zoom installation..."
-    yes | sudo pacman -U zoom_x86_64.pkg.tar.xz
+    sudo pacman -U --noconfirm --needed zoom_x86_64.pkg.tar.xz
 
     printf "\n - Coming out of the Downloads folder..."
     cd
@@ -285,17 +286,17 @@ zoom_app() {
 
 mkvtoolnix_gui() {
     banner "Installing: MKVToolNix GUI"
-    yes | sudo pacman -S  --needed mkvtoolnix-gui
+    sudo pacman -S --needed  --noconfirm mkvtoolnix-gui
 }
 
 s_qbittorrent() {
     banner "Installing: qBittorrent"
-    yes | sudo pacman -S  --needed qbittorrent
+    sudo pacman -S --needed  --noconfirm qbittorrent
 }
 
 fira_code_vim() {
     banner "Installing: Fira Code Font and Vim Editor"
-    yes | sudo pacman -S  --needed ttf-fira-code vim
+    sudo pacman -S --needed  --noconfirm ttf-fira-code vim
 }
 
 aliases_and_scripts() {
@@ -457,11 +458,11 @@ install_all_menu() {
     printf "\nInstall: Zoom Video Conferencing App"
     printf "\nInstall: MKVToolNix GUI"
     printf "\nInstall: qBittorrent"
-    printf "\nInstall: Fira Code Font and Vim Editor"
+    printf "\nInstall: Fira Code Font and Vim Editor\n\n"
 }
 
 install_all() {
-    yes | sudo pacman -S --needed neofetch bash-completion pulseaudio \
+    sudo pacman -S --needed --noconfirm neofetch bash-completion pulseaudio \
         pulseaudio-alsa pavucontrol alsa-utils alsa-ucm-conf sof-firmware \
         php php-apache php-cgi php-fpm php-gd php-embed php-intl php-imap \
         php-redis php-snmp phpmyadmin brave telegram-desktop vlc discord \
