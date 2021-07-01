@@ -55,9 +55,9 @@ DocumentRoot \"$1\"
 
 
 "
-    echo "$content"
-    sudo echo "$content" >>/etc/httpd/conf/extra/httpd-vhosts.conf
-    sudo printf "\n# 127.0.1.1    $2\n" >>/etc/hosts
+
+    echo "$content"  | sudo tee -a /etc/httpd/conf/extra/httpd-vhosts.conf
+    echo -e "\n# 127.0.1.1    $2\n" | sudo tee -a /etc/hosts
 }
 
 clone_the_projects() {
