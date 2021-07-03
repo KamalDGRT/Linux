@@ -13,7 +13,7 @@ Install Apache httpd to configure Web Server.
 [root@www ~]# mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf.org
 ```
 
-### [2]	Configure httpd. Replace Server name to your own environment.
+### [2] Configure httpd. Replace Server name to your own environment.
 
 ```
 [root@www ~]# vi /etc/httpd/conf/httpd.conf
@@ -40,7 +40,7 @@ ServerTokens Prod
 [root@www ~]# systemctl enable --now httpd
 ```
 
-###	[3] If Firewalld is running, allow HTTP service. HTTP uses 80/TCP.
+### [3] If Firewalld is running, allow HTTP service. HTTP uses 80/TCP.
 
 ```
 [root@www ~]# firewall-cmd --add-service=http --permanent
@@ -76,7 +76,7 @@ Configure httpd to use PHP scripts.
 [root@www ~]# dnf -y install php php-mbstring php-pear
 ```
 
-### [2]	 After installing PHP, Restart httpd, it's OK to do it only.
+### [2] After installing PHP, Restart httpd, it's OK to do it only.
 
 ```
 [root@www ~]# systemctl restart httpd
@@ -85,7 +85,7 @@ Configure httpd to use PHP scripts.
 [root@www ~]# echo '<?php phpinfo(); ?>' > /var/www/html/info.php
 ```
 
-### [3]	Verify to access to PHPInfo test page from any client computer.
+### [3] Verify to access to PHPInfo test page from any client computer.
 
 <hr>
 
@@ -109,12 +109,11 @@ Require ip 127.0.0.1 10.0.0.0/24
 
 <hr>
 
-##  4. If SELinux is enabled, change policy.
+## 4. If SELinux is enabled, change policy.
 
 ```
 [root@www ~]# setsebool -P httpd_can_network_connect on
 [root@www ~]# setsebool -P httpd_execmem on
 ```
 
-### [5]	Access to [http://(your hostname or IP address)/phpmyadmin/] with web browser from any Clients which are in the Network you set to allow. Then phpMyAdmin Login form is shown, login with a MariaDB user. It needs you login as a user that password is set because [Unix_Socket] authentication is enabled by default and users with no password are not login.
-
+### [5] Access to [http://(your hostname or IP address)/phpmyadmin/] with web browser from any Clients which are in the Network you set to allow. Then phpMyAdmin Login form is shown, login with a MariaDB user. It needs you login as a user that password is set because [Unix_Socket] authentication is enabled by default and users with no password are not login.
