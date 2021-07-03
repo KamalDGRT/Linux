@@ -307,7 +307,7 @@ aliases_and_scripts() {
     aliasfile+=". ~/.rksalias\n"
     aliasfile+="fi\n"
 
-    printf "\nCreating a directory to clone the KamalDGRT/rkswrites repo.."
+    printf "\nCreating a directory to clone the KamalDGRT/Linux repo.."
     if [ -d ~/RKS_FILES/GitRep ]; then
         printf "\nDirectory exists.\nSkipping the creation step..\n"
     else
@@ -317,21 +317,21 @@ aliases_and_scripts() {
     printf "\nGoing inside ~/RKS_FILES/GitRep"
     cd ~/RKS_FILES/GitRep
 
-    if [ -d ~/RKS_FILES/GitRep/rkswrites ]; then
+    if [ -d ~/RKS_FILES/GitRep/Linux ]; then
         printf "\nRepository exists. \nSkipping the cloning step..\n"
     else
         printf "\nCloning the GitHub Repo\n"
-        git clone https://github.com/KamalDGRT/rkswrites.git
+        git clone https://github.com/KamalDGRT/Linux.git
     fi
 
-    printf "\nGoing inside rkswrites directory..."
-    cd rkswrites
+    printf "\nGoing inside Linux directory..."
+    cd Linux
 
     printf "\nCreating the file with aliases to the ~/ location.."
     printf "\n\nChecking if the alias file exists..."
-    if [ -f ~/RKS_FILES/GitRep/rkswrites/Manjaro/rksalias.txt ]; then
+    if [ -f ~/RKS_FILES/GitRep/Linux/distro/Manjaro/rksalias.txt ]; then
         printf "\nAlias file exists.."
-        cp Manjaro/rksalias.txt ~/.rksalias
+        cp distro/Manjaro/rksalias.txt ~/.rksalias
     else
         printf "\nAlias file not found.."
 
@@ -339,7 +339,7 @@ aliases_and_scripts() {
         cd /tmp
 
         printf "\nGetting the file from GitHub"
-        wget https://raw.githubusercontent.com/KamalDGRT/rkswrites/master/Manjaro/rksalias.txt
+        wget https://raw.githubusercontent.com/KamalDGRT/Linux/master/distro/Manjaro/rksalias.txt
 
         printf "\nMoving the file to ~/"
         mv rksalias.txt ~/.rksalias
