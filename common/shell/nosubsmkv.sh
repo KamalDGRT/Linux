@@ -1,21 +1,19 @@
 #!/bin/bash
 
 # Creating directory to store the output files
-if [[ ! -d nosubsmkv/ ]]
-then
-    mkdir nosubsmkv;
+if [[ ! -d nosubsmkv/ ]]; then
+    mkdir nosubsmkv
     echo "Creating nosubsmkv/ to store the output of mkvmerge"
-    echo ""    
+    echo ""
 fi
 
 count=1
 
 # Traversing throuugh the matroska files present in the directory
-for file in *.mkv;
-do 
-    name=`echo "$file"`
-    outputfile=`echo "${name%.mkv}_1.mkv"`
-    directory=`pwd`
+for file in *.mkv; do
+    name=$(echo "$file")
+    outputfile=$(echo "${name%.mkv}_1.mkv")
+    directory=$(pwd)
     inputfile="${directory}/${name}"
     outputfile="${name%.mkv}_1.mkv"
     outputfilepath="${directory}/nosubsmkv/${name%.mkv}_1.mkv"
@@ -35,5 +33,5 @@ do
     mkvpropedit "nosubsmkv/${finalname}" --set title="" --delete-track-statistics-tags --tags all:
     echo "-------------------------------------------------------------"
     echo ""
-    count=`expr $count + 1`
+    count=$(expr $count + 1)
 done
