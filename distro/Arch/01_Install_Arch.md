@@ -338,7 +338,7 @@ titan
 Login as root user.
 
 ```js
-[root@titan /] # systemctl start NetworkManager
+[root@titan /] # systemctl enable --now NetworkManager
 ```
 
 ```js
