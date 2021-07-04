@@ -216,7 +216,7 @@ Add this in the end of the file:
 ### Adding Local TimeZone
 
 ```js
-[root@archiso /] # ln -sf /user/share/zoneinfo/Asia/Kolkata /etc/localtime
+[root@archiso /] # ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 ```
 
 ---
@@ -241,6 +241,7 @@ Uncomment the locale that you want. I will be uncommenting:
 
 ```s
 en_US.UTF-8 UTF-8
+en_US  ISO-8859-1
 ```
 
 ```js
