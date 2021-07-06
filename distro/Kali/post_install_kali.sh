@@ -236,10 +236,21 @@ install_VSCode() {
 }
 
 install_PyCharm_Community_Edition() {
+    printf "\nInstalling IntelliJ PyCharm Community Edition"
     cd ~/Downloads
     wget -O pycharm.tar.gz https://download.jetbrains.com/python/pycharm-community-2021.1.3.tar.gz
     sudo tar xzf pycharm.tar.gz -C /opt/
     sudo mv /opt/pycharm-*/ /opt/pycharm/
     cd /opt/pycharm/bin
     sh pycharm.sh
+}
+
+install_Pip() {
+    printf "\nInstalling Pip..."
+    sudo apt install python3-pip
+}
+
+install_YoutubeDL() {
+    printf "\nInstalling Youtube-DL CLI"
+    sudo apt install youtube-dl
 }
