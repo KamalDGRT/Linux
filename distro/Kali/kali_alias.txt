@@ -7,7 +7,7 @@ alias clone='git clone'
 alias add='git add .'
 alias commit='git commit -m'
 alias push='git push'
-
+alias gbranch='git branch'
 
 # PHP Related Aliases
 alias compup='composer update'
