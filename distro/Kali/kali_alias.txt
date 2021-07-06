@@ -1,0 +1,46 @@
+alias nf=neofetch
+alias ehost='subl /etc/hosts'
+
+
+# Git Related Aliases
+alias clone='git clone'
+alias add='git add .'
+alias commit='git commit -m'
+alias push='git push'
+
+
+# PHP Related Aliases
+alias compup='composer update'
+
+
+# Shell Related Aliases
+alias bconf='subl ~/.bashrc'
+alias baconf='subl ~/.bash_aliases'
+alias zconf='subl ~/.zshrc'
+alias sbash='source ~/.bashrc'
+
+
+# System Related
+alias pinstall='sudo apt install'
+alias premove='sudo apt remove'
+alias sinstall='sudo snap install'
+alias sremove='sudo snap remove'
+alias restart='sudo systemctl restart'
+alias chpermd='chmod 777 -R'
+alias schpermd='sudo chmod 777 -R'
+
+
+# Files related:
+alias rrm='rm -rf'
+alias srrm='sudo rm -rf'
+alias mvf='mv -f'
+alias smvf='sudo mv -f'
+alias cpr='cp -rf'
+alias scpr='sudo cp -rf'
+
+
+# Python Related Aliases
+alias py='python'
+alias pvenv='py -m venv env'
+alias seba='source env/bin/activate'
+alias genreq='py -m pip freeze > requirements.txt'
