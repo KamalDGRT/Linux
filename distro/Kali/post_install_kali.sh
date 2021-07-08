@@ -297,3 +297,28 @@ install_and_configure_LAMP() {
 
     sudo systemctl restart apache2
 }
+
+install_Everything() {
+    gitsetup
+
+    install_Xclip
+    install_NeoFetch
+    install_Audio_Tools
+    install_MS_Fonts
+
+    install_gdebi
+    install_Pip
+    install_YoutubeDL
+    install_snapd
+
+    rks_gnome_themes
+    configure_title_bar
+
+    install_Brave
+    install_Discord
+    install_Telegram
+    install_Sublime_Text
+    install_VSCode
+    install_and_configure_LAMP
+    install_NVDIA_drivers
+}
