@@ -254,3 +254,46 @@ install_YoutubeDL() {
     printf "\nInstalling Youtube-DL CLI"
     sudo apt install youtube-dl
 }
+
+install_and_configure_LAMP() {
+    cd ~/Downloads
+
+    sudo apt install -y apache2 mariadb-server mariadb-client php \
+        libapache2-mod-php wget php php-cgi php-mysqli php-pear \
+        php-mbstring libapache2-mod-php php-common \
+        php-phpseclib php-mysql composer xclip
+
+    sudo systemctl enable --now apache2
+
+    sudo systemctl enable --now mariadb
+
+    yes | sudo mysql_secure_installation
+
+    sudo mysqladmin -u root password 'Test@12345'
+
+    wget -O phpmyadmin.tar.gz 'https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz'
+
+    wget 'https://files.phpmyadmin.net/phpmyadmin.keyring'
+
+    gpg --import phpmyadmin.keyring
+
+    wget -O phpmyadmin.tar.gz.asc 'https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz.asc'
+
+    gpg --verify phpmyadmin.tar.gz.asc
+
+    sudo mkdir /var/www/html/phpmyadmin/
+
+    sudo tar xvf phpmyadmin.tar.gz --strip-components=1 -C /var/www/html/phpmyadmin
+
+    sudo cp /var/www/html/phpmyadmin/config.sample.inc.php /var/www/html/phpmyadmin/config.inc.php
+
+    openssl rand -base64 32 | xclip -selection clipboard
+
+    sudo nano /var/www/html/phpmyadmin/config.inc.php
+
+    sudo chmod 660 /var/www/html/phpmyadmin/config.inc.php
+
+    sudo chown -R www-data:www-data /var/www/html/phpmyadmin
+
+    sudo systemctl restart apache2
+}
