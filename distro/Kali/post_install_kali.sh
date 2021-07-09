@@ -7,8 +7,6 @@ GIT_CLI_EDITOR=""
 
 clear
 
-
-
 banner() {
     printf "\n\n\n"
     msg="| $* |"
@@ -68,6 +66,7 @@ gitsetup() {
         printf "\e[1;32m\nOpen this link https://github.com/settings/keys in the browser.\e[0m"
         printf "\e[1;32m\nClik on New SSH key.\e[0m"
         xclip -selection clipboard <~/.ssh/id_ed25519.pub
+
         printf "\e[1;32m\nGive a title for the SSH key.\e[0m"
         printf "\e[1;32m\nPaste the clipboard content in the textarea box below the title.\e[0m"
         printf "\e[1;32m\nClick on Add SSH key.\n\n\e[0m"
@@ -166,36 +165,48 @@ configure_title_bar() {
 
 install_Brave() {
     banner "Installing Brave Browser"
+
     printf "\e[1;32m\n\nInstalling Brave Browser\e[0m"
     printf "\e[1;32m\nInstalling requirements - apt-transport-https, curl\e[0m"
     sudo apt install apt-transport-https curl
+
     printf "\e[1;32m\nDownloading Brave Browser keyring\e[0m"
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
     printf "\e[1;32m\nAdding source for Brave Browser in apt list\e[0m"
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
     printf "\e[1;32m\nFetching version to upgrade\e[0m"
     sudo apt update
+
     printf "\nInstalling brave-browser package\e[0m"
     sudo apt install brave-browser
 }
 
 install_Discord() {
     banner "Installing discord tar file"
+
     printf "\e[1;32m\n\nDownloading discord tar file\e[0m"
     cd ~/Downloads
     wget -O discord.tar.gz 'https://discord.com/api/download?platform=linux&format=tar.gz'
+
     printf "\e[1;32m\nExtracting discord tar file\e[0m"
     sudo tar -xvzf discord.tar.gz -C /opt
+
     printf "\e[1;32m\nAdding symbolic link on /usr/bin/Discord\e[0m"
     sudo ln -sf /opt/Discord/Discord /usr/bin/Discord
+
     printf "\e[1;32m\nCopying discord.desktop to /usr/share/applications\e[0m"
     sudo cp -r /opt/Discord/discord.desktop /usr/share/applications
+
     printf "\e[1;32m\nInstalling libatomic1\e[0m"
     sudo sudo apt install libatomic1
+
     printf "\e[1;32m\nAdding executable file for discord.desktop\e[0m"  
     SUBJECT='/usr/share/applications/discord.desktop'
     SEARCH_FOR='Exec='
     sudo sed -i "/^$SEARCH_FOR/c\/usr/bin/Discord" $SUBJECT
+
     printf "\e[1;32m\nAdding icon for discord.desktop\e[0m"
     SEARCH_FOR='Icon='
     sudo sed -i "/^$SEARCH_FOR/c\/opt/Discord/discord.png" $SUBJECT
@@ -212,27 +223,34 @@ install_snapd() {
     
     printf "\e[1;32m\n\nInstalling snapd and apparmor\e[0m"
     sudo apt install snapd apparmor
+
     printf "\e[1;32m\nStarting snapd.socket and enabling to start on boot\e[0m"
     sudo systemctl enable --now snapd.socket
+
     printf "\e[1;32m\nStarting apparmor.socket and enabling to start on boot\e[0m"
     sudo systemctl enable --now apparmor.service
+    
+    printf "\e[1;32m\nEnabling Classic Snap Support by creating the symbolic link\e[0m"
     sudo ln -s /var/lib/snapd/snap /snap
 }
 
 install_NeoFetch() {
     banner "Installing Neofetch"
+
     printf "\e[1;32m\nInstalling NeoFetch\e[0m"
     sudo apt-get install neofetch
 }
 
 install_Audio_Tools() {
     banner "Installing Audio Tools"
+
     printf "\e[1;32m\nInstalling Audio Tools\e[0m"
     sudo apt install -y pulseaudio pavucontrol alsa-utils alsa-ucm-conf
 }
 
 install_NVIDIA_drivers() {
     banner "Installing NVIDIA drivers"
+
     printf "\e[1;32m\nInstall NVDIA-Drivers\e[0m"
     sudo apt install nvidia-driver nvidia-cuda-toolkit
 }
@@ -298,6 +316,7 @@ install_YoutubeDL() {
 install_and_configure_LAMP() {
     banner "Installing and Configuring LAMPP"
     cd ~/Downloads
+
     printf "\e[1;32m\n\nInstalling necessary LAMP stack packages\e[0m"
     sudo apt install -y apache2 mariadb-server mariadb-client php \
         libapache2-mod-php wget php php-cgi php-mysqli php-pear \
@@ -340,10 +359,10 @@ install_and_configure_LAMP() {
     printf "\e[1;32m\nCopying config.sample.inc.php as config.inc.php\e[0m"
     sudo cp /var/www/html/phpmyadmin/config.sample.inc.php /var/www/html/phpmyadmin/config.inc.php
 
-    printf "\e[1;32m\nGenerating random password and copying to clipboard\e[0m"
+    printf "\e[1;32m\nGenerating random password and copying to clipboard\e[0m\n"
     openssl rand -base64 32 | xclip -selection clipboard
-    printf "\e[1;32mPassword is copied"
-    printf "\e[1;32m\nSet the passphrase for cfg['blowfish_secret'] with the copied password \e[0m"
+    printf "\e[1;32mPassword is copied\n"
+    printf "\e[1;32m\nSet the passphrase for cfg['blowfish_secret'] with the copied password \e[0m\n"
     pause
     sudo nano /var/www/html/phpmyadmin/config.inc.php
     
