@@ -406,6 +406,18 @@ install_and_configure_LAMP() {
 
     printf "\e[1;32m\nAdding Laravel Installer globally\e[0m"
     composer global require laravel/installer
+
+    printf "\e[1;32m\nGetting the updated php.ini\e[0m"
+    wget 'https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/Kali/lampp/php.ini' -P ~/Downloads
+
+    printf "\e[1;32m\nCreating backup of the current php.ini file...\e[0m"
+    sudo cp /etc/php/7.4/apache2/php.ini /etc/php/7.4/apache2/php.ini.backup
+
+    printf "\e[1;32m\n\nCopying the updated php.ini\e[0m"
+    sudo cp ~/Downloads/php.ini /etc/php/7.4/apache2/php.ini
+
+    printf "\e[1;32m\nRestarting the apache2 service\e[0m"
+    sudo systemctl restart apache2
 }
 
 install_Everything() {
