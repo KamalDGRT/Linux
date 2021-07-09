@@ -6,6 +6,8 @@ alias phpconf='subl /etc/php/php.ini'
 alias hconf='subl /etc/httpd/conf/httpd.conf'
 alias vconf='subl /etc/httpd/conf/extra/httpd-vhosts.conf'
 alias ehost='subl /etc/hosts'
+alias gr='cd ~/RKS_FILES/GitRep/'
+alias gcpush='~/RKS_FILES/GitRep/Linux/common/shell/gcpush.sh'
 
 
 # Git Related Aliases
@@ -23,7 +25,7 @@ alias compup='composer update'
 alias yii2='cd /srv/http/yii2'
 alias ynadv='composer create-project --prefer-dist yiisoft/yii2-app-advanced'
 alias pinit='php init'
-alias yfixperm='~/RKS_FILES/GitRep/rkswrites/Garuda/yfixperm.sh'
+alias yfixperm='~/RKS_FILES/GitRep/Linux/common/shell/yfixperm.sh'
 alias pymig='php yii migrate'
 alias ccmlocal='code common/config/main-local.php'
 alias scmlocal='subl common/config/main-local.php'

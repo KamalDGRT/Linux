@@ -21,6 +21,28 @@ pause() {
     clear
 }
 
+enable_grub_menu() {
+    # Find & Replace part contributed by: https://github.com/nanna7077
+    clear
+    banner "Showing the GRUB menu at boot"
+    printf "\n\nThe script will change the grub default file."
+    printf "\n\nThe file is: /etc/default/grub\n"
+    printf "\nIn that file, there will be a line that looks like this:"
+    printf "\n\n     GRUB_TIMEOUT=5\n\n"
+    printf "\nThe script will change the value of GRUB_TIMEOUT to -1.\n"
+
+    SUBJECT='/etc/default/grub'
+    SEARCH_FOR='GRUB_TIMEOUT='
+    sudo sed -i "/^$SEARCH_FOR/c\GRUB_TIMEOUT=-1" $SUBJECT
+    printf "\n/etc/default/grub file changed.\n"
+
+    banner "Showing the GRUB menu at boot"
+    printf "\n\nGenerating the new GRUB configuration\n\n"
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+    printf "\n\nGRUB config updated. It will be reflected in the next boot.\n\n"
+}
+
 install_Xclip() {
     banner "Installing xclip"
     printf"\e[1;32m\n\nUpdating the package cache...\n\e[0m"
@@ -202,7 +224,7 @@ install_Discord() {
     printf "\e[1;32m\nInstalling libatomic1\e[0m"
     sudo sudo apt install libatomic1
 
-    printf "\e[1;32m\nAdding executable file for discord.desktop\e[0m"  
+    printf "\e[1;32m\nAdding executable file for discord.desktop\e[0m"
     SUBJECT='/usr/share/applications/discord.desktop'
     SEARCH_FOR='Exec='
     sudo sed -i "/^$SEARCH_FOR/c\/usr/bin/Discord" $SUBJECT
@@ -220,7 +242,7 @@ install_Telegram() {
 
 install_snapd() {
     banner "Installing Snap"
-    
+
     printf "\e[1;32m\n\nInstalling snapd and apparmor\e[0m"
     sudo apt install snapd apparmor
 
@@ -229,7 +251,7 @@ install_snapd() {
 
     printf "\e[1;32m\nStarting apparmor.socket and enabling to start on boot\e[0m"
     sudo systemctl enable --now apparmor.service
-    
+
     printf "\e[1;32m\nEnabling Classic Snap Support by creating the symbolic link\e[0m"
     sudo ln -s /var/lib/snapd/snap /snap
 }
@@ -320,24 +342,25 @@ install_and_configure_LAMP() {
     printf "\e[1;32m\n\nInstalling necessary LAMP stack packages\e[0m"
     sudo apt install -y apache2 mariadb-server mariadb-client php \
         libapache2-mod-php wget php php-cgi php-mysqli php-pear \
-        php-mbstring libapache2-mod-php php-common \
-        php-phpseclib php-mysql composer xclip
+        php-mbstring libapache2-mod-php php-common php-xml \
+        php-xmlrpc php-soap php-cli php-zip php-bcmath php-tokenizer \
+        php-json php-curl php-gd php-phpseclib php-mysql composer xclip
 
     printf "\e[1;32m\nStarting apache2.socket and enabling to start on boot\e[0m"
     sudo systemctl enable --now apache2
-    
+
     printf "\e[1;32m\nStarting snapd.socket and enabling to start on boot\e[0m"
     sudo systemctl enable --now mariadb
-    
+
     printf "\e[1;32m\nEnabling basic security measures for the MariaDB database\e[0m"
     yes | sudo mysql_secure_installation
-    
+
     printf "\e[1;32m\nAdding root user with Test@12345 as password\e[0m"
     sudo mysqladmin -u root password 'Test@12345'
-    
+
     printf "\e[1;32m\nDownloading PHP tar file\e[0m"
     wget -O phpmyadmin.tar.gz 'https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz'
-    
+
     printf "\e[1;32m\nDownloading keyring for phpmyadmin\e[0m"
     wget 'https://files.phpmyadmin.net/phpmyadmin.keyring'
 
@@ -346,16 +369,16 @@ install_and_configure_LAMP() {
 
     printf "\e[1;32m\nDownloading phpmyadmin tar file\e[0m"
     wget -O phpmyadmin.tar.gz.asc 'https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz.asc'
-    
+
     printf "\e[1;32m\nVerifyiny phpmyadmin tar file\e[0m"
     gpg --verify phpmyadmin.tar.gz.asc
-    
+
     printf "\e[1;32m\nCreating phpmyadmin directory on /var/www/html/\e[0m"
     sudo mkdir /var/www/html/phpmyadmin/
-    
+
     printf "\e[1;32m\nExtracting and exporting phpmyadmin.tar.gz\e[0m"
     sudo tar xvf phpmyadmin.tar.gz --strip-components=1 -C /var/www/html/phpmyadmin
-    
+
     printf "\e[1;32m\nCopying config.sample.inc.php as config.inc.php\e[0m"
     sudo cp /var/www/html/phpmyadmin/config.sample.inc.php /var/www/html/phpmyadmin/config.inc.php
 
@@ -365,15 +388,24 @@ install_and_configure_LAMP() {
     printf "\e[1;32m\nSet the passphrase for cfg['blowfish_secret'] with the copied password \e[0m\n"
     pause
     sudo nano /var/www/html/phpmyadmin/config.inc.php
-    
+
     printf "\e[1;32m\nGiving permission for group and root to read-write and resctricting all permission for others\e[0m"
     sudo chmod 660 /var/www/html/phpmyadmin/config.inc.php
 
     printf "\e[1;32m\nChanging symbolic links ownership \e[0m"
     sudo chown -R www-data:www-data /var/www/html/phpmyadmin
-    
+
     printf "\e[1;32m\nRestarting the apache2 socket\e[0m"
     sudo systemctl restart apache2
+
+    printf "\e[1;32m\nEnabling the RewriteEngine\e[0m"
+    sudo a2enmod rewrite
+
+    printf "\e[1;32m\nReloading the apache2 service\e[0m"
+    sudo systemctl reload apache2
+
+    printf "\e[1;32m\nAdding Laravel Installer globally\e[0m"
+    composer global require laravel/installer
 }
 
 install_Everything() {
