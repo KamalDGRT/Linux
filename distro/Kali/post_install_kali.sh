@@ -156,24 +156,35 @@ configure_title_bar() {
 
 install_Brave() {
     printf "\n\nInstalling Brave Browser"
+    printf "\nInstalling requirements - apt-transport-https, curl"
     sudo apt install apt-transport-https curl
+    printf "\nDownloading Brave Browser keyring"
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    printf "\nAdding source for Brave Browser in apt list"
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+    printf "\nFetching version to upgrade"
     sudo apt update
+    printf "\nInstalling brave-browser package"
     sudo apt install brave-browser
 }
 
 install_Discord() {
+    printf "\n\nDownloading discord tar file"
     cd ~/Downloads
     wget -O discord.tar.gz 'https://discord.com/api/download?platform=linux&format=tar.gz'
+    printf "\nExtracting discord tar file"
     sudo tar -xvzf discord.tar.gz -C /opt
+    printf "\nAdding symbolic link on /usr/bin/Discord"
     sudo ln -sf /opt/Discord/Discord /usr/bin/Discord
+    printf "\nCopying discord.desktop to /usr/share/applications"
     sudo cp -r /opt/Discord/discord.desktop /usr/share/applications
+    printf "\nInstalling libatomic1"
     sudo sudo apt install libatomic1
+    printf "\nAdding executable file for discord.desktop"  
     SUBJECT='/usr/share/applications/discord.desktop'
     SEARCH_FOR='Exec='
     sudo sed -i "/^$SEARCH_FOR/c\/usr/bin/Discord" $SUBJECT
-
+    printf "\nAdding icon for discord.desktop"
     SEARCH_FOR='Icon='
     sudo sed -i "/^$SEARCH_FOR/c\/opt/Discord/discord.png" $SUBJECT
 }
@@ -184,8 +195,11 @@ install_Telegram() {
 }
 
 install_snapd() {
+    printf "\n\nInstalling snapd and apparmor"
     sudo apt install snapd apparmor
+    printf "\nStarting snapd.socket and enabling to start on boot"
     sudo systemctl enable --now snapd.socket
+    printf "\nStarting apparmor.socket and enabling to start on boot"
     sudo systemctl enable --now apparmor.service
     sudo ln -s /var/lib/snapd/snap /snap
 }
@@ -257,44 +271,62 @@ install_YoutubeDL() {
 
 install_and_configure_LAMP() {
     cd ~/Downloads
-
+    printf "\n\nInstalling apache2 mariadb-server mariadb-client php libapache2-mod-php wget php php-cgi php-mysqli php-pear php-mbstring libapache2-mod-php php-common php-phpseclib php-mysql composer xclip"
     sudo apt install -y apache2 mariadb-server mariadb-client php \
         libapache2-mod-php wget php php-cgi php-mysqli php-pear \
         php-mbstring libapache2-mod-php php-common \
         php-phpseclib php-mysql composer xclip
 
+    printf "\nStarting apache2.socket and enabling to start on boot"
     sudo systemctl enable --now apache2
-
+    
+    printf "\nStarting snapd.socket and enabling to start on boot"
     sudo systemctl enable --now mariadb
-
+    
+    printf "\nEnabling basic security measures for the MariaDB database"
     yes | sudo mysql_secure_installation
-
+    
+    printf "\nAdding root user with Test@12345 as password"
     sudo mysqladmin -u root password 'Test@12345'
-
+    
+    printf "\nDownloading PHP tar file"
     wget -O phpmyadmin.tar.gz 'https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz'
-
+    
+    printf "\nDownloading keyring for phpmyadmin"
     wget 'https://files.phpmyadmin.net/phpmyadmin.keyring'
 
+    printf "\nImporting phpmyadmin keyring"
     gpg --import phpmyadmin.keyring
 
+    printf "\nDownloading phpmyadmin tar file"
     wget -O phpmyadmin.tar.gz.asc 'https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz.asc'
-
+    
+    printf "\nVerifyiny phpmyadmin tar file"
     gpg --verify phpmyadmin.tar.gz.asc
-
+    
+    printf "\nCreating phpmyadmin directory on /var/www/html/"
     sudo mkdir /var/www/html/phpmyadmin/
-
+    
+    printf "\nExtracting and exporting phpmyadmin.tar.gz"
     sudo tar xvf phpmyadmin.tar.gz --strip-components=1 -C /var/www/html/phpmyadmin
-
+    
+    printf "\nCopying config.sample.inc.php as config.inc.php"
     sudo cp /var/www/html/phpmyadmin/config.sample.inc.php /var/www/html/phpmyadmin/config.inc.php
 
+    printf "\nGenerating random password and copying to clipboard"
     openssl rand -base64 32 | xclip -selection clipboard
-
+    printf "Password is copied"
+    printf "\nSet the passphrase for cfg['blowfish_secret'] with the copied password"
+    pause
     sudo nano /var/www/html/phpmyadmin/config.inc.php
-
+    
+    printf "Giving permission for group and root to read-write and resctricting all permission for others"
     sudo chmod 660 /var/www/html/phpmyadmin/config.inc.php
 
+    printf "Changing symbolic links ownership "
     sudo chown -R www-data:www-data /var/www/html/phpmyadmin
-
+    
+    printf "Restarting the apache2 socket"
     sudo systemctl restart apache2
 }
 
