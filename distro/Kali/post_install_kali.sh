@@ -326,8 +326,8 @@ install_PyCharm_Community_Edition() {
 }
 
 install_Pip() {
-    banner "Installing PIP"
-    sudo apt install python3-pip
+    banner "Installing PIP and VENV"
+    sudo apt install python3-pip python3-venv
 }
 
 install_YoutubeDL() {
