@@ -420,6 +420,11 @@ install_and_configure_LAMP() {
     sudo systemctl restart apache2
 }
 
+install_qBittorrent() {
+    banner "Installing qBittorrent"
+    sudo apt install -y qbittorrent
+}
+
 install_Everything() {
     gitsetup
 
@@ -443,5 +448,6 @@ install_Everything() {
     install_Sublime_Text
     install_VSCode
     install_and_configure_LAMP
+    install_qBittorrent
     install_NVIDIA_drivers
 }
