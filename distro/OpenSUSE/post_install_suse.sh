@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Add your GitHub details here:
-GITHUB_USERNAME="KamalDGRT"
-GITHUB_EMAIL_ID="kamaldgrt@gmail.com"
-GIT_CLI_EDITOR="vim"
+GITHUB_USERNAME=""
+GITHUB_EMAIL_ID=""
+GIT_CLI_EDITOR=""
 
 clear
 
@@ -19,6 +19,31 @@ banner() {
 pause() {
     read -s -n 1 -p "Press any key to continue . . ."
     clear
+}
+
+install_NeoFetch() {
+    banner "Installing Neofetch"
+
+    printf "\e[1;32m\nInstalling NeoFetch\e[0m"
+    sudo zypper install -y neofetch
+}
+
+enable_xorg_windowing() {
+    # Find & Replace part contributed by: https://github.com/nanna7077
+    clear
+    banner "Enable Xorg, Disable Wayland"
+    printf "\n\nThe script will change the gdm default file."
+    printf "\n\nThe file is: /etc/gdm/custom.conf\n"
+    printf "\nIn that file, there will be a line that looks like this:"
+    printf "\n\n     #WaylandEnable=false\n\n"
+    printf "\nThe script will uncomment that line\n"
+
+    SUBJECT='/etc/gdm/custom.conf'
+    SEARCH_FOR='#WaylandEnable=false'
+    sudo sed -i "/^$SEARCH_FOR/c\WaylandEnable=false" $SUBJECT
+    printf "\n/etc/gdm/custom.conf file changed.\n"
+
+    printf "\n\nGDM config updated. It will be reflected in the next boot.\n\n"
 }
 
 gitsetup() {
@@ -149,7 +174,150 @@ configure_title_bar() {
     gsettings set org.gnome.desktop.interface clock-show-weekday true
 }
 
+install_Git() {
+    banner "Install Git"
+    printf "\e[1;32m\nInstalling Git and Git Related packages...\n\e[0m"
+    sudo zypper install -y git
+}
 
-rks_gnome_themes
+install_Microsoft_Fonts() {
+    banner "Install Microsoft Fonts"
+    printf "\e[1;32m\nInstalling Microsoft Fonts...\n\e[0m"
+    sudo zypper install -y fetchmsttfonts
+}
 
+install_Fira_Code_Font() {
+    # https://github.com/tonsky/FiraCode/wiki/Linux-instructions
 
+    fonts_dir="${HOME}/.local/share/fonts"
+    if [ ! -d "${fonts_dir}" ]; then
+        echo "mkdir -p $fonts_dir"
+        mkdir -p "${fonts_dir}"
+    else
+        echo "Found fonts dir $fonts_dir"
+    fi
+
+    for type in Bold Light Medium Regular Retina SemiBold; do
+        file_path="${HOME}/.local/share/fonts/FiraCode-${type}.ttf"
+        file_url="https://github.com/tonsky/FiraCode/blob/master/distr/ttf/FiraCode-${type}.ttf?raw=true"
+        if [ ! -e "${file_path}" ]; then
+            echo "wget -O $file_path $file_url"
+            wget -O "${file_path}" "${file_url}"
+        else
+            echo "Found existing file $file_path"
+        fi
+    done
+
+    printf "\n\nBuilding the Font Cache...\n"
+    echo "fc-cache -f"
+    fc-cache -f
+}
+
+install_YoutubeDL() {
+    banner "Installing Youtube-DL"
+    sudo zypper install -y youtube-dl
+}
+
+install_GNOME_Shell_Extensions() {
+    banner "Installing GNOME Shell extensions"
+    sudo zypper install -y gnome-shell-extensions-common gnome-shell-extension-user-theme
+}
+
+install_VSCode() {
+    banner "Installing Visual Studio Code"
+    printf "\e[1;32m\nInstalling Microsoft Visual Studio Code...\e[0m"
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo zypper addrepo https://packages.microsoft.com/yumrepos/vscode vscode
+    sudo zypper refresh
+    sudo zypper install code
+}
+
+install_Sublime_Text() {
+    banner "Installing Sublime Text"
+    printf "\e[1;32m\nInstalling Sublime Text\e[0m"
+    sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+    sudo zypper addrepo -g -f https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+    sudo zypper install sublime-text
+}
+
+install_OPI() {
+    banner "Install: OBS Package Installer"
+    sudo zypper install opi
+}
+
+install_Telegram() {
+    banner "Installing Telegram"
+    printf "\e[1;32m\n Install Telegram\e[0m"
+    sudo zypper install -y telegram-desktop
+}
+
+install_snapd() {
+    banner "Installing Snap"
+
+    printf "\e[1;32m\n\nInstalling snapd and apparmor\e[0m"
+    sudo zypper addrepo --refresh https://download.opensuse.org/repositories/system:/snappy/openSUSE_Leap_15.3 snappy
+    sudo zypper dup --from snappy
+    sudo zypper install snapd
+    sudo systemctl enable --now snapd
+}
+
+reduce_Swappiness() {
+    # sudo nano /etc/sysctl.conf
+    # Append this to the above file.
+    # vm.swappiness=10
+}
+
+install_Brave_Browser() {
+    banner "Install: Brave Browser"
+    sudo zypper install -y curl
+    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+    sudo zypper addrepo https://brave-browser-rpm-release.s3.brave.com/x86_64/ brave-browser
+    sudo zypper install -y brave-browser
+}
+
+install_Discord() {
+    banner "Install: Discord"
+    sudo zypper install -y libatomic1 discord
+}
+
+zoom_app() {
+    banner "Installing: Zoom Video Conferencing App"
+
+    printf "\n - Going inside the Downloads folder..."
+    cd ~/Downloads
+
+    printf "\n - Downloading the Key for signing"
+    wget -O package-signing-key.pub 'https://zoom.us/linux/download/pubkey'
+
+    printf "\n - Signing the new key"
+    sudo rpm --import package-signing-key.pub
+
+    printf "\n - Downloading the Zoom application..."
+    wget 'https://zoom.us/client/latest/zoom_openSUSE_x86_64.rpm'
+
+    printf "\n - Starting the zoom installation..."
+    sudo zypper install -y zoom_openSUSE_x86_64.rpm
+
+    printf "\n - Coming out of the Downloads folder..."
+    cd
+}
+
+install_qBittorrent() {
+    banner "Installing: qBittorrent"
+    sudo zypper install -y qbittorrent
+}
+
+install_TLP() {
+    banner "Installing: TLP"
+    sudo zypper install -y tlp tlp-rdw
+}
+
+obs_studio() {
+    banner "Installing Snap Package: OBS Studio"
+    sudo snap install obs-studio
+}
+
+installSpotify() {
+    banner "Installing Snap Package: Spotify"
+    sudo snap install spotify
+}
