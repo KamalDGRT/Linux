@@ -261,11 +261,11 @@ install_snapd() {
     sudo systemctl enable --now snapd
 }
 
-reduce_Swappiness() {
-    # sudo nano /etc/sysctl.conf
-    # Append this to the above file.
-    # vm.swappiness=10
-}
+# reduce_Swappiness() {
+#     # sudo nano /etc/sysctl.conf
+#     # Append this to the above file.
+#     # vm.swappiness=10
+# }
 
 install_Brave_Browser() {
     banner "Install: Brave Browser"
@@ -321,3 +321,117 @@ installSpotify() {
     banner "Installing Snap Package: Spotify"
     sudo snap install spotify
 }
+
+aliases_and_scripts() {
+    banner "Installing Aliases and Scripts"
+
+    aliasfile="\n"
+    aliasfile+="if [ -f ~/.rksalias ]; then\n"
+    aliasfile+=". ~/.rksalias\n"
+    aliasfile+="fi\n"
+
+    printf "\nCreating a directory to clone the KamalDGRT/Linux repo.."
+    if [ -d ~/RKS_FILES/GitRep ]; then
+        printf "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/RKS_FILES/GitRep
+    fi
+
+    printf "\nGoing inside ~/RKS_FILES/GitRep"
+    cd ~/RKS_FILES/GitRep
+
+    if [ -d ~/RKS_FILES/GitRep/Linux ]; then
+        printf "\nRepository exists. \nSkipping the cloning step..\n"
+    else
+        printf "\nCloning the GitHub Repo\n"
+        git clone https://github.com/KamalDGRT/Linux.git
+    fi
+
+    printf "\nGoing inside Linux directory..."
+    cd Linux
+
+    printf "\nCreating the file with aliases to the ~/ location.."
+    printf "\n\nChecking if the alias file exists..."
+    if [ -f ~/RKS_FILES/GitRep/Linux/distro/OpenSUSE/rksalias.txt ]; then
+        printf "\nAlias file exists.."
+        cp distro/Manjaro/rksalias.txt ~/.rksalias
+    else
+        printf "\nAlias file not found.."
+
+        printf "\nMoving into /tmp directoroy.."
+        cd /tmp
+
+        printf "\nGetting the file from GitHub"
+        wget https://raw.githubusercontent.com/KamalDGRT/Linux/master/distro/OpenSUSE/rksalias.txt
+
+        printf "\nMoving the file to ~/"
+        mv rksalias.txt ~/.rksalias
+    fi
+
+    printf "\n\nAdding the aliases to the fish conf.."
+    if [ -f ~/.config/fish/config.​fish ]; then
+        ~/.config/fish/config.​fish >>printf "${aliasfile}"
+        printf "\nAliases added successfully to fish shell."
+    else
+        printf "\nYour OS does not have fish shell.\nSkipping..."
+    fi
+
+    printf "\n\nAdding the aliases to the BASH shell.."
+    if [ -f ~/.bashrc ]; then
+        printf "${aliasfile}" >>~/.bashrc
+        printf "\nAliases added successfully to BASH"
+    else
+        printf "\nYour OS does not have BASH shell.\nSkipping..."
+    fi
+
+    printf "\n\nAdding the aliases to the ZSH shell.."
+    if [ -f ~/.zshrc ]; then
+        printf "${aliasfile}" >>~/.zshrc
+        printf "\nAliases added successfully to ZSH"
+    else
+        printf "\nYour OS does not have ZSH shell.\nSkipping..."
+    fi
+
+    printf "\n\nTo make the aliases work, close and reopen the "
+    printf "terminals that are using those shells.\n"
+}
+
+install_and_configure_LAMP() {
+    banner "Installing and Configuring LAMPP"
+
+    printf "\e[1;32m\n\nInstalling necessary LAMP stack packages\e[0m"
+    sudo zypper install -y apache2 mariadb mariadb-client \
+        php php-mysql php-gd php-mbstring apache2-mod_php7 \
+        php-xml php-curl php-zip phpMyAdmin
+
+    printf "\e[1;32m\nStarting apache2.socket and enabling to start on boot\e[0m"
+    sudo systemctl enable --now apache2
+
+    printf "\e[1;32m\nStarting snapd.socket and enabling to start on boot\e[0m"
+    sudo systemctl enable --now mariadb
+
+    printf "\e[1;32m\nAllowing the firewall to access pages...\e[0m"
+    sudo firewall-cmd --permanent --add-port=80/tcp
+    sudo firewall-cmd --permanent --add-port=443/tcp
+    sudo firewall-cmd --reload
+
+    printf "\e[1;32m\nEnabling basic security measures for the MariaDB database\e[0m"
+    yes | sudo mysql_secure_installation
+
+    printf "\e[1;32m\nAdding root user with Test@12345 as password\e[0m"
+    sudo mysqladmin -u root password 'Test@12345'
+
+    printf "\n\nEnable PHP module\n"
+    sudo a2enmod php7
+
+    printf "\n\nRestarting Apache service\n"
+    sudo systemctl restart apache2
+
+    printf "\n\nCreating index.html to test apache...\n"
+    echo "<h1>Apache2 is running fine on openSUSE Leap</h1>" | sudo tee /srv/www/htdocs/index.html
+
+    printf "\n\nCreating info.php to test PHP...\n"
+    echo "<?php phpinfo(); ?>" | sudo tee /srv/www/htdocs/info.php
+}
+
+install_and_configure_LAMP
