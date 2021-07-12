@@ -21,7 +21,13 @@ install_Spotify() {
     sudo snap install spotify
 }
 
+install_Opera() {
+    banner "Installing Snap Package: Opera"
+    sudo snap install opera
+}
+
 install_All_Snap_Apps(){
     install_OBS
     install_Spotify
+    install_Opera
 }
