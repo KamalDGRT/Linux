@@ -213,11 +213,11 @@ install_Brave() {
 install_Discord() {
     banner "Installing discord tar file"
 
-    printf "\e[1;32m\n\nDownloading discord tar file\e[0m"
+    printf "\e[1;32m\n\nDownloading discord tar file\n\n\e[0m"
     cd ~/Downloads
     wget -O discord.tar.gz 'https://discord.com/api/download?platform=linux&format=tar.gz'
 
-    printf "\e[1;32m\nExtracting discord tar file\e[0m"
+    printf "\e[1;32m\nExtracting discord tar file\n\n\e[0m"
     sudo tar -xvzf discord.tar.gz -C /opt
 
     printf "\e[1;32m\nAdding symbolic link on /usr/bin/Discord\e[0m"
@@ -229,12 +229,12 @@ install_Discord() {
     printf "\e[1;32m\nInstalling libatomic1\e[0m"
     sudo sudo apt install -y libatomic1
 
-    printf "\e[1;32m\nAdding executable file for discord.desktop\e[0m"
+    printf "\e[1;32m\nAdding executable file for discord.desktop\n\n\e[0m"
     SUBJECT='/usr/share/applications/discord.desktop'
     SEARCH_FOR='Exec='
     sudo sed -i "/^$SEARCH_FOR/c\Exec=/usr/bin/Discord" $SUBJECT
 
-    printf "\e[1;32m\nAdding icon for discord.desktop\e[0m"
+    printf "\e[1;32m\nAdding icon for discord.desktop\n\n\e[0m"
     SEARCH_FOR='Icon='
     sudo sed -i "/^$SEARCH_FOR/c\Icon=/opt/Discord/discord.png" $SUBJECT
 }
@@ -562,4 +562,4 @@ install_Everything() {
     aliases_and_scripts
 }
 
-aliases_and_scripts
+install_Discord
