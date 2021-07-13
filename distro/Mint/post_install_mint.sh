@@ -488,9 +488,9 @@ aliases_and_scripts() {
 
     printf "\nCreating the file with aliases to the ~/ location.."
     printf "\n\nChecking if the alias file exists..."
-    if [ -f ~/RKS_FILES/GitRep/Linux/distro/Manjaro/mint_alias.txt ]; then
+    if [ -f ~/RKS_FILES/GitRep/Linux/distro/Mint/mint_alias.txt ]; then
         printf "\nAlias file exists.."
-        cp ~/RKS_FILES/GitRep/Linux/distro/Manjaro/mint_alias.txt ~/.rksalias
+        cp ~/RKS_FILES/GitRep/Linux/distro/Mint/mint_alias.txt ~/.rksalias
     else
         printf "\nAlias file not found.."
 
