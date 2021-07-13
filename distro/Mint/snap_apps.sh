@@ -26,6 +26,17 @@ install_Opera() {
     sudo snap install opera
 }
 
+install_Telegram() {
+    banner "Installing Snap Package: Telegram Desktop"
+    sudo snap install telegram-desktop
+}
+
+install_vscode() {
+    banner "Installing Snap Package: Microsoft Visual Studio Code"
+    sudo snap install code --classic
+}
+
+
 install_All_Snap_Apps(){
     install_OBS
     install_Spotify
