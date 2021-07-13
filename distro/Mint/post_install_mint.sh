@@ -532,6 +532,36 @@ aliases_and_scripts() {
     printf "terminals that are using those shells.\n"
 }
 
+install_Telegram_All_Distros() {
+    # This was the message that I got when I executed: sudo apt remove telegram-desktop
+    # I figured these might be the dependencies, so I am just noting it down.
+    # The following packages were automatically installed and are no longer required:
+    # fonts-open-sans libdbusmenu-qt5-2 libminizip1 libqrcodegencpp1 librlottie0-1 libxxhash0
+
+    currentDirectory=$(pwd)
+
+    banner "Installing Telegram Desktop (All Distros Method)"
+    printf "\e[1;32m\nInstalling Telegram Desktop\n\n\e[0m"
+
+    printf "\e[1;32m\nChanging Directory: ~/Downloads \n\n\e[0m"
+    cd ~/Downloads
+
+    printf "\e[1;32m\n Getting the installation zip file... \n\n\e[0m"
+    wget -O tsetup.tar.xz 'https://telegram.org/dl/desktop/linux'
+
+    printf "\e[1;32m\n Extracting the zip file to: /opt/ \n\n\e[0m"
+    sudo tar -xJvf ~/Downloads/tsetup.tar.xz -C /opt/
+
+    printf "\e[1;32m\n Renaming the Extracted folder... \n\n\e[0m"
+    sudo mv /opt/Telegram /opt/telegram
+
+    printf "\e[1;32m\n Add symbolic link \n\n\e[0m"
+    sudo ln -sf /opt/telegram/Telegram /usr/bin/telegram
+
+    printf "\n\nComing back to th present working directory\n\n"
+    cd "${currentDirectory}"
+}
+
 install_Everything() {
     install_Git
     install_Xclip
@@ -562,4 +592,4 @@ install_Everything() {
     aliases_and_scripts
 }
 
-install_Discord
+install_Telegram_All_Distros
