@@ -307,8 +307,10 @@ install_gh_CLI() {
     printf"\e[1;32m\nAdding gh repository in apt...\e[0m" 
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
     sudo apt-add-repository https://cli.github.com/packages
+
     printf"\e[1;32m\nFetching the packages details...\e[0m" 
     sudo apt update
+
     printf"\e[1;32m\nInstalling gh CLI using apt...\e[0m" 
     sudo apt install gh -y
 }
