@@ -315,8 +315,8 @@ install_gh_CLI() {
 
 install_Heroku_CLI() {
     banner "Installing Heroku CLI"
-    printf"\e[1;32m\nInstalling Heroku CLI using snap...\e[0m"
-    sudo snap install --classic heroku
+    printf"\e[1;32m\nInstalling Heroku CLI using apt...\e[0m"
+    curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
 }
 
 install_VSCode() {
