@@ -126,7 +126,7 @@ lampp_stack() {
 configure_lamp_stack() {
     banner "Configuring: LAMP Stack Packages"
 
-    printf "\nCreating a directory to clone the KamalDGRT/manjaro-conf repo.."
+    printf "\nCreating a directory to clone the KamalDGRT/linux-conf repo.."
     if [ -d ~/RKS_FILES/GitRep ]; then
         printf "\nDirectory exists.\nSkipping the creation step..\n"
     else
@@ -136,15 +136,15 @@ configure_lamp_stack() {
     printf "\nGoing inside ~/RKS_FILES/GitRep"
     cd ~/RKS_FILES/GitRep
 
-    if [ -d ~/RKS_FILES/GitRep/manjaro-conf ]; then
+    if [ -d ~/RKS_FILES/GitRep/linux-conf ]; then
         printf "\nRepository exists. \nSkipping the cloning step..\n"
     else
         printf "\nCloning the GitHub Repo\n"
-        git clone https://github.com/KamalDGRT/manjaro-conf.git
+        git clone https://github.com/KamalDGRT/linux-conf.git
     fi
 
-    printf "\nGoing inside manjaro-conf directory..."
-    cd manjaro-conf
+    printf "\nGoing inside linux-conf directory..."
+    cd linux-conf
 
     printf "\n\nCreating backup of the current httpd.conf file..."
     sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.backup
@@ -156,22 +156,22 @@ configure_lamp_stack() {
     sudo cp /etc/php/php.ini /etc/php/php.ini.backup
 
     printf "\n\nCopying the file from repo: httpd.conf"
-    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/httpd.conf /etc/httpd/conf/httpd.conf
+    sudo cp ~/RKS_FILES/GitRep/linux-conf/Manjaro/lampp/httpd.conf /etc/httpd/conf/httpd.conf
 
     printf "\nCopying the file from repo: httpd-vhosts.conf"
-    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf
+    sudo cp ~/RKS_FILES/GitRep/linux-conf/Manjaro/lampp/httpd-vhosts.conf /etc/httpd/conf/extra/httpd-vhosts.conf
 
     printf "\nCopying the file from repo: php.ini"
-    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/php.ini /etc/php/php.ini
+    sudo cp ~/RKS_FILES/GitRep/linux-conf/Manjaro/lampp/php.ini /etc/php/php.ini
 
     printf "\nCopying the file from repo: phpmyadmin.conf"
-    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/phpmyadmin.conf /etc/httpd/conf/extra/phpmyadmin.conf
+    sudo cp ~/RKS_FILES/GitRep/linux-conf/Manjaro/lampp/phpmyadmin.conf /etc/httpd/conf/extra/phpmyadmin.conf
 
     printf "\nCopying the file from repo: index.html"
-    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/index.html /srv/http/index.html
+    sudo cp ~/RKS_FILES/GitRep/linux-conf/Manjaro/lampp/index.html /srv/http/index.html
 
     printf "\nCopying the file from repo: test.php"
-    sudo cp ~/RKS_FILES/GitRep/manjaro-conf/lampp/test.php /srv/http/test.php
+    sudo cp ~/RKS_FILES/GitRep/linux-conf/Manjaro/lampp/test.php /srv/http/test.php
 
     printf "\n\nInstalling MySQL databases\n"
     sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql

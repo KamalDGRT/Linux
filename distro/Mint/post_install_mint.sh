@@ -57,6 +57,11 @@ install_Figlet() {
     sudo apt install figlet
 }
 
+install_Git() {
+    banner "Installing Git"
+    sudo apt install -y git
+}
+
 gitsetup() {
     banner "Setting up SSH for git and GitHub"
 
@@ -208,11 +213,11 @@ install_Brave() {
 install_Discord() {
     banner "Installing discord tar file"
 
-    printf "\e[1;32m\n\nDownloading discord tar file\e[0m"
+    printf "\e[1;32m\n\nDownloading discord tar file\n\n\e[0m"
     cd ~/Downloads
     wget -O discord.tar.gz 'https://discord.com/api/download?platform=linux&format=tar.gz'
 
-    printf "\e[1;32m\nExtracting discord tar file\e[0m"
+    printf "\e[1;32m\nExtracting discord tar file\n\n\e[0m"
     sudo tar -xvzf discord.tar.gz -C /opt
 
     printf "\e[1;32m\nAdding symbolic link on /usr/bin/Discord\e[0m"
@@ -222,45 +227,42 @@ install_Discord() {
     sudo cp -r /opt/Discord/discord.desktop /usr/share/applications
 
     printf "\e[1;32m\nInstalling libatomic1\e[0m"
-    sudo sudo apt install libatomic1
+    sudo sudo apt install -y libatomic1
 
-    printf "\e[1;32m\nAdding executable file for discord.desktop\e[0m"
+    printf "\e[1;32m\nAdding executable file for discord.desktop\n\n\e[0m"
     SUBJECT='/usr/share/applications/discord.desktop'
     SEARCH_FOR='Exec='
-    sudo sed -i "/^$SEARCH_FOR/c\/usr/bin/Discord" $SUBJECT
+    sudo sed -i "/^$SEARCH_FOR/c\Exec=/usr/bin/Discord" $SUBJECT
 
-    printf "\e[1;32m\nAdding icon for discord.desktop\e[0m"
+    printf "\e[1;32m\nAdding icon for discord.desktop\n\n\e[0m"
     SEARCH_FOR='Icon='
-    sudo sed -i "/^$SEARCH_FOR/c\/opt/Discord/discord.png" $SUBJECT
+    sudo sed -i "/^$SEARCH_FOR/c\Icon=/opt/Discord/discord.png" $SUBJECT
 }
 
 install_Telegram() {
     banner "Installing Telegram"
     printf "\e[1;32m\n Install Telegram\e[0m"
-    sudo apt install telegram-desktop
+    sudo apt install -y telegram-desktop
 }
 
 install_snapd() {
     banner "Installing Snap"
 
-    printf "\e[1;32m\n\nInstalling snapd and apparmor\e[0m"
-    sudo apt install snapd apparmor
+    printf "\e[1;32m\n\nRemoving the snap from the blacklisting...\n\e[0m"
+    sudo rm /etc/apt/preferences.d/nosnap.pref
 
-    printf "\e[1;32m\nStarting snapd.socket and enabling to start on boot\e[0m"
-    sudo systemctl enable --now snapd.socket
+    printf "\e[1;32m\nUpdating the package cache...\n\e[0m"
+    sudo apt update
 
-    printf "\e[1;32m\nStarting apparmor.socket and enabling to start on boot\e[0m"
-    sudo systemctl enable --now apparmor.service
-
-    printf "\e[1;32m\nEnabling Classic Snap Support by creating the symbolic link\e[0m"
-    sudo ln -s /var/lib/snapd/snap /snap
+    printf "\e[1;32m\n\nInstalling snapd\n\e[0m"
+    sudo apt install -y snapd
 }
 
 install_NeoFetch() {
     banner "Installing Neofetch"
 
     printf "\e[1;32m\nInstalling NeoFetch\e[0m"
-    sudo apt-get install neofetch
+    sudo apt install -y neofetch
 }
 
 install_Audio_Tools() {
@@ -273,22 +275,22 @@ install_Audio_Tools() {
 install_NVIDIA_drivers() {
     banner "Installing NVIDIA drivers"
 
-    printf "\e[1;32m\nInstall NVDIA-Drivers\e[0m"
-    sudo apt install nvidia-driver nvidia-cuda-toolkit
+    printf "\e[1;32m\n\nInstall NVDIA-Drivers\n\n\e[0m"
+    sudo ubuntu-drivers autoinstall
 }
 
 install_gdebi() {
     banner "Installing gdebi"
 
     printf "\e[1;32m\nInstall gdebi\e[0m"
-    sudo apt install gdebi
+    sudo apt install -y gdebi
 }
 
 install_MS_Fonts() {
     banner "Installing MS Fonts"
 
     printf "\e[1;32m\n\nInstalling Microsoft Core Fonts\e[0m"
-    sudo apt-get install ttf-mscorefonts-installer
+    sudo install -y ttf-mscorefonts-installer
 }
 
 install_Sublime_Text() {
@@ -304,35 +306,58 @@ install_Sublime_Text() {
 
 install_VSCode() {
     banner "Installing Visual Studio Code"
+    sudo apt install -y wget apt-transport-https
+
     printf "\e[1;32m\nInstalling Microsoft Visual Studio Code...\e[0m"
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
+
+    printf "\e[1;32m\nAdd Visual Studio Code repository and key\n\n\e[0m"
     sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+
+    printf "\e[1;32m\nAdd APT repository to Linux Mint\n\n\e[0m"
     sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+
+    printf "\e[1;32m\nRemoving the GPG key file...\n\n\e[0m"
     rm -f packages.microsoft.gpg
-    sudo apt install apt-transport-https
+
+    printf "\e[1;32m\nUpdating the package cache...\n\e[0m"
     sudo apt update
-    sudo apt install code
+
+    printf "\e[1;32m\nBegin the installation...\n\e[0m"
+    sudo apt install -y code
 }
 
 install_PyCharm_Community_Edition() {
     banner "Installing PyCharm Community Edition"
-    printf "\e[1;32m\nInstalling IntelliJ PyCharm Community Edition\e[0m"
+    printf "\e[1;32m\nInstalling IntelliJ PyCharm Community Edition\n\n\e[0m"
+
+    printf "\e[1;32m\nChanging Directory: ~/Downloads \n\n\e[0m"
     cd ~/Downloads
+
+    printf "\e[1;32m\n Getting the installation zip file... \n\n\e[0m"
     wget -O pycharm.tar.gz https://download.jetbrains.com/python/pycharm-community-2021.1.3.tar.gz
+
+    printf "\e[1;32m\n Extracting the zip file to: /opt/ \n\n\e[0m"
     sudo tar xzf pycharm.tar.gz -C /opt/
+
+    printf "\e[1;32m\n Renaming the downloaded file... \n\n\e[0m"
     sudo mv /opt/pycharm-*/ /opt/pycharm/
+
+    printf "\e[1;32m\n Changing Directory: /opt/pycharm/bin \n\n\e[0m"
     cd /opt/pycharm/bin
+
+    printf "\e[1;32m\n Execute script: pycharm.sh \n\n\e[0m"
     sh pycharm.sh
 }
 
 install_Pip() {
     banner "Installing PIP and VENV"
-    sudo apt install python3-pip python3-venv
+    sudo apt install -y python3-pip python3-venv
 }
 
 install_YoutubeDL() {
     banner "Installing Youtube-DL"
-    sudo apt install youtube-dl
+    sudo apt install -y youtube-dl
 }
 
 install_and_configure_LAMP() {
@@ -418,6 +443,9 @@ install_and_configure_LAMP() {
 
     printf "\e[1;32m\nRestarting the apache2 service\e[0m"
     sudo systemctl restart apache2
+
+    printf "\n\nCreating info.php to test PHP...\n"
+    echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 }
 
 install_qBittorrent() {
@@ -425,10 +453,125 @@ install_qBittorrent() {
     sudo apt install -y qbittorrent
 }
 
+install_VLC() {
+    banner "Installing VLC"
+    sudo apt install -y vlc
+}
+
+aliases_and_scripts() {
+    banner "Installing Aliases and Scripts"
+
+    aliasfile="\n"
+    aliasfile+="if [ -f ~/.rksalias ]; then\n"
+    aliasfile+=". ~/.rksalias\n"
+    aliasfile+="fi\n"
+
+    printf "\nCreating a directory to clone the KamalDGRT/Linux repo.."
+    if [ -d ~/RKS_FILES/GitRep ]; then
+        printf "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/RKS_FILES/GitRep
+    fi
+
+    printf "\nGoing inside ~/RKS_FILES/GitRep"
+    cd ~/RKS_FILES/GitRep
+
+    if [ -d ~/RKS_FILES/GitRep/Linux ]; then
+        printf "\nRepository exists. \nSkipping the cloning step..\n"
+    else
+        printf "\nCloning the GitHub Repo\n"
+        git clone https://github.com/KamalDGRT/Linux.git
+    fi
+
+    printf "\nGoing inside Linux directory..."
+    cd ~/RKS_FILES/GitRep/Linux
+
+    printf "\nCreating the file with aliases to the ~/ location.."
+    printf "\n\nChecking if the alias file exists..."
+    if [ -f ~/RKS_FILES/GitRep/Linux/distro/Mint/mint_alias.txt ]; then
+        printf "\nAlias file exists.."
+        cp ~/RKS_FILES/GitRep/Linux/distro/Mint/mint_alias.txt ~/.rksalias
+    else
+        printf "\nAlias file not found.."
+
+        printf "\nMoving into /tmp directoroy.."
+        cd /tmp
+
+        printf "\nGetting the file from GitHub"
+        wget https://raw.githubusercontent.com/KamalDGRT/Linux/master/distro/Mint/mint_alias.txt
+
+        printf "\nMoving the file to ~/"
+        mv mint_alias.txt ~/.rksalias
+    fi
+
+    printf "\n\nAdding the aliases to the fish conf.."
+    if [ -f ~/.config/fish/config.​fish ]; then
+        ~/.config/fish/config.​fish >>printf "${aliasfile}"
+        printf "\nAliases added successfully to fish shell."
+    else
+        printf "\nYour OS does not have fish shell.\nSkipping..."
+    fi
+
+    printf "\n\nAdding the aliases to the BASH shell.."
+    if [ -f ~/.bashrc ]; then
+        printf "${aliasfile}" >>~/.bashrc
+        printf "\nAliases added successfully to BASH"
+    else
+        printf "\nYour OS does not have BASH shell.\nSkipping..."
+    fi
+
+    printf "\n\nAdding the aliases to the ZSH shell.."
+    if [ -f ~/.zshrc ]; then
+        printf "${aliasfile}" >>~/.zshrc
+        printf "\nAliases added successfully to ZSH"
+    else
+        printf "\nYour OS does not have ZSH shell.\nSkipping..."
+    fi
+
+    printf "\n\nTo make the aliases work, close and reopen the "
+    printf "terminals that are using those shells.\n"
+}
+
+install_Telegram_All_Distros() {
+    # This was the message that I got when I executed: sudo apt remove telegram-desktop
+    # I figured these might be the dependencies, so I am just noting it down.
+    # The following packages were automatically installed and are no longer required:
+    # fonts-open-sans libdbusmenu-qt5-2 libminizip1 libqrcodegencpp1 librlottie0-1 libxxhash0
+
+    currentDirectory=$(pwd)
+
+    banner "Installing Telegram Desktop (All Distros Method)"
+    printf "\e[1;32m\nInstalling Telegram Desktop\n\n\e[0m"
+
+    printf "\e[1;32m\nChanging Directory: ~/Downloads \n\n\e[0m"
+    cd ~/Downloads
+
+    printf "\e[1;32m\n Getting the installation zip file... \n\n\e[0m"
+    wget -O tsetup.tar.xz 'https://telegram.org/dl/desktop/linux'
+
+    printf "\e[1;32m\n Extracting the zip file to: /opt/ \n\n\e[0m"
+    sudo tar -xJvf ~/Downloads/tsetup.tar.xz -C /opt/
+
+    printf "\e[1;32m\n Renaming the Extracted folder... \n\n\e[0m"
+    sudo mv /opt/Telegram /opt/telegram
+
+    printf "\e[1;32m\n Add symbolic link \n\n\e[0m"
+    sudo ln -sf /opt/telegram/Telegram /usr/bin/telegram
+
+    printf "\n\nComing back to th present working directory\n\n"
+    cd "${currentDirectory}"
+}
+
+install_Heroku_CLI() {
+    banner "Installing Heroku CLI"
+    curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+}
+
 install_Everything() {
+    install_Git
+    install_Xclip
     gitsetup
 
-    install_Xclip
     install_NeoFetch
     install_Figlet
     install_Audio_Tools
@@ -444,10 +587,15 @@ install_Everything() {
 
     install_Brave
     install_Discord
-    install_Telegram
+    install_Telegram_All_Distros
     install_Sublime_Text
     install_VSCode
     install_and_configure_LAMP
+    install_Heroku_CLI
     install_qBittorrent
+    install_VLC
     install_NVIDIA_drivers
+    aliases_and_scripts
 }
+
+install_Everything

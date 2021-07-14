@@ -145,11 +145,11 @@ file systems for them.
 ```
 
 ```js
-[root@archiso~] # mount /dev/sda3 /home
+[root@archiso~] # mount /dev/sda3 /mnt/home
 ```
 
 ```js
-[root@archiso~] # mount /dev/sda4 /mywin
+[root@archiso~] # mount /dev/sda4 /mnt/mywin
 ```
 
 ---
@@ -169,7 +169,7 @@ file systems for them.
 ```
 
 ```js
-[root@archiso~] # cat /mnt /etc/fstab
+[root@archiso~] # cat /mnt/etc/fstab
 ```
 
 ---
@@ -183,7 +183,6 @@ file systems for them.
 ---
 
 ### Creating a Swap partition
-
 
 ```js
 [root@archiso /] # fallocate -l 4GB /swapfile
@@ -223,7 +222,6 @@ Add this in the end of the file:
 
 ### Syncing the hardware and software clock
 
-
 ```js
 [root@archiso /] # hwclock --systohc
 ```
@@ -231,7 +229,6 @@ Add this in the end of the file:
 ---
 
 ### Generating locale(s)
-
 
 ```js
 [root@archiso /] # nano /etc/locale.gen
@@ -282,7 +279,6 @@ titan
 
 ### Installing GRUB and other important packages
 
-
 ```js
 [root@archiso /] # pacman -S grub efibootmgr networkmanager network-manager-applet wireless_tools wpa_supplicant dialog os-prober mtools dosfstools base-devel linux-headers
 ```
@@ -299,7 +295,6 @@ titan
 
 ### Creating the root user password
 
-
 ```js
 [root@archiso /] # passwd
 ```
@@ -307,7 +302,6 @@ titan
 ---
 
 ### Exiting the mount point
-
 
 ```js
 [root@archiso /] # exit
@@ -317,7 +311,6 @@ titan
 
 ### Unmounting all the mount points
 
-
 ```js
 [root@archiso ~] # umount -a
 ```
@@ -325,7 +318,6 @@ titan
 ---
 
 ### Rebooting
-
 
 ```js
 [root@archiso ~] # reboot
@@ -350,7 +342,6 @@ Scroll down and activate a connection.
 ---
 
 #### Creating the normal user and giving him the sudo permissions
-
 
 ```js
 [root@titan /] # useradd -m -G wheel kamal
@@ -385,7 +376,7 @@ Do this step if you have NVIDIA graphic card in your system.
 #### Installing XORG windowing system
 
 ```js
-[root@titan /] # pacman -S xorg xterm xorg-init
+[root@titan /] # pacman -S xorg xterm
 ```
 
 ---

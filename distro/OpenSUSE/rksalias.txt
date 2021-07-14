@@ -1,13 +1,5 @@
 alias nf=neofetch
-
-# Conf files
-alias gdmconf='subl /etc/gdm/custom.conf'
-alias phpconf='subl /etc/php/php.ini'
-alias hconf='subl /etc/httpd/conf/httpd.conf'
-alias vconf='subl /etc/httpd/conf/extra/httpd-vhosts.conf'
 alias ehost='subl /etc/hosts'
-alias gr='cd ~/RKS_FILES/GitRep/'
-alias gcpush='~/RKS_FILES/GitRep/Linux/common/shell/gcpush.sh'
 
 
 # Git Related Aliases
@@ -15,6 +7,8 @@ alias clone='git clone'
 alias add='git add .'
 alias commit='git commit -m'
 alias push='git push'
+alias gr='cd ~/RKS_FILES/GitRep/'
+alias gcpush='~/RKS_FILES/GitRep/Linux/common/shell/gcpush.sh'
 
 
 # PHP Related Aliases
@@ -22,7 +16,7 @@ alias compup='composer update'
 
 
 # Yii2 Related Aliases
-alias yii2='cd /srv/http/yii2'
+alias yii2='cd /srv/www/htdocs/yii2/'
 alias ynadv='composer create-project --prefer-dist yiisoft/yii2-app-advanced'
 alias pinit='php init'
 alias yfixperm='~/RKS_FILES/GitRep/Linux/common/shell/yfixperm.sh'
@@ -39,14 +33,14 @@ alias sbash='source ~/.bashrc'
 
 
 # System Related
-alias pinstall='sudo pacman -S'
-alias premove='sudo pacman -Rdd'
+alias pinstall='sudo zypper install'
+alias premove='sudo zypper remove'
 alias sinstall='sudo snap install'
 alias sremove='sudo snap remove'
 alias restart='sudo systemctl restart'
 alias chpermd='chmod 777 -R'
 alias schpermd='sudo chmod 777 -R'
-
+alias afm='~/RKS_FILES/GitRep/Linux/common/shell/fanmode.sh'
 
 # Laravel Related Aliases
 export PATH=~/.config/composer/vendor/bin:$PATH
@@ -58,27 +52,21 @@ alias pamig='php artisan migrate'
 
 
 # Files related:
-alias rrm='rm -rvf'
-alias srrm='sudo rm -rvf'
-alias mvf='mv -vf'
-alias smvf='sudo mv -vf'
-alias cpr='cp -rvf'
-alias scpr='sudo cp -rvf'
-
+alias rrm='rm -rf'
+alias srrm='sudo rm -rf'
+alias mvf='mv -f'
+alias smvf='sudo mv -f'
+alias cpr='cp -rf'
+alias scpr='sudo cp -rf'
+alias back='cd ../'
+alias mksh='chmod +x'
 
 # Python Related Aliases
-alias py='python'
+alias py='python3'
 alias pvenv='py -m venv env'
 alias seba='source env/bin/activate'
 alias genreq='py -m pip freeze > requirements.txt'
 
 
-# Multiplexing Related Scripts
-
-alias batchextractsubs='~/RKS_FILES/GitRep/rkswrites/Fedora/batchextractsubs.sh'
-alias batchmux='~/RKS_FILES/GitRep/rkswrites/Fedora/batchmux.sh'
-alias cbatch='~/RKS_FILES/GitRep/rkswrites/Fedora/cbatch.sh'
-alias emptysubs='~/RKS_FILES/GitRep/rkswrites/Fedora/emptysubs.sh'
-alias mkv2mp4='~/RKS_FILES/GitRep/rkswrites/Fedora/mkv2mp4.sh'
-alias nosubsmkv='~/RKS_FILES/GitRep/rkswrites/Fedora/nosubsmkv.sh'
-alias rmtag='~/RKS_FILES/GitRep/rkswrites/Fedora/rmtag.sh'
+# Youtube DL
+alias ymp4='youtube-dl -f mp4'
