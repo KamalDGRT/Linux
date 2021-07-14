@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Add your GitHub details here:
-GITHUB_USERNAME=""
-GITHUB_EMAIL_ID=""
-GIT_CLI_EDITOR=""
-
 clear
 
 banner() {
@@ -69,6 +64,10 @@ nf_bash_xclip() {
 gitsetup() {
     banner "Setting up SSH for git and GitHub"
 
+    read -e -p "Enter GitHub Username: " GITHUB_USERNAME
+    read -e -p "Enter GitHub EmailId: " GITHUB_EMAIL_ID
+    read -e -p "Enter Default git editor (vim / nano): " GIT_CLI_EDITOR
+
     if [[ $GITHUB_EMAIL_ID != "" && $GITHUB_USERNAME != "" && $GIT_CLI_EDITOR != "" ]]; then
         printf "\n - Configuring GitHub username as: ${GITHUB_USERNAME}"
         git config --global user.name "${GITHUB_USERNAME}"
@@ -102,8 +101,12 @@ gitsetup() {
         printf "\nClick on Add SSH key.\n\n"
         pause
     else
-        printf "\nYou have not provided the configuration for Git Setup."
-        printf "\nAdd them at the top of this script file and run it again."
+        printf "\nYou have not provided the details correctly for Git Setup."
+        if ask_user "Want to try Again ?"; then
+            gitsetup
+        else
+            printf "\nSkipping: Git and GitHub SSH setup..\n"
+        fi
     fi
 }
 

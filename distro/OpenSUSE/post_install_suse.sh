@@ -325,6 +325,7 @@ installSpotify() {
 aliases_and_scripts() {
     banner "Installing Aliases and Scripts"
 
+    currentDirectory=$(pwd)
     aliasfile="\n"
     aliasfile+="if [ -f ~/.rksalias ]; then\n"
     aliasfile+=". ~/.rksalias\n"
@@ -348,13 +349,13 @@ aliases_and_scripts() {
     fi
 
     printf "\nGoing inside Linux directory..."
-    cd Linux
+    cd ~/RKS_FILES/GitRep/Linux
 
     printf "\nCreating the file with aliases to the ~/ location.."
     printf "\n\nChecking if the alias file exists..."
     if [ -f ~/RKS_FILES/GitRep/Linux/distro/OpenSUSE/rksalias.txt ]; then
         printf "\nAlias file exists.."
-        cp distro/Manjaro/rksalias.txt ~/.rksalias
+        cp ~/RKS_FILES/GitRep/Linux/distro/OpenSUSE/rksalias.txt ~/.rksalias
     else
         printf "\nAlias file not found.."
 
@@ -365,7 +366,7 @@ aliases_and_scripts() {
         wget https://raw.githubusercontent.com/KamalDGRT/Linux/master/distro/OpenSUSE/rksalias.txt
 
         printf "\nMoving the file to ~/"
-        mv rksalias.txt ~/.rksalias
+        mv ~/tmp/rksalias.txt ~/.rksalias
     fi
 
     printf "\n\nAdding the aliases to the fish conf.."
@@ -394,6 +395,9 @@ aliases_and_scripts() {
 
     printf "\n\nTo make the aliases work, close and reopen the "
     printf "terminals that are using those shells.\n"
+
+    printf "\n\nComing back to the present working directory\n\n"
+    cd "${currentDirectory}"
 }
 
 install_and_configure_LAMP() {

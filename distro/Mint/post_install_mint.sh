@@ -562,6 +562,11 @@ install_Telegram_All_Distros() {
     cd "${currentDirectory}"
 }
 
+install_Heroku_CLI() {
+    banner "Installing Heroku CLI"
+    curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+}
+
 install_Everything() {
     install_Git
     install_Xclip
@@ -582,14 +587,15 @@ install_Everything() {
 
     install_Brave
     install_Discord
-    install_Telegram
+    install_Telegram_All_Distros
     install_Sublime_Text
     install_VSCode
     install_and_configure_LAMP
+    install_Heroku_CLI
     install_qBittorrent
     install_VLC
     install_NVIDIA_drivers
     aliases_and_scripts
 }
 
-install_Telegram_All_Distros
+install_Everything
