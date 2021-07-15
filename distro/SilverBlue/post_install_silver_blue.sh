@@ -56,6 +56,25 @@ enable_xorg_windowing() {
     printf "\n\nGDM config updated. It will be reflected in the next boot.\n\n"
 }
 
+configure_NVIDIA_Drivers() {
+    # Make sure to upgrade the system
+    # rpm-ostree upgrade --check && rpm-ostree upgrade && reboot
+
+    # Adding RPMFusion Repositories
+    sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+
+    # Reboot the system once the repos are added.
+    # Then install the following packages for NVIDIA drivers
+    sudo rpm-ostree install akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs xclip
+    # Added xclip at the last because, we would be needing it for git and github setup.
+    # Plus I dont want to reboot the system just for just installing xclip.
+    # Reboot the system again.
+
+    # Blacklist nouveau drivers in the kernel arguments
+    sudo rpm-ostree kargs --append=rd.driver.blacklist=nouveau --append=modprobe.blacklist=nouveau --append=nvidia-drm.modeset=1
+    # Reboot the system again. That is it. It is done.
+}
+
 gitsetup() {
     banner "Setting up SSH for git and GitHub"
 
@@ -103,6 +122,13 @@ gitsetup() {
             printf "\nSkipping: Git and GitHub SSH setup..\n"
         fi
     fi
+}
+
+install_GNOME_Shell_Stuff() {
+    rpm-ostree install evolution evolution-ews tmux arc-theme moka-icon-theme htop \
+        gnome-tweaks xclip gnome-shell-extension-appindicator \
+        gnome-shell-extension-user-theme
+    # Reboot the system.
 }
 
 rks_gnome_themes() {
@@ -188,6 +214,57 @@ configure_title_bar() {
 
     printf "\e[1;32m\nShow the Weekday in Clock\n\n\e[0m"
     gsettings set org.gnome.desktop.interface clock-show-weekday true
+
+    printf "\e[1;32m\nAdding Minimize and Maximize buttons on the left\n\n\e[0m"
+    gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
 }
 
-configure_title_bar
+install_Brave() {
+    banner "Install Brave"
+    cd ~/Downloads/
+    # Have to be changed with the latest beta channel release.
+    # Reason for the beta version:
+    #   - To install the stable version, you need the GPG keys.
+    #     That cannot be done in Fedora Silverblue Edition.
+    wget 'https://github.com/brave/brave-browser/releases/download/v1.27.104/brave-browser-beta-1.27.104-1.x86_64.rpm'
+    rpm-ostree install brave-browser-beta-1.27.104-1.x86_64.rpm
+    # After running the above command, you will have to reboot the system
+    # to install and use the Brave browser.
+}
+
+install_Neofetch() {
+    # Note: Update system, run the command, reboot
+    rpm-ostree install neofetch
+}
+
+init_Flatpak() {
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
+install_Flatpak_Discord() {
+    flatpak install flathub com.discordapp.Discord -y
+}
+
+install_Flatpak_Zoom_Meet() {
+    flatpak install flathub us.zoom.Zoom -y
+}
+
+install_Flatpak_VSCode() {
+    flatpak install flathub com.visualstudio.code -y
+}
+
+install_Flatpak_Telegram_Desktop() {
+    flatpak install flathub org.telegram.desktop -y
+}
+
+install_Flatpak_Spotify() {
+    flatpak install flathub com.spotify.Client -y
+}
+
+install_Flatpak_OBS() {
+    flatpak install flathub com.obsproject.Studio -y
+}
+
+install_Flatpak_VLC() {
+    flatpak install flathub org.videolan.VLC -y
+}
