@@ -175,4 +175,19 @@ rks_gnome_themes() {
     cd "${currentDirectory}"
 }
 
-rks_gnome_themes
+configure_title_bar() {
+    banner "Configure Title Bar"
+    printf "\e[1;32m\n\nShowing Battery Percentage\e[0m"
+    gsettings set org.gnome.desktop.interface show-battery-percentage true
+
+    printf "\e[1;32m\nShow Time in 12 hour format\e[0m"
+    gsettings set org.gnome.desktop.interface clock-format 12h
+
+    printf "\e[1;32m\nShow the seconds in Clock\e[0m"
+    gsettings set org.gnome.desktop.interface clock-show-seconds true
+
+    printf "\e[1;32m\nShow the Weekday in Clock\n\n\e[0m"
+    gsettings set org.gnome.desktop.interface clock-show-weekday true
+}
+
+configure_title_bar
