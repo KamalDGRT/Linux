@@ -56,7 +56,6 @@ enable_xorg_windowing() {
     printf "\n\nGDM config updated. It will be reflected in the next boot.\n\n"
 }
 
-
 gitsetup() {
     banner "Setting up SSH for git and GitHub"
 
@@ -106,6 +105,74 @@ gitsetup() {
     fi
 }
 
-enable_grub_menu
-gitsetup
+rks_gnome_themes() {
+    banner "Changing the default GNOME theme"
 
+    currentDirectory=$(pwd)
+
+    printf "\n\nEnabling User Themes Extension..."
+    gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
+
+    printf "\nCreating a directory to clone the KamalDGRT/rks-gnome-themes repo.."
+    if [ -d ~/RKS_FILES/GitRep ]; then
+        printf "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/RKS_FILES/GitRep
+    fi
+
+    printf "\nGoing inside ~/RKS_FILES/GitRep\n"
+    cd ~/RKS_FILES/GitRep
+
+    printf "\nChecking if the KamalDGRT/rks-gnome-themes repository exists..."
+    if [ -d ~/RKS_FILES/GitRep/rks-gnome-themes ]; then
+        printf "\nRepository exists. \nSkipping the cloning step..\n"
+    else
+        printf "\nRepository does not exist in the system.."
+        printf "\nCloning the GitHub Repo: KamalDGRT/rks-gnome-themes\n"
+        git clone https://github.com/KamalDGRT/rks-gnome-themes.git
+    fi
+
+    printf "\nGoing inside rks-gnome-themes directory...\n"
+    cd rks-gnome-themes
+
+    printf "\n\nChecking if ~/.themes directory exists..."
+    if [ -d ~/.themes ]; then
+        printf "\Directory exists. \nSkipping the creation step..\n"
+    else
+        printf "\nDirectry does not exist in the system.."
+        printf "\nCreating .themes at location ~/"
+        mkdir ~/.themes
+    fi
+
+    printf "\n\nChecking if ~/.icons directory exists..."
+    if [ -d ~/.icons ]; then
+        printf "\Directory exists. \nSkipping the creation step..\n"
+    else
+        printf "\nDirectry does not exist in the system.."
+        printf "\nCreating .icons at location ~/"
+        mkdir ~/.icons
+    fi
+
+    printf "\n\nCopying the Flat-Remix-Blue-Dark Icon Theme"
+    cp -rf Icon/Flat-Remix-Blue-Dark ~/.icons
+
+    printf "\n\nCopying the Mojave-dark-solid-alt Theme"
+    cp -rf Theme/Mojave-dark-solid-alt ~/.themes
+
+    printf "\n\nCopying the Kimi-dark Theme"
+    cp -rf Theme/Kimi-dark ~/.themes
+
+    printf "\nChanging Interface Theme to : Kimi-dark"
+    gsettings set org.gnome.desktop.interface gtk-theme "Kimi-dark"
+
+    printf "\nChanging WM Theme to : Mojave-dark-solid-alt"
+    gsettings set org.gnome.shell.extensions.user-theme name 'Mojave-dark-solid-alt'
+
+    printf "\nChanging Icon Theme to : Flat-Remix-Blue-Dark"
+    gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Blue-Dark"
+
+    printf "\n\nComing back to th present working directory\n\n"
+    cd "${currentDirectory}"
+}
+
+rks_gnome_themes
