@@ -297,3 +297,7 @@ install_Xampp() {
 install_Discord_RPM() {
     sudo dnf install -y discord
 }
+
+install_Minder_app() {
+    sudo dnf install minder -y
+}
