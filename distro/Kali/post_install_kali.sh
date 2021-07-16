@@ -302,6 +302,39 @@ install_Sublime_Text() {
     sudo apt-get install sublime-text
 }
 
+install_Kotlin() {
+    banner "Installing Kotlin CLI"
+    
+    printf"\e[1;32m\nInstalling kotlin compiler...\e[0m"
+    sudo snap install --classic kotlin
+}
+
+install_Django() {
+    banner "Installing Django Admin"
+    
+    printf"\e[1;32m\nInstalling django-admin...\e[0m"
+    sudo apt install python3 python3-django python3-pip -y
+}
+
+install_gh_CLI() {
+    banner "Installing gh CLI"
+    printf"\e[1;32m\nAdding gh repository in apt...\e[0m" 
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+    sudo apt-add-repository https://cli.github.com/packages
+
+    printf"\e[1;32m\nFetching the packages details...\e[0m" 
+    sudo apt update
+
+    printf"\e[1;32m\nInstalling gh CLI using apt...\e[0m" 
+    sudo apt install gh -y
+}
+
+install_Heroku_CLI() {
+    banner "Installing Heroku CLI"
+    printf"\e[1;32m\nInstalling Heroku CLI using apt...\e[0m"
+    curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+}
+
 install_VSCode() {
     banner "Installing Visual Studio Code"
     printf "\e[1;32m\nInstalling Microsoft Visual Studio Code...\e[0m"
@@ -446,6 +479,10 @@ install_Everything() {
     install_Discord
     install_Telegram
     install_Sublime_Text
+    install_Kotlin
+    install_Django
+    install_gh_CLI
+    install_Heroku_CLI
     install_VSCode
     install_and_configure_LAMP
     install_qBittorrent
