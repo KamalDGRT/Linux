@@ -290,3 +290,7 @@ install_Xampp() {
     chmod +x xampp-linux-x64-8.0.8-0-installer.run
     sudo ./xampp-linux-x64-8.0.8-0-installer.run
 }
+
+install_Discord_RPM() {
+    sudo dnf install -y discord
+}
