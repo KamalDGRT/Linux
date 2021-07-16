@@ -301,3 +301,11 @@ install_Discord_RPM() {
 install_Minder_app() {
     sudo dnf install minder -y
 }
+
+install_Composer() {
+    sudo dnf install -y composer
+}
+
+install_Nodejs() {
+    sudo dnf install nodejs -y
+}
