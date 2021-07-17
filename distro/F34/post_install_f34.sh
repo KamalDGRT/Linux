@@ -312,3 +312,7 @@ install_Composer() {
 install_Nodejs() {
     sudo dnf install nodejs -y
 }
+
+install_YouTubeDL() {
+    sudo dnf install youtube-dl -y
+}
