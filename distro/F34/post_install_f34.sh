@@ -316,3 +316,19 @@ install_Nodejs() {
 install_YouTubeDL() {
     sudo dnf install youtube-dl -y
 }
+
+install_Opera_Browser() {
+
+    {
+        echo "[opera]"
+        echo "name=Opera packages"
+        echo "type=rpm-md"
+        echo "baseurl=https://rpm.opera.com/rpm"
+        echo "gpgcheck=1"
+        echo "gpgkey=https://rpm.opera.com/rpmrepo.key"
+        echo "enabled=1"
+        echo ""
+    } | sudo tee /etc/yum.repos.d/opera.repo
+
+    sudo dnf install opera-stable -y
+}
