@@ -191,8 +191,14 @@ configure_title_bar() {
     printf "\e[1;32m\nShow the seconds in Clock\e[0m"
     gsettings set org.gnome.desktop.interface clock-show-seconds true
 
-    printf "\e[1;32m\nShow the Weekday in Clock\e[0m"
+    printf "\e[1;32m\nShow the Weekday in Clock\n\n\e[0m"
     gsettings set org.gnome.desktop.interface clock-show-weekday true
+
+    printf "\e[1;32m\nAdding Minimize and Maximize buttons on the left\n\n\e[0m"
+    gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
+
+    printf "\e[1;32m\nEnable Tray Icons\n\n\e[0m"
+    gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 }
 
 install_Brave() {

@@ -58,7 +58,7 @@ enable_xorg_windowing() {
 
 nf_bash_xclip() {
     banner "Installing: neofetch bash-completion xclip"
-    sudo pacman -S --needed  --noconfirm neofetch bash-completion xclip
+    sudo pacman -S --needed --noconfirm neofetch bash-completion xclip
 }
 
 gitsetup() {
@@ -115,13 +115,13 @@ gitsetup() {
 
 audio_tools() {
     banner "Installing: Pulse Audio & Alsa Tools"
-    sudo pacman -S --needed  --noconfirm pulseaudio pulseaudio-alsa \
+    sudo pacman -S --needed --noconfirm pulseaudio pulseaudio-alsa \
         pavucontrol alsa-utils alsa-ucm-conf sof-firmware
 }
 
 lampp_stack() {
     banner "Installing: LAMP Stack Packages"
-    sudo pacman -S --needed  --noconfirm apache mariadb php php-apache \
+    sudo pacman -S --needed --noconfirm apache mariadb php php-apache \
         php-cgi php-fpm php-gd php-embed php-intl php-imap php-redis \
         php-snmp phpmyadmin
 }
@@ -232,7 +232,7 @@ package_managers() {
 
 brave_tel_vlc_discord() {
     banner "Installing: Brave Browser, Telegram, VLC & Discord"
-    sudo pacman -S --needed  --noconfirm brave telegram-desktop vlc discord
+    sudo pacman -S --needed --noconfirm brave telegram-desktop vlc discord
 }
 
 obs_studio() {
@@ -292,17 +292,17 @@ zoom_app() {
 
 mkvtoolnix_gui() {
     banner "Installing: MKVToolNix GUI"
-    sudo pacman -S --needed  --noconfirm mkvtoolnix-gui
+    sudo pacman -S --needed --noconfirm mkvtoolnix-gui
 }
 
 s_qbittorrent() {
     banner "Installing: qBittorrent"
-    sudo pacman -S --needed  --noconfirm qbittorrent
+    sudo pacman -S --needed --noconfirm qbittorrent
 }
 
 fira_code_vim() {
     banner "Installing: Fira Code Font and Vim Editor"
-    sudo pacman -S --needed  --noconfirm ttf-fira-code vim
+    sudo pacman -S --needed --noconfirm ttf-fira-code vim
 }
 
 aliases_and_scripts() {
@@ -447,6 +447,27 @@ rks_gnome_themes() {
 
     printf "\n\nComing back to th present working directory\n\n"
     cd "${currentDirectory}"
+}
+
+configure_title_bar() {
+    banner "Configure Title Bar"
+    printf "\e[1;32m\n\nShowing Battery Percentage\e[0m"
+    gsettings set org.gnome.desktop.interface show-battery-percentage true
+
+    printf "\e[1;32m\nShow Time in 12 hour format\e[0m"
+    gsettings set org.gnome.desktop.interface clock-format 12h
+
+    printf "\e[1;32m\nShow the seconds in Clock\e[0m"
+    gsettings set org.gnome.desktop.interface clock-show-seconds true
+
+    printf "\e[1;32m\nShow the Weekday in Clock\n\n\e[0m"
+    gsettings set org.gnome.desktop.interface clock-show-weekday true
+
+    printf "\e[1;32m\nAdding Minimize and Maximize buttons on the left\n\n\e[0m"
+    gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
+
+    printf "\e[1;32m\nEnable Tray Icons\n\n\e[0m"
+    gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 }
 
 install_all_menu() {
