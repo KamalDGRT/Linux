@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Add your GitHub details here:
-GITHUB_USERNAME=""
-GITHUB_EMAIL_ID=""
-GIT_CLI_EDITOR=""
-
 clear
 
 banner() {
@@ -49,42 +44,52 @@ enable_xorg_windowing() {
 gitsetup() {
     banner "Setting up SSH for git and GitHub"
 
+    read -e -p "Enter your GitHub Username                 : " GITHUB_USERNAME
+    read -e -p "Enter the GitHub Email Address             : " GITHUB_EMAIL_ID
+    read -e -p "Enter the default git editor (vim / nano)  : " GIT_CLI_EDITOR
+
     if [[ $GITHUB_EMAIL_ID != "" && $GITHUB_USERNAME != "" && $GIT_CLI_EDITOR != "" ]]; then
-        printf "\e[1;32m\n - Configuring GitHub username as: ${GITHUB_USERNAME}\e[0m"
+        printf "\n - Configuring GitHub username as: ${GITHUB_USERNAME}"
         git config --global user.name "${GITHUB_USERNAME}"
 
-        printf "\e[1;32m\n - Configuring GitHub email address as: ${GITHUB_EMAIL_ID}\e[0m"
+        printf "\n - Configuring GitHub email address as: ${GITHUB_EMAIL_ID}"
         git config --global user.email "${GITHUB_EMAIL_ID}"
 
-        printf "\e[1;32m\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}\e[0m"
+        printf "\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
         git config --global core.editor "${GIT_CLI_EDITOR}"
 
-        printf "\e[1;32m\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}\e[0m"
-        printf "\e[1;32m\n\nJust press Enter and add passphrase if you'd like to. \n\n\e[0m"
+        printf "\n - Fast Forwarding All the changes while git pull"
+        git config --global pull.ff only
+
+        printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
+        printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
         ssh-keygen -t ed25519 -C "${GITHUB_EMAIL_ID}"
 
-        printf "\e[1;32m\n\nAdding your SSH key to the ssh-agent..\n\e[0m"
+        printf "\n\nAdding your SSH key to the ssh-agent..\n"
 
-        printf "\e[1;32m\n - Start the ssh-agent in the background..\n\e[0m"
+        printf "\n - Start the ssh-agent in the background..\n"
         eval "$(ssh-agent -s)"
 
-        printf "\e[1;32m\n\n - Adding your SSH private key to the ssh-agent\n\n\e[0m"
+        printf "\n\n - Adding your SSH private key to the ssh-agent\n\n"
         ssh-add ~/.ssh/id_ed25519
 
-        printf "\e[1;32m\n - Copying the SSH Key Content to the Clipboard...\e[0m"
+        printf "\n - Copying the SSH Key Content to the Clipboard..."
 
-        printf "\e[1;32m\n\nLog in into your GitHub account in the browser (if you have not)\e[0m"
-        printf "\e[1;32m\nOpen this link https://github.com/settings/keys in the browser.\e[0m"
-        printf "\e[1;32m\nClik on New SSH key.\e[0m"
+        printf "\n\nLog in into your GitHub account in the browser (if you have not)"
+        printf "\nOpen this link https://github.com/settings/keys in the browser."
+        printf "\nClik on New SSH key."
         xclip -selection clipboard <~/.ssh/id_ed25519.pub
-
-        printf "\e[1;32m\nGive a title for the SSH key.\e[0m"
-        printf "\e[1;32m\nPaste the clipboard content in the textarea box below the title.\e[0m"
-        printf "\e[1;32m\nClick on Add SSH key.\n\n\e[0m"
+        printf "\nGive a title for the SSH key."
+        printf "\nPaste the clipboard content in the textarea box below the title."
+        printf "\nClick on Add SSH key.\n\n"
         pause
     else
-        printf "\e[1;32m\nYou have not provided the configuration for Git Setup.\e[0m"
-        printf "\e[1;32m\nAdd them at the top of this script file and run it again.\e[0m"
+        printf "\nYou have not provided the details correctly for Git Setup."
+        if ask_user "Want to try Again ?"; then
+            gitsetup
+        else
+            printf "\nSkipping: Git and GitHub SSH setup..\n"
+        fi
     fi
 }
 

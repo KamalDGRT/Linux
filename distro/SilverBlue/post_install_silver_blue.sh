@@ -78,9 +78,9 @@ configure_NVIDIA_Drivers() {
 gitsetup() {
     banner "Setting up SSH for git and GitHub"
 
-    read -e -p "Enter GitHub Username: " GITHUB_USERNAME
-    read -e -p "Enter GitHub EmailId: " GITHUB_EMAIL_ID
-    read -e -p "Enter Default git editor (vim / nano): " GIT_CLI_EDITOR
+    read -e -p "Enter your GitHub Username                 : " GITHUB_USERNAME
+    read -e -p "Enter the GitHub Email Address             : " GITHUB_EMAIL_ID
+    read -e -p "Enter the default git editor (vim / nano)  : " GIT_CLI_EDITOR
 
     if [[ $GITHUB_EMAIL_ID != "" && $GITHUB_USERNAME != "" && $GIT_CLI_EDITOR != "" ]]; then
         printf "\n - Configuring GitHub username as: ${GITHUB_USERNAME}"
