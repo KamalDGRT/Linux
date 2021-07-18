@@ -191,6 +191,7 @@ rks_gnome_themes() {
     currentDirectory=$(pwd)
 
     printf "\n\nEnabling User Themes Extension..."
+    # not working in fresh fedora 34. Have to figure out why.
     gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
 
     printf "\nCreating a directory to clone the KamalDGRT/rks-gnome-themes repo.."
