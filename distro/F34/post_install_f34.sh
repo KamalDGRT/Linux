@@ -332,3 +332,7 @@ install_Opera_Browser() {
 
     sudo dnf install opera-stable -y
 }
+
+install_qBittorrent() {
+    sudo dnf install -y qbittorrent
+}
