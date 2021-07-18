@@ -336,3 +336,10 @@ install_Opera_Browser() {
 install_qBittorrent() {
     sudo dnf install -y qbittorrent
 }
+
+change_BASH_Prompt() {
+    cd ~/Downloads
+    wget https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/F34/shell/bashrc
+    mv ~/.bashrc ~/Documents
+    mv ~/Downloads/bashrc ~/.bashrc
+}
