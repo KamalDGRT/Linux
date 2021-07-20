@@ -19,7 +19,7 @@ alias push='git push'
 
 # PHP Related Aliases
 alias compup='composer update'
-
+alias htdocs='cd /opt/lampp/htdocs/'
 
 # Yii2 Related Aliases
 alias yii2='cd /opt/lampp/htdocs/yii2'
