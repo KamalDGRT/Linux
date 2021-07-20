@@ -290,6 +290,7 @@ install_Flatpak_OBS() {
 }
 
 install_Xampp() {
+    sudo dnf install libnsl -y
     cd ~/Downloads/
     wget 'https://www.apachefriends.org/xampp-files/8.0.8/xampp-linux-x64-8.0.8-0-installer.run'
     ls
