@@ -45,7 +45,7 @@ configure_NVIDIA_Drivers() {
     #  Update and reboot the system.
 
     # After reboot, install the Fedora's workstation repositories:
-    sudo dnf install fedora-workstation-repositories
+    sudo dnf install fedora-workstation-repositories -y
 
     # Next, enable the NVIDIA driver repository:
     sudo dnf config-manager --set-enabled rpmfusion-nonfree-nvidia-driver
@@ -344,4 +344,9 @@ change_BASH_Prompt() {
     wget https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/F34/shell/bashrc
     mv ~/.bashrc ~/Documents
     mv ~/Downloads/bashrc ~/.bashrc
+}
+
+install_Google_Chrome_Stable() {
+    sudo dnf config-manager --set-enabled google-chrome
+    sudo dnf install google-chrome-stable -y
 }
