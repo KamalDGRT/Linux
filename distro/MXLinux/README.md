@@ -1,5 +1,5 @@
 # MX Linux
 
-## Neofetch
+### Neofetch Image
 
 ![MXLinux](https://i.imgur.com/q5nRvJG.png)
