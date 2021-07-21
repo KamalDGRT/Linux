@@ -75,10 +75,11 @@ alias genreq='py -m pip freeze > requirements.txt'
 
 # Multiplexing Related Scripts
 
-alias batchextractsubs='~/RKS_FILES/GitRep/rkswrites/Fedora/batchextractsubs.sh'
-alias batchmux='~/RKS_FILES/GitRep/rkswrites/Fedora/batchmux.sh'
-alias cbatch='~/RKS_FILES/GitRep/rkswrites/Fedora/cbatch.sh'
-alias emptysubs='~/RKS_FILES/GitRep/rkswrites/Fedora/emptysubs.sh'
-alias mkv2mp4='~/RKS_FILES/GitRep/rkswrites/Fedora/mkv2mp4.sh'
-alias nosubsmkv='~/RKS_FILES/GitRep/rkswrites/Fedora/nosubsmkv.sh'
-alias rmtag='~/RKS_FILES/GitRep/rkswrites/Fedora/rmtag.sh'
+alias batchextractsubs='~/RKS_FILES/GitRep/Linux/common/shell/batchextractsubs.sh'
+alias batchmux='~/RKS_FILES/GitRep/Linux/common/shell/batchmux.sh'
+alias cbatch='~/RKS_FILES/GitRep/Linux/common/shell/cbatch.sh'
+alias emptysubs='~/RKS_FILES/GitRep/Linux/common/shell/emptysubs.sh'
+alias mkv2mp4='~/RKS_FILES/GitRep/Linux/common/shell/mkv2mp4.sh'
+alias nosubsmkv='~/RKS_FILES/GitRep/Linux/common/shell/nosubsmkv.sh'
+alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
+

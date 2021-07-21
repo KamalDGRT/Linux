@@ -61,11 +61,23 @@ alias scpr='sudo cp -rf'
 alias back='cd ../'
 alias mksh='chmod +x'
 
+
 # Python Related Aliases
 alias py='python3'
 alias pvenv='py -m venv env'
 alias seba='source env/bin/activate'
 alias genreq='py -m pip freeze > requirements.txt'
+
+
+# Multiplexing Related Scripts
+
+alias batchextractsubs='~/RKS_FILES/GitRep/Linux/common/shell/batchextractsubs.sh'
+alias batchmux='~/RKS_FILES/GitRep/Linux/common/shell/batchmux.sh'
+alias cbatch='~/RKS_FILES/GitRep/Linux/common/shell/cbatch.sh'
+alias emptysubs='~/RKS_FILES/GitRep/Linux/common/shell/emptysubs.sh'
+alias mkv2mp4='~/RKS_FILES/GitRep/Linux/common/shell/mkv2mp4.sh'
+alias nosubsmkv='~/RKS_FILES/GitRep/Linux/common/shell/nosubsmkv.sh'
+alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
 
 
 # Youtube DL
