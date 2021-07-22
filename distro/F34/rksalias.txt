@@ -1,4 +1,4 @@
-alias nf=neofetch
+alias nf='neofetch --ascii_bold on --gap 3 --ascii_distro macos'
 
 # Conf files
 alias gdmconf='subl /etc/gdm/custom.conf'
@@ -8,6 +8,7 @@ alias vconf='subl /opt/lampp/etc/extra/httpd-vhosts.conf'
 alias ehost='subl /etc/hosts'
 alias gr='cd ~/RKS_FILES/GitRep/'
 alias gcpush='~/RKS_FILES/GitRep/Linux/common/shell/gcpush.sh'
+alias afm='~/RKS_FILES/GitRep/Linux/common/shell/fanmode.sh'
 
 
 # Git Related Aliases
@@ -89,8 +90,6 @@ alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
 
 
 # Lamp Stack related
-export PATH=/opt/lampp/bin:$PATH
-
 alias xampp='sudo /opt/lampp/xampp'
 alias reloadapache='xampp reloadapache'
 alias startmysql='xampp startmysql'
@@ -100,6 +99,8 @@ alias stopmysql='xampp stopmysql'
 alias reloadmysql='xampp reloadmysql'
 alias lampstart='startapache && startmysql'
 alias lampstop='stopapache && stopmysql'
+
+export PATH=/opt/lampp/bin:$PATH
 
 # Youtube DL
 alias ymp4='youtube-dl -f mp4'
