@@ -9,6 +9,7 @@ banner() {
     echo "$edge"
     echo "$msg"
     echo "$edge"
+    printf "\n\n"
 }
 
 pause() {
@@ -35,6 +36,7 @@ enable_xorg_windowing() {
 }
 
 install_RPM_Fusion_Repos() {
+    banner "Enabling the RPM Fusion Repositories"
     sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 }
 
@@ -75,17 +77,28 @@ configure_NVIDIA_Drivers() {
 }
 
 install_Neofetch() {
+    banner "Installing Neofetch"
     sudo dnf install -y neofetch
 }
 
 install_Brave_Browser() {
+    banner "Installing Brave Browser"
+
+    printf "\nGetting the dependencies...\n"
     sudo dnf install dnf-plugins-core -y
+
+    printf "\nAdding repository for brave...\n"
     sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+
+    printf "\nImporting and signing the Keys...\n"
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf install brave-browser
+
+    printf "\nDownloading and installing Brave browser...\n"
+    sudo dnf install brave-browser -y
 }
 
 install_Xclip() {
+    banner "Installing xclip"
     sudo dnf install -y xclip
 }
 
@@ -142,43 +155,66 @@ gitsetup() {
 }
 
 add_Flatpak_remote() {
+    banner "Adding Flatpak remote: flathub"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 install_Flatpak_Discord() {
+    banner "Installing Discord Flatpak"
     flatpak install flathub com.discordapp.Discord -y
 }
 
 install_Flatpak_Zoom_Meet() {
+    banner "Installing Zoom RTC via Flatpak"
     flatpak install flathub us.zoom.Zoom -y
 }
 
 install_VSCode() {
+    banner "Installing VS Code"
+
+    printf "\nImporting and signing the necessary keys...\n"
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+    printf "\nAdding the VS Code repository...\n"
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+
+    printf "\nChecking for updates in the repo list...\n"
     sudo dnf check-update
+
+    printf "\nDownloading and installing VS Code...\n"
     sudo dnf install code -y
 }
 
 install_Sublime_Text() {
+    banner "Installing Sublime Text"
+
+    printf "\nImporting and signing the necessary keys...\n"
     sudo rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+
+    printf "\nAdding the Sublime Text stable repository...\n"
     sudo dnf config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo
+
+    printf "\nDownloading and installing Sublime Text...\n"
     sudo dnf install sublime-text -y
 }
 
 install_Vim_Editor() {
+    banner "Installing Vim Editor"
     sudo dnf install vim -y
 }
 
 install_Evolution_Mail_Client() {
+    banner "Installing Evolution Mail Client"
     sudo dnf install -y evolution evolution-ews
 }
 
 install_htop() {
+    banner "Installing htop utility"
     sudo dnf install -y htop
 }
 
 install_GNOME_Shell_Themes() {
+    banner "Installing GNOME Themes Stuff..."
     sudo dnf install -y arc-theme moka-icon-theme gnome-tweaks \
         gnome-shell-extension-appindicator \
         gnome-shell-extension-user-theme \
@@ -278,49 +314,68 @@ configure_title_bar() {
 }
 
 install_Telegram_Desktop() {
+    banner "Installing Telegram Desktop (rpm)"
     sudo dnf install telegram-desktop -y
 }
 
 install_VLC_Media_Player() {
+    banner "Installing VLC Media Playyer (rpm)"
     sudo dnf install -y vlc
 }
 
 install_Flatpak_OBS() {
+    banner "Installing OBS Studio (flatpak)"
     flatpak install flathub com.obsproject.Studio -y
 }
 
 install_Xampp() {
+    banner "Installing Xampp"
+
+    printf "\nInstalling the dependencies...\n"
     sudo dnf install libnsl -y
+
+    printf "\nGoing inside Downloads Folder...."
     cd ~/Downloads/
+
+    printf "\nGetting the Xampp Installer File for Linux...\n"
     wget 'https://www.apachefriends.org/xampp-files/8.0.8/xampp-linux-x64-8.0.8-0-installer.run'
-    ls
-    ll
+
+    printf "\nMaking the downloaded file into an executable...\n"
     chmod +x xampp-linux-x64-8.0.8-0-installer.run
+
+    printf "\nRunning the downloaded bundle...\n"
     sudo ./xampp-linux-x64-8.0.8-0-installer.run
 }
 
 install_Discord_RPM() {
+    banner "Installing Discord (rpm)"
     sudo dnf install -y discord
 }
 
 install_Minder_app() {
+    banner "Installing Minder app (rpm)"
     sudo dnf install minder -y
 }
 
 install_Composer() {
+    banner "Installing Composer"
     sudo dnf install -y composer
 }
 
 install_Nodejs() {
+    banner "Installing Nodejs"
     sudo dnf install nodejs -y
 }
 
 install_YouTubeDL() {
+    banner "Installing youtube-dl"
     sudo dnf install youtube-dl -y
 }
 
 install_Opera_Browser() {
+    banner "Installing Opera Browser"
 
+    printf "\nCreating a repo config file for Opera: /etc/yum.repos.d/opera.repo\n\n"
     {
         echo "[opera]"
         echo "name=Opera packages"
@@ -332,14 +387,17 @@ install_Opera_Browser() {
         echo ""
     } | sudo tee /etc/yum.repos.d/opera.repo
 
+    printf "\nDownloading and installing Opera Browser\n"
     sudo dnf install opera-stable -y
 }
 
 install_qBittorrent() {
+    banner "Installing qBittorrent Client"
     sudo dnf install -y qbittorrent
 }
 
 change_BASH_Prompt() {
+    banner "Changing the BASH prompt"
     cd ~/Downloads
     wget https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/F34/shell/bashrc
     mv ~/.bashrc ~/Documents
@@ -347,6 +405,37 @@ change_BASH_Prompt() {
 }
 
 install_Google_Chrome_Stable() {
+    banner "Installing Google Chrome Stable"
+
+    printf "\ninstall the Fedora's workstation repositories:\n"
+    sudo dnf install fedora-workstation-repositories -y
+
+    printf "\nEnabling the Google Chrome Repository..\n"
     sudo dnf config-manager --set-enabled google-chrome
+
+    printf "\nDownloading and Installing Google Chrome"
     sudo dnf install google-chrome-stable -y
+}
+
+install_Flatpak_Spotify() {
+    banner "Installing Spotify [Flatpak]"
+    flatpak install flathub com.spotify.Client -y
+}
+
+install_Megasync() {
+    banner "Installing MegaSync App"
+    
+    printf "\nGoing inside Downloads folder..."
+    cd ~/Downloads
+
+    printf "\nGetting the rpm file from mega.nz ...\n"
+    wget 'https://mega.nz/linux/MEGAsync/Fedora_34/x86_64/megasync-Fedora_34.x86_64.rpm'
+
+    printf "\nInstalling the downloaded file...\n"
+    sudo dnf localinstall -y megasync-Fedora_34.x86_64.rpm
+}
+
+install_Lollypop_Music_Player() {
+    banner "Installing Lollypop Music Player"
+    sudo dnf install -y lollypop
 }
