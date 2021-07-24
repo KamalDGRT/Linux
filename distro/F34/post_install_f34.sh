@@ -397,11 +397,15 @@ install_qBittorrent() {
 }
 
 change_BASH_Prompt() {
+    currentDirectory=$(pwd)
     banner "Changing the BASH prompt"
     cd ~/Downloads
-    wget https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/F34/shell/bashrc
+    wget https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/F34/shell/kali_f34_bashrc
+    wget https://raw.githubusercontent.com/KamalDGRT/Linux/master/distro/F34/rksalias.txt
     mv ~/.bashrc ~/Documents
-    mv ~/Downloads/bashrc ~/.bashrc
+    mv ~/Downloads/kali_f34_bashrc ~/.bashrc
+    mv ~/Downloads/rksalias.txt ~/.rksalias
+    cd "${currentDirectory}"
 }
 
 install_Google_Chrome_Stable() {
@@ -439,3 +443,5 @@ install_Lollypop_Music_Player() {
     banner "Installing Lollypop Music Player"
     sudo dnf install -y lollypop
 }
+
+change_BASH_Prompt
