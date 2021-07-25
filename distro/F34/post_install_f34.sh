@@ -460,3 +460,10 @@ install_ffmpeg_library() {
     printf "\nDownloading and Installing FFMPEG\n"
     sudo dnf install -y ffmpeg
 }
+
+install_Dia_Diagram_Editor() {
+    banner "Installing Dia Diagram Editor"
+
+    printf "\nDownloading and installing Dia Diagram Editor\n"
+    sudo dnf install dia -y
+}
