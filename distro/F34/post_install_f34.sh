@@ -444,4 +444,19 @@ install_Lollypop_Music_Player() {
     sudo dnf install -y lollypop
 }
 
-change_BASH_Prompt
+install_MKVToolNixGUI() {
+    banner "Installing MKVToolNixGUI"
+
+    printf "\nGetting the MKVToolNixGUI rpm repo\n"
+    sudo rpm -Uhv https://mkvtoolnix.download/fedora/bunkus-org-repo-2-4.noarch.rpm
+
+    printf "\nDownloading and Installing MKVToolNixGUI\n"
+    sudo dnf install mkvtoolnix mkvtoolnix-gui -y
+}
+
+install_ffmpeg_library() {
+    banner "Installing FFMPEG"
+
+    printf "\nDownloading and Installing FFMPEG\n"
+    sudo dnf install -y ffmpeg
+}
