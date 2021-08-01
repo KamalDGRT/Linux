@@ -58,3 +58,45 @@
 -   Copied Kali's bashrc to `.bashrc` and changed the prompt.
 -   Copied Fedora 34's `rksalias.txt` to `.rksalias` for the list of aliases
 -   Configured git setup using `gitsetup` function from my post install scripts.
+
+-   #### Installed Android Studio
+
+    -   Created a folder `Android` at `~/` location.
+    -   Downloaded the latest version of Android Studio from the official site.
+    -   Extracted the contents of that archive in the Downloads folder first.
+    -   In that extracted folder, there is another folder `android-studio`.
+    -   I moved `android-studio` to the `~/Android` folder.
+    -   So, the directory structure looks somewhat like this
+
+        ```nim
+        ~/Android
+            └── android-studio
+        ```
+
+    -   Executed this command:
+
+        ```
+        ~/Android/android-studio/bin/studio.sh
+        ```
+
+    -   Went through custom install of Android Studio.
+    -   I will add them in a separate repo.
+    -   Created a AVD with the following config:
+        -   Pixel (with PlayStore)
+        -   1080 x 1920 (420 dpi)
+        -   API 27
+        -   Target: Android 8.1 (Oreo)
+
+-   #### Installed Anydesk
+
+    -   `sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/getsolus/3rd-party/03c0a9ac6de646922ab47ee0e52c303076aefce1/network/util/anydesk/pspec.xml`
+    -   `sudo eopkg it anydesk-6.1.1-28-1-x86_64.eopkg`
+    -   `rm anydesk-6.1.1-28-1-x86_64.eopkg -y`
+
+-   #### Installed Microsoft Core Fonts
+
+    -   `sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/getsolus/3rd-party/master/desktop/font/mscorefonts/pspec.xml -y`
+    -   `sudo eopkg it mscorefonts-1.3-3-1-x86_64.eopkg`
+    -   `rm mscorefonts-1.3-3-1-x86_64.eopkg -y`
+
+-   Installed Fira Code Font: `sudo eopkg it font-firacode-ttf -y`
