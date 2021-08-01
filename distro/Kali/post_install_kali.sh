@@ -73,7 +73,10 @@ gitsetup() {
 
         gtext " - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
         git config --global core.editor "${GIT_CLI_EDITOR}"
-
+        
+        gtext " - Configuring Default git branch as main"
+        git config --global init.defaultBranch main
+        
         gtext " - Fast Forwarding All the changes while git pull"
         git config --global pull.ff only
 
