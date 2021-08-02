@@ -100,3 +100,4 @@
     -   `rm mscorefonts-1.3-3-1-x86_64.eopkg -y`
 
 -   Installed Fira Code Font: `sudo eopkg it font-firacode-ttf -y`
+-   Installed Xpad (Linux alternative to StickyNotes): `sudo eopkg it xpad -y`
