@@ -21,6 +21,7 @@
 -   Rebooted the system.
 -   Installed `neofetch` using `sudo eopkg install neofetch -y`
 -   Installed _Brave Browser_ using `sudo eopkg it brave -y`
+
 -   ###### Enabled the sound devices:
 
 ```sh
@@ -101,3 +102,73 @@
 
 -   Installed Fira Code Font: `sudo eopkg it font-firacode-ttf -y`
 -   Installed Xpad (Linux alternative to StickyNotes): `sudo eopkg it xpad -y`
+-   Installed MKVToolNix GUI : `sudo eopkg it mkvtoolnix -y`
+
+-   #### Installed LAMPP stack using XAMPP
+
+    -   Got the latest xampp installer from the official [website](https://www.apachefriends.org/download.html).
+    -   It got downloaded to `~/Downloads` folder. I opened the terminal in that location.
+    -   Executed the following commands:
+
+        -   Changing the file permisions...
+
+            ```
+            chmod 755 xampp-linux-*-installer.run
+            ```
+
+        -   Running the executable as adminstrator...
+
+            ```
+            sudo ./xampp-linux-*-installer.run
+            ```
+
+    -   Just gave `Next` and `Next` for the options that came in the Intaller.
+    -   Then I tried to start the `Apache` and `MySQL` servers.
+    -   `MySQL` server started. But the `Apache` didn't.
+    -   So, to fix that, I changed the user and group from `daemon` to `kamal` (my Linux username)
+        in the `/opt/lampp/etc/httpd.conf`. Those 2 lines are present somewhere around line number 170.
+    -   Stopped the `MySQL` server.
+    -   Started the `Apache` and `MySQL` server.
+    -   Now the `localhost` did not show any error.
+    -   `phpinfo` tab also worked fine.
+    -   `phpmyadmin` showed an error on the bottom of the screen.
+    -   Fixing `phpmyadmin`'s error:
+
+        -   Created the tmp directory: `sudo mkdir -p /opt/lampp/phpmyadmin/tmp/`
+        -   Changing permissions: `sudo chmod 777 /opt/lampp/phpmyadmin/tmp/`
+
+    -   Refreshed the `phpmyadmin` tab and it worked fine.
+    -   Added the following aliases:
+
+        ```sh
+        # Lamp Stack related
+        alias xampp='sudo /opt/lampp/xampp'
+        alias reloadapache='xampp reloadapache'
+        alias startmysql='xampp startmysql'
+        alias startapache='xampp startapache'
+        alias stopapache='xampp stopapache'
+        alias stopmysql='xampp stopmysql'
+        alias reloadmysql='xampp reloadmysql'
+        alias lampstart='startapache && startmysql'
+        alias lampstop='stopapache && stopmysql'
+
+        export PATH=/opt/lampp/bin:$PATH
+        ```
+
+    -   Installed Composer: `sudo eopkg it composer -y`
+    -   Added global require for laravel: `composer global require laravel/installer`
+    -   The above command threw an error. So, I updated the composer to
+        version 2: `sudo composer self-update --2`
+    -   Now it did not show any error while setting up laravel.
+    -   Added the following aliases:
+
+        ```sh
+        # Laravel Related Aliases
+        export PATH=~/.config/composer/vendor/bin:$PATH
+
+        alias dlaravel='cd /opt/lampp/htdocs/laravel'
+        alias lnew='laravel new'
+        alias paserve='php artisan serve'
+        alias pakeygen='php artisan key:generate'
+        alias pamig='php artisan migrate'
+        ```

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 fbm=`cat /sys/devices/platform/asus-nb-wmi/fan_boost_mode`
 
