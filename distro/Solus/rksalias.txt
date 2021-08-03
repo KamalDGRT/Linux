@@ -1,0 +1,106 @@
+alias nf='neofetch --ascii_bold on --gap 3'
+
+# Conf files
+alias gdmconf='subl /etc/gdm/custom.conf'
+alias phpconf='subl /opt/lampp/etc/php.ini'
+alias hconf='subl /opt/lampp/etc/httpd.conf'
+alias vconf='subl /opt/lampp/etc/extra/httpd-vhosts.conf'
+alias ehost='subl /etc/hosts'
+alias gr='cd ~/RKS_FILES/GitRep/'
+alias gcpush='~/RKS_FILES/GitRep/Linux/common/shell/gcpush.sh'
+alias afm='~/RKS_FILES/GitRep/Linux/common/shell/fanmode.sh'
+
+
+# Git Related Aliases
+alias clone='git clone'
+alias add='git add .'
+alias commit='git commit -m'
+alias push='git push'
+
+
+# PHP Related Aliases
+alias compup='composer update'
+alias htdocs='cd /opt/lampp/htdocs/'
+
+
+# Yii2 Related Aliases
+alias yii2='cd /opt/lampp/htdocs/yii2'
+alias ynadv='composer create-project --prefer-dist yiisoft/yii2-app-advanced'
+alias pinit='php init'
+alias yfixperm='~/RKS_FILES/GitRep/Linux/common/shell/yfixperm.sh'
+alias pymig='php yii migrate'
+alias ccmlocal='code common/config/main-local.php'
+alias scmlocal='subl common/config/main-local.php'
+
+
+# Shell Related Aliases
+alias bconf='subl ~/.bashrc'
+alias baconf='subl ~/.bash_aliases'
+alias zconf='subl ~/.zshrc'
+alias sbash='source ~/.bashrc'
+
+
+# System Related
+alias pinstall='sudo eopkg install'
+alias premove='sudo eopkg remove'
+alias sinstall='sudo snap install'
+alias sremove='sudo snap remove'
+alias restart='sudo systemctl restart'
+alias chpermd='chmod 777 -R'
+alias schpermd='sudo chmod 777 -R'
+
+
+# Laravel Related Aliases
+export PATH=~/.config/composer/vendor/bin:$PATH
+
+alias dlaravel='cd /opt/lampp/htdocs/laravel'
+alias lnew='laravel new'
+alias paserve='php artisan serve'
+alias pakeygen='php artisan key:generate'
+alias pamig='php artisan migrate'
+
+
+# Files related:
+alias rrm='rm -rvf'
+alias srrm='sudo rm -rvf'
+alias mvf='mv -vf'
+alias smvf='sudo mv -vf'
+alias cpr='cp -rvf'
+alias scpr='sudo cp -rvf'
+alias back='cd ../'
+alias mksh='chmod +x'
+
+
+# Python Related Aliases
+alias py='python3'
+alias pvenv='py -m venv env'
+alias seba='source env/bin/activate'
+alias genreq='py -m pip freeze > requirements.txt'
+
+
+# Multiplexing Related Scripts
+
+alias batchextractsubs='~/RKS_FILES/GitRep/Linux/common/shell/batchextractsubs.sh'
+alias batchmux='~/RKS_FILES/GitRep/Linux/common/shell/batchmux.sh'
+alias cbatch='~/RKS_FILES/GitRep/Linux/common/shell/cbatch.sh'
+alias emptysubs='~/RKS_FILES/GitRep/Linux/common/shell/emptysubs.sh'
+alias mkv2mp4='~/RKS_FILES/GitRep/Linux/common/shell/mkv2mp4.sh'
+alias nosubsmkv='~/RKS_FILES/GitRep/Linux/common/shell/nosubsmkv.sh'
+alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
+
+
+# Lamp Stack related
+alias xampp='sudo /opt/lampp/xampp'
+alias reloadapache='xampp reloadapache'
+alias startmysql='xampp startmysql'
+alias startapache='xampp startapache'
+alias stopapache='xampp stopapache'
+alias stopmysql='xampp stopmysql'
+alias reloadmysql='xampp reloadmysql'
+alias lampstart='startapache && startmysql'
+alias lampstop='stopapache && stopmysql'
+
+export PATH=/opt/lampp/bin:$PATH
+
+# Youtube DL
+alias ymp4='youtube-dl -f mp4'
