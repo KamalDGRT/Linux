@@ -25,7 +25,7 @@
 -   ###### Enabled the sound devices:
 
 ```sh
-    echo 'snd_hda_intel.dmic_detect=0' | sudo tee /etc/kernel/cmdline.d/sound.conf`
+    echo 'snd_hda_intel.dmic_detect=0' | sudo tee /etc/kernel/cmdline.d/sound.conf
 ```
 
 -   Updated the config so that sound stuff will be enabled in next boot.
@@ -53,7 +53,7 @@
     -   `sudo eopkg it budgie-screenshot-applet -y`
 -   Rebooted the system.
 -   Added `Screenshot` applet to right hand side of the taskbar using `Budgie Desktop Settings`
--   Installed Opera Browser: `sudo eopkg it opera -y`
+-   Installed Opera Browser: `sudo eopkg it opera-stable -y`
 -   Installed Chrome using `Software Centre` -> `Third Party Apps`
 -   Installed Sublime Text using `Software Centre` -> `Third Party Apps`
 -   Copied Kali's bashrc to `.bashrc` and changed the prompt.
@@ -90,7 +90,7 @@
 
 -   #### Installed Anydesk
 
-    -   `sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/getsolus/3rd-party/03c0a9ac6de646922ab47ee0e52c303076aefce1/network/util/anydesk/pspec.xml`
+    -   `sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/getsolus/3rd-party/03c0a9ac6de646922ab47ee0e52c303076aefce1/network/util/anydesk/pspec.xml -y`
     -   `sudo eopkg it anydesk-6.1.1-28-1-x86_64.eopkg`
     -   `rm anydesk-6.1.1-28-1-x86_64.eopkg -y`
 
