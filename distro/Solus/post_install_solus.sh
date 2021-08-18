@@ -1,0 +1,73 @@
+#!/bin/bash
+
+#----- Fancy Messages -----#
+#  Credits: snwh/solus-post-install
+
+show_error() {
+    echo -e "\033[1;31m$@\033[m" 1>&2
+}
+
+show_info() {
+    echo -e "\033[1;32m$@\033[0m"
+}
+
+show_warning() {
+    echo -e "\033[1;33m$@\033[0m"
+}
+
+show_question() {
+    echo -e "\033[1;34m$@\033[0m"
+}
+
+show_success() {
+    echo -e "\033[1;35m$@\033[0m"
+}
+
+show_header() {
+    echo -e "\033[1;36m$@\033[0m"
+}
+
+show_listitem() {
+    echo -e "\033[0;37m$@\033[0m"
+}
+
+after_install() {
+    show_success "\n\n$* : Installed Successfully\n"
+    echo "------------------------------------------\n\n"
+}
+
+banner() {
+    printf "\n\n\n"
+    msg="| $* |"
+    edge=$(echo "$msg" | sed 's/./-/g')
+    show_error "$edge"
+    show_info "$msg"
+    show_error "$edge"
+}
+
+install_Neofetch() {
+    banner "Installing Neofetch"
+    sudo eopkg install neofetch -y
+    after_install "neofetch"
+}
+
+install_Zoom_Client() {
+
+    wget -O zoom.png 'https://i.imgur.com/0zk7xXE.png'
+    {
+        echo "[Desktop Entry]"
+        echo "Comment=Zoom Client for Solus"
+        echo "Name=Zoom Client"
+        echo "Exec=/home/kamal/LEO/zoom/ZoomLauncher"
+        echo "Icon=/home/kamal/LEO/zoom/icon/zoom.png"
+        echo "Encoding=UTF-8"
+        echo "Terminal=false"
+        echo "Type=Application"
+    } | sudo tee /usr/share/applications/zoom-client.desktop
+}
+
+install_Everything() {
+    install_Neofetch
+}
+
+install_Everything
