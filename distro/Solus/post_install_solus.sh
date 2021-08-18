@@ -33,7 +33,7 @@ show_listitem() {
 
 after_install() {
     show_success "\n\n$* : Installed Successfully\n"
-    echo "------------------------------------------\n\n"
+    echo -e "------------------------------------------\n\n"
 }
 
 banner() {
@@ -77,13 +77,15 @@ install_Zoom_Client() {
     show_info "\nDownloading the Zoom Client Icon\n"
     wget -O ~/LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
 
+    currentUser=`whoami`
+
     show_info "\nCreating a Desktop Entry for Zoom Client.\n"
     {
         echo "[Desktop Entry]"
         echo "Comment=Zoom Client for Solus"
         echo "Name=Zoom Client"
-        echo "Exec=~/LEO/zoom/ZoomLauncher"
-        echo "Icon=~/LEO/zoom/icon/zoom.png"
+        echo "Exec=/home/${currentUser}/LEO/zoom/ZoomLauncher"
+        echo "Icon=/home/${currentUser}/LEO/zoom/icon/zoom.png"
         echo "Encoding=UTF-8"
         echo "Terminal=false"
         echo "Type=Application"
