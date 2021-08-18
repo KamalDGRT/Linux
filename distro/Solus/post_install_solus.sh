@@ -52,22 +52,49 @@ install_Neofetch() {
 }
 
 install_Zoom_Client() {
+    banner "Installing Zoom Client"
 
-    wget -O zoom.png 'https://i.imgur.com/0zk7xXE.png'
+    show_question "\nDownloading the Latest version of Zoom\n"
+    wget -O ~/Downloads/zoom.tar.xz 'https://zoom.us/client/latest/zoom_x86_64.tar.xz'
+
+    show_question "\nCreating a directory to install zoom.."
+    if [ -d ~/LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar -xf ~/Downloads/zoom.tar.xz -C ~/LEO
+
+    show_question "\nCreating a directory to download Zoom Icon"
+    if [ -d ~/LEO/zoom/icon ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/LEO/zoom/icon
+    fi
+
+    show_info "\nDownloading the Zoom Client Icon\n"
+    wget -O ~/LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
+
+    show_info "\nCreating a Desktop Entry for Zoom Client.\n"
     {
         echo "[Desktop Entry]"
         echo "Comment=Zoom Client for Solus"
         echo "Name=Zoom Client"
-        echo "Exec=/home/kamal/LEO/zoom/ZoomLauncher"
-        echo "Icon=/home/kamal/LEO/zoom/icon/zoom.png"
+        echo "Exec=~/LEO/zoom/ZoomLauncher"
+        echo "Icon=~/LEO/zoom/icon/zoom.png"
         echo "Encoding=UTF-8"
         echo "Terminal=false"
         echo "Type=Application"
     } | sudo tee /usr/share/applications/zoom-client.desktop
+
+    after_install "Zoom Client"
 }
 
 install_Everything() {
     install_Neofetch
 }
 
-install_Everything
+# install_Everything
+install_Zoom_Client
