@@ -77,7 +77,7 @@ install_Zoom_Client() {
     show_info "\nDownloading the Zoom Client Icon\n"
     wget -O ~/LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
 
-    currentUser=`whoami`
+    currentUser=$(whoami)
 
     show_info "\nCreating a Desktop Entry for Zoom Client.\n"
     {
@@ -94,9 +94,72 @@ install_Zoom_Client() {
     after_install "Zoom Client"
 }
 
-install_Everything() {
-    install_Neofetch
+install_Xclip() {
+    banner "Installing xclip"
+    sudo eopkg install xclip -y
+    after_install "xclip"
 }
 
-# install_Everything
-install_Zoom_Client
+install_Xkill() {
+    banner "Installing xkill"
+    sudo eopkg install xkill -y
+    after_install "xkill"
+}
+
+install_Sublime_Text() {
+    banner "Installing Sublime Text"
+    show_question "\nDownloading Sublime Text Build 4113\n"
+    wget -O ~/Downloads/sublime.tar.xz 'https://download.sublimetext.com/sublime_text_build_4113_x64.tar.xz'
+
+    show_question "\nCreating a directory to install Sublime Text.."
+    if [ -d ~/LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar -xf ~/Downloads/sublime.tar.xz -C ~/LEO
+
+    currentUser=$(whoami)
+
+    show_info "\nCreating a Desktop Entry for Sublime Text.\n"
+    {
+        echo "[Desktop Entry]"
+        echo "Version=1.0"
+        echo "Type=Application"
+        echo "Name=Sublime Text"
+        echo "GenericName=Text Editor"
+        echo "Comment=Sophisticated text editor for code, markup and prose"
+        echo "Exec=/home/${currentUser}/LEO/sublime_text/sublime_text %F"
+        echo "Terminal=false"
+        echo "MimeType=text/plain;"
+        echo "Icon=/home/${currentUser}/LEO/sublime_text/Icon/256x256/sublime-text.png"
+        echo "Categories=TextEditor;Development;"
+        echo "StartupNotify=true"
+        echo "Actions=new-window;new-file;"
+
+        echo "[Desktop Action new-window]"
+        echo "Name=New Window"
+        echo "Exec=/home/${currentUser}/LEO/sublime_text/sublime_text --launch-or-new-window"
+        echo "OnlyShowIn=Unity;"
+
+        echo "[Desktop Action new-file]"
+        echo "Name=New File"
+        echo "Exec=/home/${currentUser}/LEO/sublime_text/sublime_text --command new_file"
+        echo "OnlyShowIn=Unity;"
+    } | sudo tee /usr/share/applications/sublime-text.desktop
+
+    show_info "Creating Sybmbolic Link for Sublime Text\n\n"
+    sudo ln -s ~/LEO/sublime_text/sublime_text /usr/bin/subl
+
+    after_install "Sublime Text"
+}
+
+install_Everything() {
+    install_Neofetch
+    install_Zoom_Client
+    install_Xclip
+    install_Xkill
+    install_Sublime_Text
+}
