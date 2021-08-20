@@ -2,4 +2,4 @@
 
 ### Neofetch images
 
-![Zorin Lite](https://imgur.com/a/1bWVdYS)
+![Zorin Lite](https://i.imgur.com/niagil8.jpeg)
