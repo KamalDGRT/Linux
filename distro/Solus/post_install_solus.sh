@@ -156,10 +156,24 @@ install_Sublime_Text() {
     after_install "Sublime Text"
 }
 
+install_Unoconv() {
+    banner "Installing unoconv"
+    
+    show_info "This scripts needs libreoffice"
+    
+    mkdir -p ~/LEO/unoconv
+    git clone https://github.com/dagwieers/unoconv.git ~/LEO/unoconv
+    sudo ln -s ~/LEO/unoconv/unoconv /usr/bin/unoconv
+    
+    after_install "unoconv"
+}
+
+
 install_Everything() {
     install_Neofetch
     install_Zoom_Client
     install_Xclip
     install_Xkill
+    install_Unoconv
     install_Sublime_Text
 }
