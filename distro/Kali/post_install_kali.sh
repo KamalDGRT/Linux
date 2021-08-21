@@ -399,7 +399,7 @@ install_and_configure_LAMP() {
         php-json php-curl php-gd php-phpseclib php-mysql composer xclip
 
     gtext "Starting apache2.socket and enabling to start on boot"
-    sudo systemctl enable --now apache2
+    sudo systemctl enable --now apache2gtext
 
     gtext "Starting snapd.socket and enabling to start on boot"
     sudo systemctl enable --now mariadb
@@ -419,10 +419,10 @@ install_and_configure_LAMP() {
     gtext "Importing phpmyadmin keyring"
     gpg --import phpmyadmin.keyring
 
-    gtext "Downloading phpmyadmin tar file"
+    gtext "Downloading phpmyadmin tar file for integrity check"
     wget -O phpmyadmin.tar.gz.asc 'https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz.asc'
 
-    gtext "Verifyiny phpmyadmin tar file"
+    gtext "Verifying phpmyadmin tar file"
     gpg --verify phpmyadmin.tar.gz.asc
 
     gtext "Creating phpmyadmin directory on /var/www/html/"
