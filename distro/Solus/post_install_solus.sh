@@ -400,6 +400,72 @@ install_and_configure_LAMP_Stack() {
     setup_Virtual_Hosts
 }
 
+install_Brave_Browser() {
+    banner "Installing Brave Browser"
+    sudo eopkg install brave -y
+    after_install "brave"
+}
+
+install_Discord() {
+    banner "Installing Discord Client"
+    sudo eopkg install discord -y
+    after_install "discord"
+}
+
+install_VLC() {
+    banner "Installing VLC Media Player"
+    sudo eopkg install vlc -y
+    after_install "vlc"
+}
+
+install_Vim() {
+    banner "Installing Vim"
+    sudo eopkg install vim -y
+    after_install "vim"
+}
+
+install_VSCode() {
+    banner "Installing VS Code"
+    sudo eopkg install vscode -y
+    after_install "vscode"
+}
+
+install_Opera_Browser() {
+    banner "Installing Opera Browser"
+    sudo eopkg install opera-stable -y
+    after_install "opera-stable"
+}
+
+install_Anydesk() {
+    banner "Installing Anydesk"
+
+    show_info "Downloading the Anydesk Setup File"
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/getsolus/3rd-party/03c0a9ac6de646922ab47ee0e52c303076aefce1/network/util/anydesk/pspec.xml -y
+
+    show_info "Installing the setup file..."
+    sudo eopkg it anydesk-6.1.1-28-1-x86_64.eopkg
+
+    show_info "Cleaning the remnant files..."
+    sudo rm anydesk-6.1.1-28-1-x86_64.eopkg
+
+    after_install "anydesk"
+}
+
+install_Microsoft_Core_Fonts() {
+    banner "Installing Microsoft Core Fonts"
+
+    show_info "Downloading the Setup File..."
+    sudo eopkg bi --ignore-safety https://raw.githubusercontent.com/getsolus/3rd-party/master/desktop/font/mscorefonts/pspec.xml -y
+
+    show_info "Installing the setup file..."
+    sudo eopkg it mscorefonts-1.3-3-1-x86_64.eopkg
+
+    show_info "Cleaning the remnant files..."
+    sudo rm mscorefonts-1.3-3-1-x86_64.eopkg
+
+    after_install "mscorefonts"
+}
+
 install_Everything() {
     install_Neofetch
     install_Zoom_Client
@@ -408,6 +474,14 @@ install_Everything() {
     install_Unoconv
     install_Sublime_Text
     install_and_configure_LAMP_Stack
+    install_Brave_Browser
+    install_Discord
+    install_VLC
+    install_Vim
+    install_VSCode
+    install_Opera_Browser
+    install_Anydesk
+    install_Microsoft_Core_Fonts
 }
 
 install_Everything
