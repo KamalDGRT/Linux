@@ -20,11 +20,12 @@ alias push='git push'
 
 # PHP Related Aliases
 alias compup='composer update'
-alias htdocs='cd /opt/lampp/htdocs/'
+alias htdocs='cd /var/www'
+alias genvhost='~/RKS_FILES/GitRep/Linux/distro/Solus/genvhost.sh'
 
 
 # Yii2 Related Aliases
-alias yii2='cd /opt/lampp/htdocs/yii2'
+alias yii2='cd /var/www/yii2'
 alias ynadv='composer create-project --prefer-dist yiisoft/yii2-app-advanced'
 alias pinit='php init'
 alias yfixperm='~/RKS_FILES/GitRep/Linux/common/shell/yfixperm.sh'
@@ -51,9 +52,7 @@ alias schpermd='sudo chmod 777 -R'
 
 
 # Laravel Related Aliases
-export PATH=~/.config/composer/vendor/bin:$PATH
-
-alias dlaravel='cd /opt/lampp/htdocs/laravel'
+alias dlaravel='cd /var/www/laravel'
 alias lnew='laravel new'
 alias paserve='php artisan serve'
 alias pakeygen='php artisan key:generate'
@@ -100,7 +99,13 @@ alias reloadmysql='xampp reloadmysql'
 alias lampstart='startapache && startmysql'
 alias lampstop='stopapache && stopmysql'
 
-export PATH=/opt/lampp/bin:$PATH
-
 # Youtube DL
 alias ymp4='youtube-dl -f mp4'
+
+
+snap_binaries='/snap/bin'
+python_packages='/home/kamal/.local/lib/python3.7/site-packages'
+nmplocation='~/.npm-global/bin'
+composer_binaries='~/.config/composer/vendor/bin'
+
+export PATH="${snap_binaries}:${python_packages}:${nmplocation}:${composer_binaries}:${PATH}"
