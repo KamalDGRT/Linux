@@ -466,6 +466,64 @@ install_Microsoft_Core_Fonts() {
     after_install "mscorefonts"
 }
 
+install_VSCode_manually() {
+    banner "Installing VS Code manually"
+
+    show_question "\nDownloading the Latest version of Zoom\n"
+    wget -O ~/Downloads/vscode.tar.gz 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'
+
+    show_info "Downloading keyring for VS Code"
+    wget -O ~/Downloads/microsoft.asc 'https://packages.microsoft.com/keys/microsoft.asc'
+
+    show_info "Importing VS Code keyring"
+    gpg --import ~/Downloads/microsoft.asc
+
+    show_question "\nCreating a directory to install zoom.."
+    if [ -d ~/LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar xvf ~/Downloads/vscode.tar.gz -C ~/LEO
+
+    show_header "\nRenaming the Directory [VSCode-linux-x64 -> vscode]...\n"
+    mv ~/LEO/VSCode-linux-x64/ ~/LEO/vscode
+
+    currentUser=$(whoami)
+
+    show_info "\nCreating a Desktop Entry for VS Code\n"
+    {
+        echo "[Desktop Entry]"
+        echo "Name=Visual Studio Code"
+        echo "Comment=Code Editing. Redefined."
+        echo "GenericName=Text Editor"
+        echo "Exec=/home/${currentUser}/LEO/vscode/code --unity-launch %F"
+        echo "Icon=com.visualstudio.code"
+        echo "Type=Application"
+        echo "StartupNotify=false"
+        echo "StartupWMClass=Code"
+        echo "Categories=Utility;TextEditor;Development;IDE;"
+        echo "MimeType=text/plain;inode/directory;application/x-code-workspace;"
+        echo "Actions=new-empty-window;"
+        echo "Keywords=vscode;"
+        echo ""
+        echo "[Desktop Action new-empty-window]"
+        echo "Name=New Empty Window"
+        echo "Exec=/home/${currentUser}/LEO/vscode/code --new-window %F"
+        echo "Icon=com.visualstudio.code"
+    } | sudo tee /usr/share/applications/vscode.desktop
+
+    show_info "Creating Sybmbolic Link for VS Code\n\n"
+    sudo ln -s ~/LEO/vscode/bin/code /usr/bin/code
+
+    show_info "Removing the remnant files..."
+    rm ~/Downloads/microsoft.asc
+
+    after_install "VS Code Manual"
+}
+
 install_Everything() {
     install_Neofetch
     install_Zoom_Client
@@ -484,4 +542,4 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-install_Everything
+install_VSCode_manually
