@@ -1,3 +1,3 @@
 #!/bin/bash
 
-vmctl startvm "$1"
+VBoxManage startvm "$1"

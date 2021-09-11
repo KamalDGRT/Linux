@@ -1,9 +1,9 @@
 #!/bin/bash
 
-vmstart workstation
-vmstart bastion
-vmstart servera
-vmstart serverb
-vmstart serverc
-vmstart serverd
-vmstart servere
+VBoxManage startvm workstation
+VBoxManage startvm bastion
+VBoxManage startvm servera
+VBoxManage startvm serverb
+VBoxManage startvm serverc
+VBoxManage startvm serverd
+VBoxManage startvm servere

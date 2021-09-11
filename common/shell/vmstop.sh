@@ -1,3 +1,3 @@
 #!/bin/bash
 
-vmctl controlvm "$1" poweroff
+VBoxManage controlvm "$1" poweroff
