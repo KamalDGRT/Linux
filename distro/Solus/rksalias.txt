@@ -4,7 +4,7 @@ alias nf='neofetch --ascii_bold on --gap 3'
 alias gdmconf='subl /etc/gdm/custom.conf'
 alias phpconf='subl /opt/lampp/etc/php.ini'
 alias hconf='subl /opt/lampp/etc/httpd.conf'
-alias vconf='subl /opt/lampp/etc/extra/httpd-vhosts.conf'
+alias vconf='subl /etc/httpd/conf.d/httpd-vhosts.conf'
 alias ehost='subl /etc/hosts'
 alias gr='cd ~/RKS_FILES/GitRep/'
 alias gcpush='~/RKS_FILES/GitRep/Linux/common/shell/gcpush.sh'
@@ -12,6 +12,7 @@ alias afm='~/RKS_FILES/GitRep/Linux/common/shell/fanmode.sh'
 
 
 # Git Related Aliases
+alias gitsetup='~/RKS_FILES/GitRep/Linux/common/shell/gitsetup.sh'
 alias clone='git clone'
 alias add='git add .'
 alias commit='git commit -m'
@@ -101,6 +102,15 @@ alias lampstop='stopapache && stopmysql'
 
 # Youtube DL
 alias ymp4='youtube-dl -f mp4'
+
+
+# Virtual Box Related Aliases
+alias vmctl='VBoxManage'
+alias vmstatus='vmctl list vms --long | grep -e "Name:" -e "State:"'
+alias vmstart='~/RKS_FILES/GitRep/Linux/common/shell/vmstart.sh'
+alias vmstartall='~/RKS_FILES/GitRep/Linux/common/shell/vmstartall.sh'
+alias vmstop='~/RKS_FILES/GitRep/Linux/common/shell/vmstop.sh'
+alias vmstopall='~/RKS_FILES/GitRep/Linux/common/shell/vmstopall.sh'
 
 
 snap_binaries='/snap/bin'

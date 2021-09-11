@@ -524,6 +524,10 @@ install_VSCode_manually() {
     after_install "VS Code Manual"
 }
 
+update_VS_Code() {
+
+}
+
 install_Everything() {
     install_Neofetch
     install_Zoom_Client
