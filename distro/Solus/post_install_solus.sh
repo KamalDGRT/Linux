@@ -469,7 +469,7 @@ install_Microsoft_Core_Fonts() {
 install_VSCode_manually() {
     banner "Installing VS Code manually"
 
-    show_question "\nDownloading the Latest version of Zoom\n"
+    show_question "\nDownloading the Latest version of VS Code\n"
     wget -O ~/Downloads/vscode.tar.gz 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'
 
     show_info "Downloading keyring for VS Code"
@@ -478,7 +478,7 @@ install_VSCode_manually() {
     show_info "Importing VS Code keyring"
     gpg --import ~/Downloads/microsoft.asc
 
-    show_question "\nCreating a directory to install zoom.."
+    show_question "\nCreating a directory to install VS Code.."
     if [ -d ~/LEO ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
@@ -525,7 +525,28 @@ install_VSCode_manually() {
 }
 
 update_VS_Code() {
+    banner "Updating VS Code :D"
 
+    show_info "Removing the existing VS Code Installation"
+    rm -rf ~/LEO/vscode
+
+    show_question "\nDownloading the Latest version of VS Code\n"
+    wget -O ~/Downloads/vscode.tar.gz 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'
+
+    show_question "\nCreating a directory to install VS Code.."
+    if [ -d ~/LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar xvf ~/Downloads/vscode.tar.gz -C ~/LEO
+
+    show_header "\nRenaming the Directory [VSCode-linux-x64 -> vscode]...\n"
+    mv ~/LEO/VSCode-linux-x64/ ~/LEO/vscode
+
+    after_install "VS Code Manual"
 }
 
 install_Everything() {
@@ -546,4 +567,4 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-install_VSCode_manually
+update_VS_Code
