@@ -87,7 +87,7 @@ alias emptysubs='~/RKS_FILES/GitRep/Linux/common/shell/emptysubs.sh'
 alias mkv2mp4='~/RKS_FILES/GitRep/Linux/common/shell/mkv2mp4.sh'
 alias nosubsmkv='~/RKS_FILES/GitRep/Linux/common/shell/nosubsmkv.sh'
 alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
-
+alias mp42mp3='~/RKS_FILES/GitRep/Linux/common/shell/mp42mp3.sh'
 
 # Lamp Stack related
 alias xampp='sudo /opt/lampp/xampp'
@@ -102,7 +102,7 @@ alias lampstop='stopapache && stopmysql'
 
 # Youtube DL
 alias ymp4='youtube-dl -f mp4'
-
+alias ytmp3='youtube-dl -f bestaudio -x --audio-format mp3'
 
 # Virtual Box Related Aliases
 alias vmctl='VBoxManage'
