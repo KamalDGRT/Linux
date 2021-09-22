@@ -549,6 +549,33 @@ update_VS_Code() {
     after_install "VS Code Manual"
 }
 
+install_Discord_Manually() {
+    banner "Installing discord tar file"
+
+    show_info "Downloading discord tar file"
+    cd ~/Downloads
+    wget -O discord.tar.gz 'https://discord.com/api/download?platform=linux&format=tar.gz'
+
+    show_info "Extracting discord tar file"
+    sudo tar -xvzf discord.tar.gz -C /opt
+
+    show_info "Adding symbolic link on /usr/bin/Discord"
+    sudo ln -sf /opt/Discord/Discord /usr/bin/Discord
+
+    show_info "Copying discord.desktop to /usr/share/applications"
+    sudo cp -r /opt/Discord/discord.desktop /usr/share/applications
+
+
+    show_info "Adding executable file for discord.desktop"
+    SUBJECT='/usr/share/applications/discord.desktop'
+    SEARCH_FOR='Exec='
+    sudo sed -i "/^$SEARCH_FOR/c\Exec=/usr/bin/Discord" $SUBJECT
+
+    show_info "Adding icon for discord.desktop"
+    SEARCH_FOR='Icon='
+    sudo sed -i "/^$SEARCH_FOR/c\Icon=/opt/Discord/discord.png" $SUBJECT
+}
+
 install_Everything() {
     install_Neofetch
     install_Zoom_Client
@@ -567,4 +594,4 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-update_VS_Code
+install_Discord_Manually
