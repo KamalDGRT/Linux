@@ -96,6 +96,9 @@ install_Zoom_Client() {
         echo "Type=Application"
     } | sudo tee /usr/share/applications/zoom-client.desktop
 
+    show_info "Cleaning out the remnant files.."
+    rm ~/Downloads/zoom.tar.xz
+
     after_install "Zoom Client"
 }
 
@@ -546,6 +549,9 @@ update_VS_Code() {
     show_header "\nRenaming the Directory [VSCode-linux-x64 -> vscode]...\n"
     mv ~/LEO/VSCode-linux-x64/ ~/LEO/vscode
 
+    show_info "Removing the remnant files..."
+    rm ~/Downloads/vscode.tar.gz
+
     after_install "VS Code Manual"
 }
 
@@ -576,6 +582,41 @@ install_Discord_Manually() {
     sudo sed -i "/^$SEARCH_FOR/c\Icon=/opt/Discord/discord.png" $SUBJECT
 }
 
+update_Zoom_Video_Conferencing() {
+    banner "Updating Zoom Video Conferencing App :D"
+
+    show_info "Removing the existing Zoom Installation"
+    rm -rf ~/LEO/zoom
+
+    show_question "\nDownloading the Latest version of Zoom\n"
+    wget -O ~/Downloads/zoom.tar.xz 'https://zoom.us/client/latest/zoom_x86_64.tar.xz'
+
+    show_question "\nCreating a directory to install zoom.."
+    if [ -d ~/LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar -xf ~/Downloads/zoom.tar.xz -C ~/LEO
+
+    show_question "\nCreating a directory to download Zoom Icon"
+    if [ -d ~/LEO/zoom/icon ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/LEO/zoom/icon
+    fi
+
+    show_info "\nDownloading the Zoom Client Icon\n"
+    wget -O ~/LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
+
+    show_info "Cleaning out the remnant files.."
+    rm ~/Downloads/zoom.tar.xz
+
+    after_install "Zoom Video Conferencing App"
+}
+
 install_Everything() {
     install_Neofetch
     install_Zoom_Client
@@ -594,4 +635,4 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-install_Discord_Manually
+update_Zoom_Video_Conferencing
