@@ -76,7 +76,8 @@ alias py='python3'
 alias pvenv='py -m venv env'
 alias seba='source env/bin/activate'
 alias genreq='py -m pip freeze > requirements.txt'
-
+alias scrape='cd ~/RKS_FILES/GitRep/PrivatePython/clubs && py scrape.py'
+alias verify='cd ~/RKS_FILES/GitRep/PrivatePython/clubs && py verify.py'
 
 # Multiplexing Related Scripts
 
@@ -88,6 +89,7 @@ alias mkv2mp4='~/RKS_FILES/GitRep/Linux/common/shell/mkv2mp4.sh'
 alias nosubsmkv='~/RKS_FILES/GitRep/Linux/common/shell/nosubsmkv.sh'
 alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
 alias mp42mp3='~/RKS_FILES/GitRep/Linux/common/shell/mp42mp3.sh'
+alias postmux='~/RKS_FILES/GitRep/Linux/common/shell/postmux.sh'
 
 # Lamp Stack related
 alias xampp='sudo /opt/lampp/xampp'
@@ -119,3 +121,15 @@ nmplocation='~/.npm-global/bin'
 composer_binaries='~/.config/composer/vendor/bin'
 
 export PATH="${snap_binaries}:${python_packages}:${nmplocation}:${composer_binaries}:${PATH}"
+
+JAVA_HOME='/home/kamal/Android/android-studio/jre/bin'
+ANDROID_HOME='/home/kamal/Android/Sdk'
+KOTLIN_HOME='/home/kamal/Android/android-studio/plugins/Kotlin/kotlinc/bin'
+android_platform_tools='/home/kamal/Android/Sdk/platform-tools'
+android_tools='/home/kamal/Android/Sdk/tools'
+
+export PATH="${JAVA_HOME}:${ANDROID_HOME}:${KOTLIN_HOME}:${PATH}"
+export PATH="${android_platform_tools}:${android_tools}:${PATH}"
+
+# Bots:
+alias startfestus='cd /home/kamal/RKS_FILES/GitRep/Festus && py bot.py'
