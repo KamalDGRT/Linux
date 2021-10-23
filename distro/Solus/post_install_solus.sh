@@ -64,13 +64,7 @@ install_Git() {
 
 install_Telegram() {
     banner "Installing Telegram"
-    sudo eopkg install neofetch -y
-    after_install "Telegram Desktop"
-}
-
-install_Telegram() {
-    banner "Installing Telegram"
-    sudo eopkg install neofetch -y
+    sudo eopkg install telegram -y
     after_install "Telegram Desktop"
 }
 
@@ -617,6 +611,7 @@ install_VSCode_manually() {
 
     show_info "Removing the remnant files..."
     rm ~/Downloads/microsoft.asc
+    rm ~/Downloads/vscode.tar.gz
 
     after_install "VS Code Manual"
 }
@@ -653,27 +648,55 @@ install_Discord_Manually() {
     banner "Installing discord tar file"
 
     show_info "Downloading discord tar file"
-    cd ~/Downloads
-    wget -O discord.tar.gz 'https://discord.com/api/download?platform=linux&format=tar.gz'
+    wget -O ~/Downloads/discord.tar.gz 'https://discord.com/api/download?platform=linux&format=tar.gz'
+
+    show_question "\nCreating a directory to install Discord"
+    if [ -d ~/.LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/.LEO
+    fi
 
     show_info "Extracting discord tar file"
-    sudo tar -xvzf discord.tar.gz -C /opt
+    sudo tar -xvzf ~/Downloads/discord.tar.gz -C ~/.LEO
 
     show_info "Adding symbolic link on /usr/bin/Discord"
-    sudo ln -sf /opt/Discord/Discord /usr/bin/Discord
+    sudo ln -sf ~/.LEO/Discord/Discord /usr/bin/Discord
 
     show_info "Copying discord.desktop to /usr/share/applications"
-    sudo cp -r /opt/Discord/discord.desktop /usr/share/applications
-
+    sudo cp -r ~/.LEO/Discord/discord.desktop /usr/share/applications
 
     show_info "Adding executable file for discord.desktop"
     SUBJECT='/usr/share/applications/discord.desktop'
     SEARCH_FOR='Exec='
     sudo sed -i "/^$SEARCH_FOR/c\Exec=/usr/bin/Discord" $SUBJECT
 
+    currentUser=$(whoami)
     show_info "Adding icon for discord.desktop"
     SEARCH_FOR='Icon='
-    sudo sed -i "/^$SEARCH_FOR/c\Icon=/opt/Discord/discord.png" $SUBJECT
+    sudo sed -i "/^$SEARCH_FOR/c\Icon=/home/${currentUser}/.LEO/Discord/discord.png" $SUBJECT
+
+    show_info "Removing the remnant files..."
+    rm ~/Downloads/discord.tar.gz
+}
+
+uninstall_Discord() {
+    banner "Uninstalling Discord..."
+
+    show_info "Deleting Discord Config files..."
+    sudo rm -r ~/.config/discord
+
+    show_info "Removing all Discord application files..."
+    sudo rm -rf ~/.LEO/Discord
+
+    show_info "Removing the symbolic for the Discord binary file..."
+    sudo rm /usr/bin/Discord
+
+    show_info "Removing the desktop shortcut from the system..."
+    sudo rm /usr/share/applications/discord.desktop
+
+    show_success "\n\n$*Discord : Uninstalled Successfully\n"
+    echo -e "------------------------------------------\n\n"
 }
 
 update_Zoom_Video_Conferencing() {
@@ -711,6 +734,167 @@ update_Zoom_Video_Conferencing() {
     after_install "Zoom Video Conferencing App"
 }
 
+install_Fira_Code_Font() {
+    banner "Installing Fira Code Font"
+    sudo eopkg it font-firacode-ttf -y
+    after_install "Fira Code Font"
+}
+
+install_Xpad() {
+    banner "Installing Xpad(Linux alternative to StickyNotes)"
+    sudo eopkg it xpad -y
+    after_install "Xpad"
+}
+
+install_Chrome_GNOME_Shell() {
+    banner "Installing Chrome GNOME Shell"
+    sudo eopkg it chrome-gnome-shell -y
+    after_install "Chrome GNOME Shell"
+}
+
+install_Qbittorrent() {
+    banner "Installing Qbittorrent"
+    sudo eopkg it qbittorrent -y
+    after_install "Qbittorrent"
+}
+
+install_VirtualEnv() {
+    banner "Installing Python VirtualEnv"
+    show_info "It is a tool to create isolated 'virtual' python environments"
+
+    sudo eopkg install virtualenv -y
+    after_install "VirtualEnv"
+}
+
+create_SymLink_Pip3() {
+    show_info "Creating symbolic link for pip3"
+    sudo ln -s /usr/bin/pip3 /usr/bin/pip
+}
+
+install_NPM() {
+    banner "Installing Node Package Manager (npm)"
+
+    show_question "\nDownloading the Latest version of nodejs\n"
+    sudo eopkg it nodejs -y
+
+    mkdir ~/.npm
+    mkdir ~/.npm-global
+    npm config set prefix '~/.npm-global'
+}
+
+install_TigerVNC() {
+    banner "Installing TigerVNC"
+    sudo eopkg it tigervnc -y
+    after_install "TigerVNC"
+}
+
+install_Remmina() {
+    banner "Installing Remmina"
+    sudo eopkg it remmina -y
+    after_install "Remmina"
+}
+
+install_Lutris() {
+    banner "Installing Lutris"
+    sudo eopkg it lutris -y
+    after_install "Lutris"
+}
+
+install_GIMP() {
+    banner "Installing GIMP"
+    sudo eopkg it gimp -y
+    after_install "GIMP"
+}
+
+install_Inkscape() {
+    banner "Installing Inkscape"
+    sudo eopkg it inkscape -y
+    after_install "Inkscape"
+}
+
+install_Ansible() {
+    banner "Installing Ansible"
+    sudo eopkg it ansible -y
+    after_install "Ansible"
+}
+
+install_Xinput() {
+    banner "Installing Xinput"
+    sudo eopkg it xinput -y
+    after_install "Xinput"
+}
+
+install_PPTP_packages() {
+    banner "Setting up PPTP packages..."
+    sudo eopkg it pptp networkmanager-pptp -y
+    after_install "PPTP"
+}
+
+install_GCC_GPP_Compilers() {
+    banner "Setting up GNU C and C++ Compilers..."
+    sudo eopkg it g++ gcc -y
+    after_install "g++ and gcc"
+}
+
+install_MComix() {
+    banner "Installing MComix Reader app..."
+    sudo eopkg it mcomix -y
+    after_install "Mcomix"
+}
+
+install_Development_Packages() {
+    show_banner "Installing Development pacakges"
+
+    show_info "Upgrading the system"
+    sudo eopkg upgrade -y
+
+    show_info "Installing the necessary packages"
+    sudo eopkg install -c system.devel
+
+    after_install "Development Packages"
+}
+
+install_Shotcut() {
+    banner "Installing Shotcut..."
+    sudo eopkg it shotcut -y
+    after_install "Shotcut"
+}
+
+install_KDenLive() {
+    banner "Installing KDenLive..."
+    sudo eopkg it kdenlive -y
+    after_install "KDenLive"
+}
+
+install_DosBox() {
+    banner "Installing DOSBox..."
+    sudo eopkg it dosbox -y
+    after_install "DosBox"
+}
+
+setup_KVM_Solus() {
+    banner "Setting up KVM in Solus"
+
+    show_info "First, ensure /usr/local/bin/ exists."
+    sudo mkdir -p /usr/local/bin
+
+    show_info "Install dependencies for KVM virtualization"
+    sudo eopkg install libvirt qemu virt-manager -y
+
+    show_info "Add your current user to the libvirt group:"
+    sudo usermod -a -G libvirt $(whoami)
+    newgrp libvirt
+
+    show_info "Starting the libvirt daemon..."
+    show_question "This enable the libvirt virtualization management system"
+    sudo systemctl start libvirtd.service
+
+    show_info "Enabling libvirt daemon to start automatically on boot:"
+    sudo systemctl enable libvirtd.service
+
+    show_question "Restart the system now."
+}
+
 install_Everything() {
     change_BASH_Prompt
     install_Neofetch
@@ -732,4 +916,5 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-install_Everything
+install_Telegram
+uninstall_Discord
