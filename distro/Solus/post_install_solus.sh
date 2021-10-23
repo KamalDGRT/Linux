@@ -56,6 +56,45 @@ install_Neofetch() {
     after_install "neofetch"
 }
 
+install_Git() {
+    banner "Installing Git"
+    sudo eopkg install neofetch -y
+    after_install "Git - Version Control System"
+}
+
+install_Telegram() {
+    banner "Installing Telegram"
+    sudo eopkg install neofetch -y
+    after_install "Telegram Desktop"
+}
+
+install_Telegram() {
+    banner "Installing Telegram"
+    sudo eopkg install neofetch -y
+    after_install "Telegram Desktop"
+}
+
+add_Flatpak_remote() {
+    banner "Adding Flatpak remote: flathub"
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
+install_Flatpak_Spotify() {
+    banner "Installing Spotify [Flatpak]"
+    flatpak install flathub com.spotify.Client -y
+}
+
+change_BASH_Prompt() {
+    banner "Changing the BASH prompt"
+    cd ~/Downloads
+    wget -O ~/Downloads/solus_bashrc 'https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/Solus/bashrc'
+    wget -O ~/Downloads/rksalias.txt 'https://raw.githubusercontent.com/KamalDGRT/Linux/master/distro/Solus/rksalias.txt'
+    mv ~/.bashrc ~/Documents
+    mv ~/Downloads/solus_bashrc ~/.bashrc
+    mv ~/Downloads/rksalias.txt ~/.rksalias
+    after_install "Re-open the shell to see the changes."
+}
+
 install_Zoom_Client() {
     banner "Installing Zoom Client"
 
@@ -63,24 +102,24 @@ install_Zoom_Client() {
     wget -O ~/Downloads/zoom.tar.xz 'https://zoom.us/client/latest/zoom_x86_64.tar.xz'
 
     show_question "\nCreating a directory to install zoom.."
-    if [ -d ~/LEO ]; then
+    if [ -d ~/.LEO ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
-        mkdir -p ~/LEO
+        mkdir -p ~/.LEO
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar -xf ~/Downloads/zoom.tar.xz -C ~/LEO
+    tar -xf ~/Downloads/zoom.tar.xz -C ~/.LEO
 
     show_question "\nCreating a directory to download Zoom Icon"
-    if [ -d ~/LEO/zoom/icon ]; then
+    if [ -d ~/.LEO/zoom/icon ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
-        mkdir -p ~/LEO/zoom/icon
+        mkdir -p ~/.LEO/zoom/icon
     fi
 
     show_info "\nDownloading the Zoom Client Icon\n"
-    wget -O ~/LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
+    wget -O ~/.LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
 
     currentUser=$(whoami)
 
@@ -89,8 +128,8 @@ install_Zoom_Client() {
         echo "[Desktop Entry]"
         echo "Comment=Zoom Client for Solus"
         echo "Name=Zoom Client"
-        echo "Exec=/home/${currentUser}/LEO/zoom/ZoomLauncher"
-        echo "Icon=/home/${currentUser}/LEO/zoom/icon/zoom.png"
+        echo "Exec=/home/${currentUser}/.LEO/zoom/ZoomLauncher"
+        echo "Icon=/home/${currentUser}/.LEO/zoom/icon/zoom.png"
         echo "Encoding=UTF-8"
         echo "Terminal=false"
         echo "Type=Application"
@@ -114,20 +153,72 @@ install_Xkill() {
     after_install "xkill"
 }
 
+gitsetup() {
+    banner "Setting up SSH for git and GitHub"
+
+    read -e -p "Enter your GitHub Username                 : " GITHUB_USERNAME
+    read -e -p "Enter the GitHub Email Address             : " GITHUB_EMAIL_ID
+    read -e -p "Enter the default git editor (vim / nano)  : " GIT_CLI_EDITOR
+
+    if [[ $GITHUB_EMAIL_ID != "" && $GITHUB_USERNAME != "" && $GIT_CLI_EDITOR != "" ]]; then
+        printf "\n - Configuring GitHub username as: ${GITHUB_USERNAME}"
+        git config --global user.name "${GITHUB_USERNAME}"
+
+        printf "\n - Configuring GitHub email address as: ${GITHUB_EMAIL_ID}"
+        git config --global user.email "${GITHUB_EMAIL_ID}"
+
+        printf "\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
+        git config --global core.editor "${GIT_CLI_EDITOR}"
+
+        printf "\n - Fast Forwarding All the changes while git pull"
+        git config --global pull.ff only
+
+        printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
+        printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
+        ssh-keygen -t ed25519 -C "${GITHUB_EMAIL_ID}"
+
+        printf "\n\nAdding your SSH key to the ssh-agent..\n"
+
+        printf "\n - Start the ssh-agent in the background..\n"
+        eval "$(ssh-agent -s)"
+
+        printf "\n\n - Adding your SSH private key to the ssh-agent\n\n"
+        ssh-add ~/.ssh/id_ed25519
+
+        printf "\n - Copying the SSH Key Content to the Clipboard..."
+
+        printf "\n\nLog in into your GitHub account in the browser (if you have not)"
+        printf "\nOpen this link https://github.com/settings/keys in the browser."
+        printf "\nClik on New SSH key."
+        xclip -selection clipboard <~/.ssh/id_ed25519.pub
+        printf "\nGive a title for the SSH key."
+        printf "\nPaste the clipboard content in the textarea box below the title."
+        printf "\nClick on Add SSH key.\n\n"
+        pause
+    else
+        printf "\nYou have not provided the details correctly for Git Setup."
+        if ask_user "Want to try Again ?"; then
+            gitsetup
+        else
+            printf "\nSkipping: Git and GitHub SSH setup..\n"
+        fi
+    fi
+}
+
 install_Sublime_Text() {
     banner "Installing Sublime Text"
     show_question "\nDownloading Sublime Text Build 4113\n"
     wget -O ~/Downloads/sublime.tar.xz 'https://download.sublimetext.com/sublime_text_build_4113_x64.tar.xz'
 
     show_question "\nCreating a directory to install Sublime Text.."
-    if [ -d ~/LEO ]; then
+    if [ -d ~/.LEO ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
-        mkdir -p ~/LEO
+        mkdir -p ~/.LEO
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar -xf ~/Downloads/sublime.tar.xz -C ~/LEO
+    tar -xf ~/Downloads/sublime.tar.xz -C ~/.LEO
 
     currentUser=$(whoami)
 
@@ -139,27 +230,30 @@ install_Sublime_Text() {
         echo "Name=Sublime Text"
         echo "GenericName=Text Editor"
         echo "Comment=Sophisticated text editor for code, markup and prose"
-        echo "Exec=/home/${currentUser}/LEO/sublime_text/sublime_text %F"
+        echo "Exec=/home/${currentUser}/.LEO/sublime_text/sublime_text %F"
         echo "Terminal=false"
         echo "MimeType=text/plain;"
-        echo "Icon=/home/${currentUser}/LEO/sublime_text/Icon/256x256/sublime-text.png"
+        echo "Icon=/home/${currentUser}/.LEO/sublime_text/Icon/256x256/sublime-text.png"
         echo "Categories=TextEditor;Development;"
         echo "StartupNotify=true"
         echo "Actions=new-window;new-file;"
 
         echo "[Desktop Action new-window]"
         echo "Name=New Window"
-        echo "Exec=/home/${currentUser}/LEO/sublime_text/sublime_text --launch-or-new-window"
+        echo "Exec=/home/${currentUser}/.LEO/sublime_text/sublime_text --launch-or-new-window"
         echo "OnlyShowIn=Unity;"
 
         echo "[Desktop Action new-file]"
         echo "Name=New File"
-        echo "Exec=/home/${currentUser}/LEO/sublime_text/sublime_text --command new_file"
+        echo "Exec=/home/${currentUser}/.LEO/sublime_text/sublime_text --command new_file"
         echo "OnlyShowIn=Unity;"
     } | sudo tee /usr/share/applications/sublime-text.desktop
 
     show_info "Creating Sybmbolic Link for Sublime Text\n\n"
-    sudo ln -s ~/LEO/sublime_text/sublime_text /usr/bin/subl
+    sudo ln -s ~/.LEO/sublime_text/sublime_text /usr/bin/subl
+
+    show_info "Cleaning out the remnant files.."
+    rm ~/Downloads/sublime.tar.xz
 
     after_install "Sublime Text"
 }
@@ -170,13 +264,13 @@ install_Unoconv() {
     show_info "This scripts needs libreoffice"
 
     show_question "Creating a directory to clone the reop\n\n"
-    mkdir -p ~/LEO/unoconv
+    mkdir -p ~/.LEO/unoconv
 
     show_warning "Cloning the Github repo: dagwieers/unoconv\n\n"
-    git clone https://github.com/dagwieers/unoconv.git ~/LEO/unoconv
+    git clone https://github.com/dagwieers/unoconv.git ~/.LEO/unoconv
 
     show_info "Creating symbolic link for unoconv\n"
-    sudo ln -s ~/LEO/unoconv/unoconv /usr/bin/unoconv
+    sudo ln -s ~/.LEO/unoconv/unoconv /usr/bin/unoconv
 
     after_install "unoconv"
 }
@@ -482,17 +576,17 @@ install_VSCode_manually() {
     gpg --import ~/Downloads/microsoft.asc
 
     show_question "\nCreating a directory to install VS Code.."
-    if [ -d ~/LEO ]; then
+    if [ -d ~/.LEO ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
-        mkdir -p ~/LEO
+        mkdir -p ~/.LEO
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar xvf ~/Downloads/vscode.tar.gz -C ~/LEO
+    tar xvf ~/Downloads/vscode.tar.gz -C ~/.LEO
 
     show_header "\nRenaming the Directory [VSCode-linux-x64 -> vscode]...\n"
-    mv ~/LEO/VSCode-linux-x64/ ~/LEO/vscode
+    mv ~/.LEO/VSCode-linux-x64/ ~/.LEO/vscode
 
     currentUser=$(whoami)
 
@@ -502,7 +596,7 @@ install_VSCode_manually() {
         echo "Name=Visual Studio Code"
         echo "Comment=Code Editing. Redefined."
         echo "GenericName=Text Editor"
-        echo "Exec=/home/${currentUser}/LEO/vscode/code --unity-launch %F"
+        echo "Exec=/home/${currentUser}/.LEO/vscode/code --unity-launch %F"
         echo "Icon=com.visualstudio.code"
         echo "Type=Application"
         echo "StartupNotify=false"
@@ -514,12 +608,12 @@ install_VSCode_manually() {
         echo ""
         echo "[Desktop Action new-empty-window]"
         echo "Name=New Empty Window"
-        echo "Exec=/home/${currentUser}/LEO/vscode/code --new-window %F"
+        echo "Exec=/home/${currentUser}/.LEO/vscode/code --new-window %F"
         echo "Icon=com.visualstudio.code"
     } | sudo tee /usr/share/applications/vscode.desktop
 
     show_info "Creating Sybmbolic Link for VS Code\n\n"
-    sudo ln -s ~/LEO/vscode/bin/code /usr/bin/code
+    sudo ln -s ~/.LEO/vscode/bin/code /usr/bin/code
 
     show_info "Removing the remnant files..."
     rm ~/Downloads/microsoft.asc
@@ -531,23 +625,23 @@ update_VS_Code() {
     banner "Updating VS Code :D"
 
     show_info "Removing the existing VS Code Installation"
-    rm -rf ~/LEO/vscode
+    rm -rf ~/.LEO/vscode
 
     show_question "\nDownloading the Latest version of VS Code\n"
     wget -O ~/Downloads/vscode.tar.gz 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'
 
     show_question "\nCreating a directory to install VS Code.."
-    if [ -d ~/LEO ]; then
+    if [ -d ~/.LEO ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
-        mkdir -p ~/LEO
+        mkdir -p ~/.LEO
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar xvf ~/Downloads/vscode.tar.gz -C ~/LEO
+    tar xvf ~/Downloads/vscode.tar.gz -C ~/.LEO
 
     show_header "\nRenaming the Directory [VSCode-linux-x64 -> vscode]...\n"
-    mv ~/LEO/VSCode-linux-x64/ ~/LEO/vscode
+    mv ~/.LEO/VSCode-linux-x64/ ~/.LEO/vscode
 
     show_info "Removing the remnant files..."
     rm ~/Downloads/vscode.tar.gz
@@ -586,30 +680,30 @@ update_Zoom_Video_Conferencing() {
     banner "Updating Zoom Video Conferencing App :D"
 
     show_info "Removing the existing Zoom Installation"
-    rm -rf ~/LEO/zoom
+    rm -rf ~/.LEO/zoom
 
     show_question "\nDownloading the Latest version of Zoom\n"
     wget -O ~/Downloads/zoom.tar.xz 'https://zoom.us/client/latest/zoom_x86_64.tar.xz'
 
     show_question "\nCreating a directory to install zoom.."
-    if [ -d ~/LEO ]; then
+    if [ -d ~/.LEO ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
-        mkdir -p ~/LEO
+        mkdir -p ~/.LEO
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar -xf ~/Downloads/zoom.tar.xz -C ~/LEO
+    tar -xf ~/Downloads/zoom.tar.xz -C ~/.LEO
 
     show_question "\nCreating a directory to download Zoom Icon"
-    if [ -d ~/LEO/zoom/icon ]; then
+    if [ -d ~/.LEO/zoom/icon ]; then
         show_warning "\nDirectory exists.\nSkipping the creation step..\n"
     else
-        mkdir -p ~/LEO/zoom/icon
+        mkdir -p ~/.LEO/zoom/icon
     fi
 
     show_info "\nDownloading the Zoom Client Icon\n"
-    wget -O ~/LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
+    wget -O ~/.LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
 
     show_info "Cleaning out the remnant files.."
     rm ~/Downloads/zoom.tar.xz
@@ -618,21 +712,24 @@ update_Zoom_Video_Conferencing() {
 }
 
 install_Everything() {
+    change_BASH_Prompt
     install_Neofetch
-    install_Zoom_Client
     install_Xclip
     install_Xkill
-    install_Unoconv
+    gitsetup
+    install_Git
+    install_Telegram
+    add_Flatpak_remote
+    install_Flatpak_Spotify
+    install_Zoom_Client
+    install_Vim
     install_Sublime_Text
     install_and_configure_LAMP_Stack
     install_Brave_Browser
-    install_Discord
-    install_VLC
-    install_Vim
-    install_VSCode
+    install_Discord_Manually
+    install_VSCode_manually
     install_Opera_Browser
-    install_Anydesk
     install_Microsoft_Core_Fonts
 }
 
-update_Zoom_Video_Conferencing
+install_Everything
