@@ -404,6 +404,12 @@ configure_phpMyAdmin() {
     show_info "Changing permission for /var/html/phpmyadmin [755]"
     sudo chmod 755 -R /var/www/phpmyadmin/
 
+    show_info "Creating a tmp directory for phpmyadmin"
+    sudo mkdir -p /var/www/phpmyadmin/tmp/
+
+    show_info "Make the tmp folder accessible"
+    sudo chmod 777 -R /var/www/phpmyadmin/tmp/
+
     show_info "Restarting the httpd service"
     sudo systemctl restart httpd
 
@@ -895,6 +901,26 @@ setup_KVM_Solus() {
     show_question "Restart the system now."
 }
 
+update_Sublime_Text() {
+    # Have to get the latest download link from the official website
+    # https://www.sublimetext.com/download
+    banner "Updating Sublime Text"
+
+    show_info "Removing the existing Sublime Text Installation"
+    rm -rf ~/.LEO/sublime_text/
+
+    show_question "\nDownloading Sublime Text Build 4113\n"
+    wget -O ~/Downloads/sublime.tar.xz 'https://download.sublimetext.com/sublime_text_build_4121_x64.tar.xz'
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar -xf ~/Downloads/sublime.tar.xz -C ~/.LEO
+
+    show_info "Cleaning out the remnant files.."
+    rm ~/Downloads/sublime.tar.xz
+
+    after_install "Sublime Text"
+}
+
 install_Everything() {
     change_BASH_Prompt
     install_Neofetch
@@ -916,5 +942,4 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-install_Telegram
-uninstall_Discord
+update_Sublime_Text
