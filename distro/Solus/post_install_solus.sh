@@ -938,7 +938,7 @@ setup_Postman_API() {
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar xvf ~/Downloads/postman.tar.gz -C ~/.LEO
+    tar -xzf ~/Downloads/postman.tar.gz -C ~/.LEO
 
     show_info "Creating Sybmbolic Link for Postman API\n\n"
     sudo ln -s ~/.LEO/Postman/Postman /usr/bin/postman
@@ -964,6 +964,25 @@ setup_Postman_API() {
     rm ~/Downloads/postman.tar.gz
 
     after_install "Postman API Client"
+}
+
+uninstall_Postman() {
+    banner "Uninstalling Postman API Client..."
+
+    show_info "Deleting Postman Config files..."
+    sudo rm -r ~/.config/Postman
+
+    show_info "Removing all application files..."
+    sudo rm -rf ~/.LEO/Postman
+
+    show_info "Removing the symbolic for the Postman Client binary file..."
+    sudo rm /usr/bin/Postman
+
+    show_info "Removing the desktop shortcut from the system..."
+    sudo rm /usr/share/applications/postman-client.desktop
+
+    show_success "\n\n$*Postman Client : Uninstalled Successfully\n"
+    echo -e "------------------------------------------\n\n"
 }
 
 install_Everything() {
