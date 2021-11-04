@@ -78,7 +78,7 @@ alias seba='source env/bin/activate'
 alias genreq='py -m pip freeze > requirements.txt'
 alias scrape='cd ~/RKS_FILES/GitRep/PrivatePython/clubs && py scrape.py'
 alias verify='cd ~/RKS_FILES/GitRep/PrivatePython/clubs && py verify.py'
-
+alias csr='cd ~/RKS_FILES/GitRep/PrivatePython/courses_sist && py scrape.py'
 # Multiplexing Related Scripts
 
 alias batchextractsubs='~/RKS_FILES/GitRep/Linux/common/shell/batchextractsubs.sh'
@@ -132,4 +132,6 @@ export PATH="${JAVA_HOME}:${ANDROID_HOME}:${KOTLIN_HOME}:${PATH}"
 export PATH="${android_platform_tools}:${android_tools}:${PATH}"
 
 # Bots:
-alias startfestus='cd /home/kamal/RKS_FILES/GitRep/Festus && py bot.py'
+alias startfestus='cd /home/kamal/RKS_FILES/GitRep/festus && py bot.py'
+
+alias pg4='source pgadmin4/bin/activate && pgadmin4'

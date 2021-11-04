@@ -664,7 +664,7 @@ install_Discord_Manually() {
     fi
 
     show_info "Extracting discord tar file"
-    sudo tar -xvzf ~/Downloads/discord.tar.gz -C ~/.LEO
+    tar -xvzf ~/Downloads/discord.tar.gz -C ~/.LEO
 
     show_info "Adding symbolic link on /usr/bin/Discord"
     sudo ln -sf ~/.LEO/Discord/Discord /usr/bin/Discord
@@ -921,6 +921,51 @@ update_Sublime_Text() {
     after_install "Sublime Text"
 }
 
+setup_Postman_API() {
+    # References:
+    # 1. https://morioh.com/p/e256fd7a2811
+    # 2. https://www.tecmint.com/install-postman-on-linux-desktop/
+    banner "Installing Postman API Desktop Client"
+
+    show_question "\nDownloading the Latest version of Postman API\n"
+    wget -O ~/Downloads/postman.tar.gz 'https://dl.pstmn.io/download/latest/linux64'
+
+    show_question "\nCreating a directory to install Postman API.."
+    if [ -d ~/.LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/.LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar xvf ~/Downloads/postman.tar.gz -C ~/.LEO
+
+    show_info "Creating Sybmbolic Link for Postman API\n\n"
+    sudo ln -s ~/.LEO/Postman/Postman /usr/bin/postman
+
+    currentUser=$(whoami)
+
+    show_info "\nCreating a Desktop Entry for Postman\n"
+    {
+        echo "[Desktop Entry]"
+        echo "Name=Postman"
+        echo "GenericName=API Client"
+        echo "X-GNOME-FullName=Postman API Client"
+        echo "Comment=Make and view REST API calls and responses"
+        echo "Keywords=api;"
+        echo "Exec=/home/${currentUser}/.LEO/Postman/Postman"
+        echo "Terminal=false"
+        echo "Type=Application"
+        echo "Icon=/home/${currentUser}/.LEO/Postman/app/resources/app/assets/icon.png"
+        echo "Categories=Development;Utilities;"
+    } | sudo tee /usr/share/applications/postman-client.desktop
+
+    show_info "Removing the remnant files..."
+    rm ~/Downloads/postman.tar.gz
+
+    after_install "Postman API Client"
+}
+
 install_Everything() {
     change_BASH_Prompt
     install_Neofetch
@@ -942,4 +987,4 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-update_Sublime_Text
+setup_Postman_API
