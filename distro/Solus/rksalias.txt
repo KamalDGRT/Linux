@@ -91,7 +91,7 @@ alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
 alias mp42mp3='~/RKS_FILES/GitRep/Linux/common/shell/mp42mp3.sh'
 alias postmux='~/RKS_FILES/GitRep/Linux/common/shell/postmux.sh'
 
-# Lamp Stack related
+# Xamp related
 alias xampp='sudo /opt/lampp/xampp'
 alias reloadapache='xampp reloadapache'
 alias startmysql='xampp startmysql'
@@ -101,6 +101,11 @@ alias stopmysql='xampp stopmysql'
 alias reloadmysql='xampp reloadmysql'
 alias lampstart='startapache && startmysql'
 alias lampstop='stopapache && stopmysql'
+
+# LAMP Stack Related
+alias lamp-start='~/RKS_FILES/GitRep/Linux/distro/Solus/lamp-start.sh'
+alias lamp-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/lamp-stop.sh'
+alias lamp-status='systemctl status httpd mariadb php-fpm | egrep "service|Active:"'
 
 # Youtube DL
 alias ymp4='youtube-dl -f mp4'
@@ -135,3 +140,7 @@ export PATH="${android_platform_tools}:${android_tools}:${PATH}"
 alias startfestus='cd /home/kamal/RKS_FILES/GitRep/festus && py bot.py'
 
 alias pg4='source pgadmin4/bin/activate && pgadmin4'
+
+
+# ZSH ALIASES
+alias pyapi='gr && cd py-api && seba && uvicorn app.main:app --reload'
