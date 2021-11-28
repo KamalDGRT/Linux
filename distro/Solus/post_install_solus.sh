@@ -985,6 +985,47 @@ uninstall_Postman() {
     echo -e "------------------------------------------\n\n"
 }
 
+install_Heroku_CLI() {
+    banner "Installing Heroku CLI"
+    show_info "Getting the latest build using wget.."
+    wget -O ~/Downloads/heroku.tar.gz 'https://cli-assets.heroku.com/heroku-linux-x64.tar.gz'
+
+    show_question "\nCreating a directory to install heroku.."
+    if [ -d ~/.LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/.LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar xvf ~/Downloads/heroku.tar.gz -C ~/.LEO
+
+    show_info "Creating symbolic link for heroku\n"
+    sudo ln -s ~/.LEO/heroku/bin/heroku /usr/bin/heroku
+
+    show_info "Cleaning out the remnant files.."
+    rm ~/Downloads/heroku.tar.gz
+}
+
+uninstall_Heroku_CLI() {
+    banner "Uninstalling Heroku CLI ..."
+
+    show_info "Deleting Heroku CLI Config files..."
+    rm -rf ~/.local/share/heroku/
+
+    show_info "Deleting Heroku CLI cache files..."
+    rm -rf ~/.cache/heroku/
+
+    show_info "Removing all application files..."
+    sudo rm -rf ~/.LEO/heroku
+
+    show_info "Removing the symbolic for the Heroku CLI binary file..."
+    sudo rm /usr/bin/heroku
+
+    show_success "\n\n$* Heroku CLI : Uninstalled Successfully\n"
+    echo -e "------------------------------------------\n\n"
+}
+
 install_Everything() {
     change_BASH_Prompt
     install_Neofetch
@@ -1006,4 +1047,4 @@ install_Everything() {
     install_Microsoft_Core_Fonts
 }
 
-setup_Postman_API
+install_Heroku_CLI
