@@ -633,3 +633,7 @@ https://gitlab.com/kalilinux/packages/kali-defaults/-/blob/kali/master/etc/skel/
 -   prettier - prettier
 -   rainbow brackets - 2gua
 -   rainbow csv - mechatroner
+
+-   Created a new GitHub account
+-   Configured the newly created account in Solus through the `gitsetup`
+-   Added the SSH key in the LeoDGRT GitHub account.
