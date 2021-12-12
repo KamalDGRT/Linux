@@ -68,6 +68,12 @@ install_Telegram() {
     after_install "Telegram Desktop"
 }
 
+install_MKVToolNix() {
+    banner "Installing MKVToolNixGUI"
+    sudo eopkg install mkvtoolnix -y
+    after_install "MKVToolNixGUI"
+}
+
 add_Flatpak_remote() {
     banner "Adding Flatpak remote: flathub"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -878,6 +884,12 @@ install_DosBox() {
     after_install "DosBox"
 }
 
+install_OBS() {
+    banner "Installing Open Broadcaster Software"
+    sudo eopkg it obs-studio -y
+    after_install "OBS Studio"
+}
+
 setup_KVM_Solus() {
     banner "Setting up KVM in Solus"
 
@@ -1026,25 +1038,150 @@ uninstall_Heroku_CLI() {
     echo -e "------------------------------------------\n\n"
 }
 
-install_Everything() {
+configure_title_bar() {
+    banner "Configure Title Bar"
+    show_info "Showing Battery Percentage"
+    gsettings set org.gnome.desktop.interface show-battery-percentage true
+
+    show_success "Show Time in 12 hour format"
+    gsettings set org.gnome.desktop.interface clock-format 12h
+
+    show_success "Show the seconds in Clock"
+    gsettings set org.gnome.desktop.interface clock-show-seconds true
+
+    show_success "Show the Weekday in Clock"
+    gsettings set org.gnome.desktop.interface clock-show-weekday true
+
+    show_success "Adding Minimize and Maximize buttons on the left"
+    gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
+}
+
+install_ZSH() {
+    banner "Installing New Shell : ZSH"
+
+    show_success "Installing required packages"
+    sudo eopkg it zsh zsh-autosuggestions zsh-syntax-highlighting -y
+
+    show_success "Changing the shell"
+    sudo chsh -s /bin/zsh
+    after_install "Z Shell"
+}
+
+configure_GNOME_Stuff() {
+    install_ZSH
+    install_Chrome_GNOME_Shell
     change_BASH_Prompt
     install_Neofetch
     install_Xclip
     install_Xkill
-    gitsetup
-    install_Git
-    install_Telegram
-    add_Flatpak_remote
-    install_Flatpak_Spotify
-    install_Zoom_Client
-    install_Vim
-    install_Sublime_Text
-    install_and_configure_LAMP_Stack
-    install_Brave_Browser
-    install_Discord_Manually
-    install_VSCode_manually
-    install_Opera_Browser
-    install_Microsoft_Core_Fonts
+    install_Fira_Code_Font
+    install_PPTP_packages
 }
 
-install_Heroku_CLI
+install_PostgreSQL() {
+    banner "Installing PostgreSQL"
+
+    show_info "Installing required packages"
+    sudo eopkg it postgresql postgresql-contrib postgresql-dbginfo psycopg2 -y
+
+    after_install "PostgreSQL"
+}
+
+configure_Pgadmin4() {
+    banner "Configuring Pgadmin4"
+
+    show_info "Creating directory: /var/lib/pgadmin"
+    sudo mkdir /var/lib/pgadmin
+
+    show_info "Creating directory for logs: /var/log/pgadmin"
+    sudo mkdir /var/log/pgadmin
+
+    show_info "Changing ownership to $USER for /var/lib/pgadmin"
+    sudo chown $USER /var/lib/pgadmin
+
+    show_info "Changing ownership to $USER for /var/log/pgadmin"
+    sudo chown $USER /var/log/pgadmin
+
+    show_info "Creating a new Python Virtual Environment: pgadmin4"
+    python3 -m venv pgadmin4
+
+    show_info "Activating the Python Virtual Environment: pgadmin"
+    source pgadmin4/bin/activate
+
+    show_info "Installing python package: simple-websocket"
+    pip3 install simple-websocket
+
+    show_info "Installing python package: pgadmin4"
+    pip3 install pgadmin4
+
+    show_info "Deactivating the Python Virtual Environment"
+    deactivate
+
+    after_install "PgAdmin4"
+}
+
+install_Python_Dev_Stuff() {
+    banner "Installing Python related Stuff"
+
+    create_SymLink_Pip3
+
+    install_VirtualEnv
+    pip3 install --user virtualenv
+
+    show_info "Installing Development files for python3"
+    sudo eopkg it python3-devel -y
+
+    show_info "Installing Development files for PostgreSQL"
+    sudo eopkg it postgresql-devel -y
+}
+
+install_Manual_Applications() {
+    # Frequent Apps
+    install_Discord_Manually
+    install_Zoom_Client
+
+    # 3rd Party Stuff
+    install_Microsoft_Core_Fonts
+    install_Anydesk
+
+    # CoderStuff
+    gitsetup
+    install_Sublime_Text
+    install_VSCode_manually
+    install_Heroku_CLI
+    setup_Postman_API
+    install_and_configure_LAMP_Stack
+}
+
+configure_Coder_Stuff() {
+    install_Vim
+    install_Git
+
+    install_Python_Dev_Stuff
+
+    install_GCC_GPP_Compilers
+    install_Development_Packages
+    install_NPM
+
+    install_PostgreSQL
+    configure_Pgadmin4
+}
+
+install_Frequent_Apps() {
+    install_MKVToolNix
+    install_Telegram
+    install_Brave_Browser
+    install_Opera_Browser
+    install_Qbittorrent
+    install_OBS
+}
+
+install_Everything() {
+    upgrade_the_System
+    configure_GNOME_Stuff
+    configure_Coder_Stuff
+    install_Frequent_Apps
+    install_Manual_Applications
+}
+
+install_Everything
