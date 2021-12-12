@@ -77,8 +77,8 @@ gitsetup() {
         gtext " - Configuring Default git branch as main"
         git config --global init.defaultBranch main
         
-        gtext " - Fast Forwarding All the changes while git pull"
-        git config --global pull.ff only
+        gtext "\n - Setting up the defaults for git pull"
+        git config --global pull.rebase false
 
         gtext " - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
         gtext "Just press Enter and add passphrase if you'd like to. "

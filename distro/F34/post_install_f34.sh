@@ -119,8 +119,8 @@ gitsetup() {
         printf "\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
         git config --global core.editor "${GIT_CLI_EDITOR}"
 
-        printf "\n - Fast Forwarding All the changes while git pull"
-        git config --global pull.ff only
+        printf "\n - Setting up the defaults for git pull"
+        git config --global pull.rebase false
 
         printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
         printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
