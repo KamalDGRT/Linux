@@ -107,6 +107,12 @@ alias lamp-start='~/RKS_FILES/GitRep/Linux/distro/Solus/lamp-start.sh'
 alias lamp-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/lamp-stop.sh'
 alias lamp-status='systemctl status httpd mariadb php-fpm | egrep "service|Active:"'
 
+
+# Postgres Related
+alias pg-start='~/RKS_FILES/GitRep/Linux/distro/Solus/pg-start.sh'
+alias pg-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/pg-stop.sh'
+alias pg-status='systemctl status postgresql | egrep "service|Active:"'
+
 # Youtube DL
 alias ymp4='youtube-dl -f mp4'
 alias ytmp3='youtube-dl -f bestaudio -x --audio-format mp3'
