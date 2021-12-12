@@ -404,7 +404,7 @@ configure_phpMyAdmin() {
     sudo mkdir /var/www/phpmyadmin/
 
     show_info "Extracting and exporting phpmyadmin.tar.gz"
-    sudo tar xvf phpmyadmin.tar.gz --strip-components=1 -C /var/www/phpmyadmin
+    sudo tar xf phpmyadmin.tar.gz --strip-components=1 -C /var/www/phpmyadmin
 
     show_info "Copying config.sample.inc.php as config.inc.php"
     sudo cp /var/www/phpmyadmin/config.sample.inc.php /var/www/phpmyadmin/config.inc.php
@@ -601,7 +601,7 @@ install_VSCode_manually() {
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar xvf ~/Downloads/vscode.tar.gz -C ~/.LEO
+    tar xf ~/Downloads/vscode.tar.gz -C ~/.LEO
 
     show_header "\nRenaming the Directory [VSCode-linux-x64 -> vscode]...\n"
     mv ~/.LEO/VSCode-linux-x64/ ~/.LEO/vscode
@@ -657,7 +657,7 @@ update_VS_Code() {
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar xvf ~/Downloads/vscode.tar.gz -C ~/.LEO
+    tar xf ~/Downloads/vscode.tar.gz -C ~/.LEO
 
     show_header "\nRenaming the Directory [VSCode-linux-x64 -> vscode]...\n"
     mv ~/.LEO/VSCode-linux-x64/ ~/.LEO/vscode
@@ -682,7 +682,7 @@ install_Discord_Manually() {
     fi
 
     show_info "Extracting discord tar file"
-    tar -xvzf ~/Downloads/discord.tar.gz -C ~/.LEO
+    tar -xzf ~/Downloads/discord.tar.gz -C ~/.LEO
 
     show_info "Adding symbolic link on /usr/bin/Discord"
     sudo ln -sf ~/.LEO/Discord/Discord /usr/bin/Discord
@@ -1022,7 +1022,7 @@ install_Heroku_CLI() {
     fi
 
     show_info "\nExtracting the downloaded file...\n"
-    tar xvf ~/Downloads/heroku.tar.gz -C ~/.LEO
+    tar xf ~/Downloads/heroku.tar.gz -C ~/.LEO
 
     show_info "Creating symbolic link for heroku\n"
     sudo ln -s ~/.LEO/heroku/bin/heroku /usr/bin/heroku
