@@ -86,7 +86,8 @@ install_Flatpak_Spotify() {
 
 change_BASH_Prompt() {
     banner "Changing the BASH prompt"
-    cd ~/Downloads
+
+    show_info
     wget -O ~/Downloads/solus_bashrc 'https://raw.githubusercontent.com/KamalDGRT/linux-conf/main/Solus/bashrc'
     wget -O ~/Downloads/rksalias.txt 'https://raw.githubusercontent.com/KamalDGRT/Linux/master/distro/Solus/rksalias.txt'
     mv ~/.bashrc ~/Documents
@@ -123,17 +124,28 @@ install_Zoom_Client() {
 
     currentUser=$(whoami)
 
+    show_info "Creating Symbolic Link for Zoom Client"
+    sudo ln -s /home/${currentUser}/.LEO/zoom/ZoomLauncher /usr/bin/zoom
+
     show_info "\nCreating a Desktop Entry for Zoom Client.\n"
     {
         echo "[Desktop Entry]"
+        echo "Name=Zoom"
         echo "Comment=Zoom Client for Solus"
-        echo "Name=Zoom Client"
-        echo "Exec=/home/${currentUser}/.LEO/zoom/ZoomLauncher"
+        echo "Exec=/usr/bin/zoom %U"
         echo "Icon=/home/${currentUser}/.LEO/zoom/icon/zoom.png"
-        echo "Encoding=UTF-8"
         echo "Terminal=false"
         echo "Type=Application"
+        echo "Encoding=UTF-8"
+        echo "Categories=Network;Application;"
+        echo "StartupWMClass=zoom"
+        echo "MimeType=x-scheme-handler/zoommtg;x-scheme-handler/zoomus;x-scheme-handler/tel;x-scheme-handler/callto;x-scheme-handler/zoomphonecall;application/x-zoom"
+        echo "X-KDE-Protocols=zoommtg;zoomus;tel;callto;zoomphonecall;"
+        echo "Name[en_US]=Zoom"
     } | sudo tee /usr/share/applications/zoom-client.desktop
+
+    show_warning "Updating the desktop file MIME type cahce ..."
+    xdg-mime default zoom-client.desktop x-scheme-handler/zoommtg
 
     show_info "Cleaning out the remnant files.."
     rm ~/Downloads/zoom.tar.xz
