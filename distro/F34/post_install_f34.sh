@@ -122,6 +122,9 @@ gitsetup() {
         printf "\n - Setting up the defaults for git pull"
         git config --global pull.rebase false
 
+        printf "\n - The default branch name for new git repos will be: main"
+        git config --global init.defaultBranch main
+
         printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
         printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
         ssh-keygen -t ed25519 -C "${GITHUB_EMAIL_ID}"
