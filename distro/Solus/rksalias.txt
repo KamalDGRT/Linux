@@ -114,7 +114,7 @@ alias pg-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/pg-stop.sh'
 alias pg-status='systemctl status postgresql | egrep "service|Active:"'
 
 # Youtube DL
-alias ymp4='youtube-dl -f mp4'
+alias ymp4='youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 '
 alias ytmp3='youtube-dl -f bestaudio -x --audio-format mp3'
 
 # Virtual Box Related Aliases
