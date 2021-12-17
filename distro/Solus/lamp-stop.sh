@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 echo "Stopping Apache HTTPD service"
 sudo systemctl stop httpd
 

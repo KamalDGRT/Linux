@@ -1061,6 +1061,9 @@ configure_title_bar() {
     show_success "Show Time in 12 hour format"
     gsettings set org.gnome.desktop.interface clock-format 12h
 
+    show_success "Show Date in the top bar"
+    gsettings set org.gnome.desktop.interface clock-show-date true
+
     show_success "Show the seconds in Clock"
     gsettings set org.gnome.desktop.interface clock-show-seconds true
 
