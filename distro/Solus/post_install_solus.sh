@@ -643,6 +643,54 @@ install_VSCode_manually() {
     after_install "VS Code Manual"
 }
 
+configure_VS_Code() {
+
+    # Editor & Theme related
+    code --install-extension 2gua.rainbow-brackets
+    code --install-extension oderwat.indent-rainbow
+    code --install-extension BeardedBear.beardedicons
+    code --install-extension dracula-theme.theme-dracula
+    code --install-extension ElAnandKumar.el-vsc-product-icon-theme
+
+    # Highliters
+    code --install-extension mechatroner.rainbow-csv
+    code --install-extension mikestead.dotenv
+    code --install-extension vincaslt.highlight-matching-tag
+
+    # Formatters
+    code --install-extension esbenp.prettier-vscode
+    code --install-extension foxundermoon.shell-format
+    code --install-extension formulahendry.auto-rename-tag
+    code --install-extension silvenon.mdx
+
+    # Viewers
+    code --install-extension qwtel.sqlite-viewer
+    code --install-extension tomoki1207.pdf
+
+    # JS related
+    code --install-extension ambar.bundle-size
+    code --install-extension dsznajder.es7-react-js-snippets
+    code --install-extension eg2.vscode-npm-script
+    code --install-extension herrmannplatz.npm-dependency-links
+    code --install-extension WallabyJs.quokka-vscode
+
+    # Svelte related
+    code --install-extension svelte.svelte-vscode
+    code --install-extension ardenivanov.svelte-intellisense
+    code --install-extension fivethree.vscode-svelte-snippets
+
+    # PHP related
+    code --install-extension bmewburn.vscode-intelephense-client
+
+    # Python related
+    code --install-extension ms-python.python
+    code --install-extension ms-python.vscode-pylance
+    code --install-extension ms-toolsai.jupyter
+
+    # CPP related
+    code --install-extension ms-vscode.cpptools
+}
+
 update_VS_Code() {
     banner "Updating VS Code :D"
 
