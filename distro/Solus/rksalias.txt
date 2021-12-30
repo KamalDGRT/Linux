@@ -113,6 +113,13 @@ alias pg-start='~/RKS_FILES/GitRep/Linux/distro/Solus/pg-start.sh'
 alias pg-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/pg-stop.sh'
 alias pg-status='systemctl status postgresql | egrep "service|Active:"'
 
+
+# MongoDB Related
+alias mg-start='~/RKS_FILES/GitRep/Linux/distro/Solus/mg-start.sh'
+alias mg-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/mg-stop.sh'
+alias mg-status='systemctl status mongodb | egrep "service|Active:"'
+
+
 # Youtube DL
 alias ymp4='youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 '
 alias ytmp3='youtube-dl -f bestaudio -x --audio-format mp3'
