@@ -719,6 +719,26 @@ update_VS_Code() {
     after_install "VS Code Manual"
 }
 
+uninstall_VS_Code() {
+    banner "Uninstalling VS Code..."
+
+    show_info "Deleting VS Code Config files..."
+    rm -rf ~/.config/Code
+    rm -rf ~/.vscode
+
+    show_info "Removing all VS Code application files..."
+    rm -rf ~/.LEO/vscode
+
+    show_info "Removing the symbolic for the VSCode binary file..."
+    sudo rm /usr/bin/code
+
+    show_info "Removing the desktop shortcut from the system..."
+    sudo rm /usr/share/applications/vscode.desktop
+
+    show_success "\n\n$*VS Code : Uninstalled Successfully\n"
+    echo -e "------------------------------------------\n\n"
+}
+
 install_Discord_Manually() {
     banner "Installing discord tar file"
 
