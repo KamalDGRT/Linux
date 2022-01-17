@@ -1273,6 +1273,25 @@ install_Telegram_Manually() {
     after_install "Telegram Desktop"
 }
 
+uninstall_Telegram() {
+    banner "Uninstalling Telegram..."
+
+    show_info "Deleting Telegram Config Files..."
+    rm -rf ~/.local/share/TelegramDesktop/
+
+    show_info "Removing all Telegram application files..."
+    rm -rf ~/.LEO/Telegram
+
+    show_info "Removing the symbolic for the Telegram binary file..."
+    sudo rm /usr/bin/telegram-desktop
+
+    show_info "Removing the desktop shortcut from the system..."
+    rm ~/.local/share/applications/telegramdesktop.desktop
+
+    show_success "\n\n$*Telegram Desktop : Uninstalled Successfully\n"
+    echo -e "------------------------------------------\n\n"
+}
+
 install_Manual_Applications() {
     # Frequent Apps
     install_Discord_Manually
