@@ -1221,6 +1221,58 @@ install_Python_Dev_Stuff() {
     sudo eopkg it postgresql-devel -y
 }
 
+install_Telegram_Manually() {
+    banner "Installing Telegram Desktop"
+
+    show_question "\nDownloading the Latest version of Telegram\n"
+    wget -O ~/Downloads/tsetup.tar.xz 'https://telegram.org/dl/desktop/linux'
+
+    show_question "\nCreating a directory to install Telegram.."
+    if [ -d ~/.LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/.LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar -xJf ~/Downloads/tsetup.tar.xz -C ~/.LEO
+
+    currentUser=$(whoami)
+
+    show_info "Creating Symbolic Link for Telegram Desktop"
+    sudo ln -s /home/${currentUser}/.LEO/Telegram/Telegram /usr/bin/telegram-desktop
+
+    show_info "\nCreating a Desktop Entry for Telegram Desktop.\n"
+    {
+        echo "[Desktop Entry]"
+        echo "Version=1.0"
+        echo "Name=Telegram Desktop"
+        echo "Comment=Official desktop version of Telegram messaging app"
+        echo "TryExec=telegram-desktop"
+        echo "Exec=telegram-desktop -- %u"
+        echo "Icon=telegram"
+        echo "Terminal=false"
+        echo "StartupWMClass=TelegramDesktop"
+        echo "Type=Application"
+        echo "Categories=Chat;Network;InstantMessaging;Qt;"
+        echo "MimeType=x-scheme-handler/tg;"
+        echo "Keywords=tg;chat;im;messaging;messenger;sms;tdesktop;"
+        echo "Actions=Quit;"
+        echo "X-GNOME-UsesNotifications=true"
+        echo "X-GNOME-SingleWindow=true"
+        echo ""
+        echo "[Desktop Action Quit]"
+        echo "Exec=telegram-desktop -quit"
+        echo "Name=Quit Telegram"
+        echo "Icon=application-exit"
+    } | tee ~/.local/share/applications/telegramdesktop.desktop
+
+    show_info "Cleaning out the remnant files.."
+    rm ~/Downloads/tsetup.tar.xz
+
+    after_install "Telegram Desktop"
+}
+
 install_Manual_Applications() {
     # Frequent Apps
     install_Discord_Manually
