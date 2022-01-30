@@ -481,7 +481,7 @@ uninstall_Telegram() {
 
 install_Pip() {
     banner "Installing PIP and VENV"
-    sudo apt install -y python3-pip python3-venv
+    sudo apt install -y python3-pip python3-venv python3-virtualenv -y
     after_install "Pip and virtual env"
 }
 
