@@ -25,9 +25,24 @@
     -   `sudo apt autoremove -y`
 -   Installed Neofetch
     -   `sudo apt install neofetch -y`
+-   Installed Xclip
+    -   `sudo apt install xclip -y`
 -   From the `post_install_solus.sh`, I used these functions:
     -   `install_Discord_Manually`
     -   `install_Sublime_Text`
     -   `setup_Postman_API`
     -   `install_Heroku_CLI`
     -   `install_Telegram_Manually`
+    -   `gitsetup`
+-   Tried to install Zoom from the same script. But it did not launch.
+-   VS Code got installed but the icon did not appear.
+-   So, uninstalled Zoom and VSCode which were manually installed.
+-   From the `post_install_mint.sh`, I used these functions:
+    -   `configure_title_bar`
+    -   `install_MS_Fonts`
+    -   `install_VSCode`
+    -   `install_Pip`
+    -   `install_YoutubeDL`
+    -   `install_and_configure_LAMP`
+    -   `install_qBittorrent`
+    -   `aliases_and_scripts`
