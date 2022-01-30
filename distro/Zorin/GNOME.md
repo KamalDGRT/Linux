@@ -46,3 +46,6 @@
     -   `install_and_configure_LAMP`
     -   `install_qBittorrent`
     -   `aliases_and_scripts`
+-   Wrote a script to install `youtube-dl`, `pip` and `google-chrome-stable`
+-   [3:50 PM] Wrote a script to install OBS Studio and it works.
+-   [4:50 PM] Successfully wrote functions to install and uninstall NodeJS
