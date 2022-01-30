@@ -246,7 +246,7 @@ uninstall_Discord() {
     show_info "Removing the desktop shortcut from the system..."
     sudo rm /usr/share/applications/discord.desktop
 
-    show_success "\n\n$*Discord : Uninstalled Successfully\n"
+    show_success "\n\nDiscord : Uninstalled Successfully\n"
     echo -e "------------------------------------------\n\n"
 }
 
@@ -545,5 +545,63 @@ install_OBS_Studio() {
     show_info "\nInstalling the OBS Studio Package..\n"
     sudo apt install obs-studio -y
 
-    after_install "\nOBS Studio\n"
+    after_install "OBS Studio"
+}
+
+install_Nodejs_Manually() {
+    banner "Installing NodeJS tar file"
+
+    show_info "Downloading NodeJS tar file"
+    wget -O ~/Downloads/nodejs.tar.xz 'https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz'
+
+    show_question "\nCreating a directory to install NodeJS"
+    if [ -d ~/.LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/.LEO
+    fi
+
+    show_info "Extracting discord tar file"
+    tar -xJf ~/Downloads/nodejs.tar.xz -C ~/.LEO
+
+    mv ~/.LEO/node-*/ ~/.LEO/nodejs
+
+    show_info "Adding symbolic link for corepack"
+    sudo ln -sf ~/.LEO/nodejs/bin/corepack /usr/bin/corepack
+
+    show_info "Adding symbolic link for node"
+    sudo ln -sf ~/.LEO/nodejs/bin/node /usr/bin/node
+
+    show_info "Adding symbolic link for npm"
+    sudo ln -sf ~/.LEO/nodejs/bin/npm /usr/bin/npm
+
+    show_info "Adding symbolic link for npx"
+    sudo ln -sf ~/.LEO/nodejs/bin/npx /usr/bin/npx
+
+    show_info "Removing the remnant files..."
+    rm ~/Downloads/nodejs.tar.xz
+
+    after_install "NodeJS"
+}
+
+uninstall_NodeJS() {
+    banner "Uninstalling NodeJS"
+
+    show_info "Removing symbolic link for corepack"
+    sudo rm /usr/bin/corepack
+
+    show_info "Removing symbolic link for node"
+    sudo rm /usr/bin/node
+
+    show_info "Removing symbolic link for npm"
+    sudo rm /usr/bin/npm
+
+    show_info "Removing symbolic link for npx"
+    sudo rm /usr/bin/npx
+
+    show_question "Removing the nodejs/ directory"
+    rm -rf ~/.LEO/nodejs
+
+    show_success "\n\nNodejs : Uninstalled Successfully\n"
+    echo -e "------------------------------------------\n\n"
 }
