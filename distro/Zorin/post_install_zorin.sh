@@ -495,7 +495,7 @@ install_Spotify() {
     banner "Installing Spotify"
 
     show_header "Getting the GPG keys..."
-    curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+    curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
 
     show_info "Adding Spotify Repos to the sources list..."
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -513,14 +513,37 @@ install_Google_Chrome_Stable() {
     banner "Installing Google Chrome Stable"
 
     show_header "\nAdd the GPG Keys:\n"
-    wget -q -O - 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | sudo apt-key add - 
+    wget -q -O - 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | sudo apt-key add -
 
     show_info "\nAdding the Google Chrome Repository..\n"
     sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
-    show_info "Update the package list"
+    show_info "\nUpdate the package list\n"
     sudo apt update
 
-    show_info "Installing the Google Chrome Stable"
+    show_info "\nInstalling the Google Chrome Stable\n"
     sudo apt install google-chrome-stable -y
+
+    after_install "\nGoogle Chrome\n"
+}
+
+install_OBS_Studio() {
+    banner "Installing OBS Studio"
+
+    show_header "\nInstalling FFMPEG:\n"
+    sudo apt install ffmpeg -y
+
+    show_info "\nInstalling Dependencies\n"
+    sudo apt install v4l2loopback-dkms -y
+
+    show_info "\nAdding the OBS Studio PPA Repository..\n"
+    sudo add-apt-repository ppa:obsproject/obs-studio -y
+
+    show_info "\nUpdate the package list\n"
+    sudo apt update
+
+    show_info "\nInstalling the OBS Studio Package..\n"
+    sudo apt install obs-studio -y
+
+    after_install "\nOBS Studio\n"
 }
