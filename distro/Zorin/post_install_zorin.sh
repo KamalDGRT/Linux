@@ -605,3 +605,73 @@ uninstall_NodeJS() {
     show_success "\n\nNodejs : Uninstalled Successfully\n"
     echo -e "------------------------------------------\n\n"
 }
+
+install_Zoom_Client_Dependencies() {
+    show_header "Installing Dependencies..."
+    sudo apt install libglib2.0-0 libxcb-shape0 libxcb-shm0 libxcb-xfixes0 \
+        libxcb-randr0 libxcb-image0 libfontconfig1 libgl1-mesa-glx libxi6 \
+        libsm6 libxrender1 libpulse0 libxcomposite1 \
+        libxslt1.1 libsqlite3-0 libxcb-keysyms1 libxcb-xtest0 ibus -y
+}
+
+install_Zoom_Client() {
+    banner "Installing Zoom Client"
+
+    show_question "\nDownloading the Latest version of Zoom\n"
+    wget -O ~/Downloads/zoom.tar.xz 'https://zoom.us/client/latest/zoom_x86_64.tar.xz'
+
+    show_question "\nCreating a directory to install zoom.."
+    if [ -d ~/.LEO ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/.LEO
+    fi
+
+    show_info "\nExtracting the downloaded file...\n"
+    tar -xf ~/Downloads/zoom.tar.xz -C ~/.LEO
+
+    show_question "\nCreating a directory to download Zoom Icon"
+    if [ -d ~/.LEO/zoom/icon ]; then
+        show_warning "\nDirectory exists.\nSkipping the creation step..\n"
+    else
+        mkdir -p ~/.LEO/zoom/icon
+    fi
+
+    show_info "\nDownloading the Zoom Client Icon\n"
+    wget -O ~/.LEO/zoom/icon/zoom.png 'https://i.imgur.com/0zk7xXE.png'
+
+    currentUser=$(whoami)
+
+    show_info "Creating Symbolic Link for Zoom Client"
+    sudo ln -s /home/${currentUser}/.LEO/zoom/ZoomLauncher /usr/bin/zoom
+
+    show_info "\nCreating a Desktop Entry for Zoom Client.\n"
+    {
+        echo "[Desktop Entry]"
+        echo "Name=Zoom"
+        echo "Comment=Zoom Client for Solus"
+        echo "Exec=/usr/bin/zoom %U"
+        echo "Icon=/home/${currentUser}/.LEO/zoom/icon/zoom.png"
+        echo "Terminal=false"
+        echo "Type=Application"
+        echo "Encoding=UTF-8"
+        echo "Categories=Network;Application;"
+        echo "StartupWMClass=zoom"
+        echo "MimeType=x-scheme-handler/zoommtg;x-scheme-handler/zoomus;x-scheme-handler/tel;x-scheme-handler/callto;x-scheme-handler/zoomphonecall;application/x-zoom"
+        echo "X-KDE-Protocols=zoommtg;zoomus;tel;callto;zoomphonecall;"
+        echo "Name[en_US]=Zoom"
+    } | sudo tee /usr/share/applications/zoom-client.desktop
+
+    show_warning "Updating the desktop file MIME type cahce ..."
+    xdg-mime default zoom-client.desktop x-scheme-handler/zoommtg
+
+    show_info "Cleaning out the remnant files.."
+    rm ~/Downloads/zoom.tar.xz
+
+    after_install "Zoom Client"
+}
+
+setup_Zoom_Client() {
+    install_Zoom_Client_Dependencies
+    install_Zoom_Client
+}
