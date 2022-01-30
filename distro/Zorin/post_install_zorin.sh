@@ -508,3 +508,19 @@ install_Spotify() {
 
     after_install "Spotify"
 }
+
+install_Google_Chrome_Stable() {
+    banner "Installing Google Chrome Stable"
+
+    show_header "\nAdd the GPG Keys:\n"
+    wget -q -O - 'https://dl-ssl.google.com/linux/linux_signing_key.pub' | sudo apt-key add - 
+
+    show_info "\nAdding the Google Chrome Repository..\n"
+    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+
+    show_info "Update the package list"
+    sudo apt update
+
+    show_info "Installing the Google Chrome Stable"
+    sudo apt install google-chrome-stable -y
+}
