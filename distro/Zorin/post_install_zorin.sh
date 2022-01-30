@@ -478,3 +478,33 @@ uninstall_Telegram() {
     show_success "\n\n$*Telegram Desktop : Uninstalled Successfully\n"
     echo -e "------------------------------------------\n\n"
 }
+
+install_Pip() {
+    banner "Installing PIP and VENV"
+    sudo apt install -y python3-pip python3-venv
+    after_install "Pip and virtual env"
+}
+
+install_YoutubeDL() {
+    banner "Installing Youtube-DL"
+    sudo apt install -y youtube-dl
+    after_install "youtube-dl"
+}
+
+install_Spotify() {
+    banner "Installing Spotify"
+
+    show_header "Getting the GPG keys..."
+    curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+
+    show_info "Adding Spotify Repos to the sources list..."
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+
+    show_info "Update the package list"
+    sudo apt update
+
+    show_info "Installing the Spotify Client"
+    sudo apt install spotify-client -y
+
+    after_install "Spotify"
+}
