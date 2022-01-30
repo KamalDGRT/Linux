@@ -202,9 +202,6 @@ configure_title_bar() {
 
     printf "\e[1;32m\nAdding Minimize and Maximize buttons on the left\n\n\e[0m"
     gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
-
-    printf "\e[1;32m\nEnable Tray Icons\n\n\e[0m"
-    gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 }
 
 install_Brave() {
@@ -307,7 +304,7 @@ install_MS_Fonts() {
     banner "Installing MS Fonts"
 
     printf "\e[1;32m\n\nInstalling Microsoft Core Fonts\e[0m"
-    sudo install -y ttf-mscorefonts-installer
+    sudo apt install -y ttf-mscorefonts-installer
 }
 
 install_Sublime_Text() {
