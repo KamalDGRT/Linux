@@ -675,3 +675,21 @@ setup_Zoom_Client() {
     install_Zoom_Client_Dependencies
     install_Zoom_Client
 }
+
+install_Anydesk() {
+    banner "Installing Anydesk"
+
+    show_header "Getting the GPG keys..."
+    wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+
+    show_info "Adding Anydesk Repo to the sources list..."
+    echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+
+    show_info "Update the package list"
+    sudo apt update
+
+    show_info "Installing the Anydesk Application"
+    sudo apt install anydesk -y
+
+    after_install "Anydesk"
+}
