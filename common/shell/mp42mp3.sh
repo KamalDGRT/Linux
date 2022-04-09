@@ -9,7 +9,7 @@ fi
 
 count=1
 
-# Traversing throuugh the matroska files present in the directory
+# Traversing through the MPEG-4 video files present in the directory
 for file in *.mp4; do
     name=$(echo "$file")
     clean_name="${name%.mp4}"

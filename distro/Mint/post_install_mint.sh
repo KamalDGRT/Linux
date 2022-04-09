@@ -74,8 +74,11 @@ gitsetup() {
         printf "\n - Configuring Default git editor as: ${GIT_CLI_EDITOR}"
         git config --global core.editor "${GIT_CLI_EDITOR}"
 
-        printf "\n - Fast Forwarding All the changes while git pull"
-        git config --global pull.ff only
+        printf "\n - Setting up the defaults for git pull"
+        git config --global pull.rebase false
+
+        printf "\n - The default branch name for new git repos will be: main"
+        git config --global init.defaultBranch main
 
         printf "\n - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
         printf "\n\nJust press Enter and add passphrase if you'd like to. \n\n"
@@ -188,6 +191,9 @@ configure_title_bar() {
     printf "\e[1;32m\nShow Time in 12 hour format\e[0m"
     gsettings set org.gnome.desktop.interface clock-format 12h
 
+    printf "Show Date in the top bar"
+    gsettings set org.gnome.desktop.interface clock-show-date true
+
     printf "\e[1;32m\nShow the seconds in Clock\e[0m"
     gsettings set org.gnome.desktop.interface clock-show-seconds true
 
@@ -196,9 +202,6 @@ configure_title_bar() {
 
     printf "\e[1;32m\nAdding Minimize and Maximize buttons on the left\n\n\e[0m"
     gsettings set org.gnome.desktop.wm.preferences button-layout "close,maximize,minimize:"
-
-    printf "\e[1;32m\nEnable Tray Icons\n\n\e[0m"
-    gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 }
 
 install_Brave() {
@@ -301,7 +304,7 @@ install_MS_Fonts() {
     banner "Installing MS Fonts"
 
     printf "\e[1;32m\n\nInstalling Microsoft Core Fonts\e[0m"
-    sudo install -y ttf-mscorefonts-installer
+    sudo apt install -y ttf-mscorefonts-installer
 }
 
 install_Sublime_Text() {

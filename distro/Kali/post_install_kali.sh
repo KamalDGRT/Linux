@@ -77,8 +77,11 @@ gitsetup() {
         gtext " - Configuring Default git branch as main"
         git config --global init.defaultBranch main
         
-        gtext " - Fast Forwarding All the changes while git pull"
-        git config --global pull.ff only
+        gtext "\n - Setting up the defaults for git pull"
+        git config --global pull.rebase false
+
+        printf "\n - The default branch name for new git repos will be: main"
+        git config --global init.defaultBranch main
 
         gtext " - Generating a new SSH key for ${GITHUB_EMAIL_ID}"
         gtext "Just press Enter and add passphrase if you'd like to. "
@@ -190,6 +193,9 @@ configure_title_bar() {
 
     gtext "Show Time in 12 hour format"
     gsettings set org.gnome.desktop.interface clock-format 12h
+
+    gtext "Show Date in the top bar"
+    gsettings set org.gnome.desktop.interface clock-show-date true
 
     gtext "Show the seconds in Clock"
     gsettings set org.gnome.desktop.interface clock-show-seconds true

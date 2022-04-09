@@ -76,8 +76,9 @@ alias py='python3'
 alias pvenv='py -m venv env'
 alias seba='source env/bin/activate'
 alias genreq='py -m pip freeze > requirements.txt'
-
-
+alias scrape='cd ~/RKS_FILES/GitRep/PrivatePython/clubs && py scrape.py'
+alias verify='cd ~/RKS_FILES/GitRep/PrivatePython/clubs && py verify.py'
+alias csr='cd ~/RKS_FILES/GitRep/PrivatePython/courses_sist && py scrape.py'
 # Multiplexing Related Scripts
 
 alias batchextractsubs='~/RKS_FILES/GitRep/Linux/common/shell/batchextractsubs.sh'
@@ -88,8 +89,9 @@ alias mkv2mp4='~/RKS_FILES/GitRep/Linux/common/shell/mkv2mp4.sh'
 alias nosubsmkv='~/RKS_FILES/GitRep/Linux/common/shell/nosubsmkv.sh'
 alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
 alias mp42mp3='~/RKS_FILES/GitRep/Linux/common/shell/mp42mp3.sh'
+alias postmux='~/RKS_FILES/GitRep/Linux/common/shell/postmux.sh'
 
-# Lamp Stack related
+# Xamp related
 alias xampp='sudo /opt/lampp/xampp'
 alias reloadapache='xampp reloadapache'
 alias startmysql='xampp startmysql'
@@ -100,8 +102,26 @@ alias reloadmysql='xampp reloadmysql'
 alias lampstart='startapache && startmysql'
 alias lampstop='stopapache && stopmysql'
 
+# LAMP Stack Related
+alias lamp-start='~/RKS_FILES/GitRep/Linux/distro/Solus/lamp-start.sh'
+alias lamp-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/lamp-stop.sh'
+alias lamp-status='systemctl status httpd mariadb php-fpm | egrep "service|Active:"'
+
+
+# Postgres Related
+alias pg-start='~/RKS_FILES/GitRep/Linux/distro/Solus/pg-start.sh'
+alias pg-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/pg-stop.sh'
+alias pg-status='systemctl status postgresql | egrep "service|Active:"'
+
+
+# MongoDB Related
+alias mg-start='~/RKS_FILES/GitRep/Linux/distro/Solus/mg-start.sh'
+alias mg-stop='~/RKS_FILES/GitRep/Linux/distro/Solus/mg-stop.sh'
+alias mg-status='systemctl status mongodb | egrep "service|Active:"'
+
+
 # Youtube DL
-alias ymp4='youtube-dl -f mp4'
+alias ymp4='youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 '
 alias ytmp3='youtube-dl -f bestaudio -x --audio-format mp3'
 
 # Virtual Box Related Aliases
@@ -119,3 +139,21 @@ nmplocation='~/.npm-global/bin'
 composer_binaries='~/.config/composer/vendor/bin'
 
 export PATH="${snap_binaries}:${python_packages}:${nmplocation}:${composer_binaries}:${PATH}"
+
+JAVA_HOME='/home/kamal/Android/android-studio/jre/bin'
+ANDROID_HOME='/home/kamal/Android/Sdk'
+KOTLIN_HOME='/home/kamal/Android/android-studio/plugins/Kotlin/kotlinc/bin'
+android_platform_tools='/home/kamal/Android/Sdk/platform-tools'
+android_tools='/home/kamal/Android/Sdk/tools'
+
+export PATH="${JAVA_HOME}:${ANDROID_HOME}:${KOTLIN_HOME}:${PATH}"
+export PATH="${android_platform_tools}:${android_tools}:${PATH}"
+
+# Bots:
+alias startfestus='cd /home/kamal/RKS_FILES/GitRep/festus && py bot.py'
+
+alias pg4='source pgadmin4/bin/activate && pgadmin4'
+
+
+# ZSH ALIASES
+alias pyapi='gr && cd py-api && seba && uvicorn app.main:app --reload'
