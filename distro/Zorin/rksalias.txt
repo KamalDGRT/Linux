@@ -1,0 +1,85 @@
+alias nf=neofetch
+alias ehost='subl /etc/hosts'
+
+
+# Git Related Aliases
+alias clone='git clone'
+alias add='git add .'
+alias commit='git commit -m'
+alias push='git push'
+alias gr='cd ~/RKS_FILES/GitRep/'
+alias gcpush='~/RKS_FILES/GitRep/Linux/common/shell/gcpush.sh'
+
+
+# PHP Related Aliases
+alias compup='composer update'
+
+
+# Yii2 Related Aliases
+alias yii2='cd /var/www/html/yii2'
+alias ynadv='composer create-project --prefer-dist yiisoft/yii2-app-advanced'
+alias pinit='php init'
+alias yfixperm='~/RKS_FILES/GitRep/Linux/common/shell/yfixperm.sh'
+alias pymig='php yii migrate'
+alias ccmlocal='code common/config/main-local.php'
+alias scmlocal='subl common/config/main-local.php'
+
+
+# Shell Related Aliases
+alias bconf='subl ~/.bashrc'
+alias baconf='subl ~/.bash_aliases'
+alias zconf='subl ~/.zshrc'
+alias sbash='source ~/.bashrc'
+
+
+# System Related
+alias pinstall='sudo apt install'
+alias premove='sudo apt remove'
+alias sinstall='sudo snap install'
+alias sremove='sudo snap remove'
+alias restart='sudo systemctl restart'
+alias chpermd='chmod 777 -R'
+alias schpermd='sudo chmod 777 -R'
+alias afm='~/RKS_FILES/GitRep/Linux/common/shell/fanmode.sh'
+
+# Laravel Related Aliases
+export PATH=~/.config/composer/vendor/bin:$PATH
+
+alias lnew='laravel new'
+alias paserve='php artisan serve'
+alias pakeygen='php artisan key:generate'
+alias pamig='php artisan migrate'
+
+
+# Files related:
+alias rrm='rm -rf'
+alias srrm='sudo rm -rf'
+alias mvf='mv -f'
+alias smvf='sudo mv -f'
+alias cpr='cp -rf'
+alias scpr='sudo cp -rf'
+alias back='cd ../'
+alias mksh='chmod +x'
+
+
+# Python Related Aliases
+alias py='python3'
+alias pvenv='py -m venv env'
+alias seba='source env/bin/activate'
+alias genreq='py -m pip freeze > requirements.txt'
+
+
+# Multiplexing Related Scripts
+
+alias batchextractsubs='~/RKS_FILES/GitRep/Linux/common/shell/batchextractsubs.sh'
+alias batchmux='~/RKS_FILES/GitRep/Linux/common/shell/batchmux.sh'
+alias cbatch='~/RKS_FILES/GitRep/Linux/common/shell/cbatch.sh'
+alias emptysubs='~/RKS_FILES/GitRep/Linux/common/shell/emptysubs.sh'
+alias mkv2mp4='~/RKS_FILES/GitRep/Linux/common/shell/mkv2mp4.sh'
+alias nosubsmkv='~/RKS_FILES/GitRep/Linux/common/shell/nosubsmkv.sh'
+alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
+
+
+# Youtube DL
+alias ymp4='youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 '
+alias ytmp3='youtube-dl -f bestaudio -x --audio-format mp3'
