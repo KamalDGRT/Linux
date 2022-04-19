@@ -43,7 +43,9 @@ alias schpermd='sudo chmod 777 -R'
 alias afm='~/RKS_FILES/GitRep/Linux/common/shell/fanmode.sh'
 
 # Laravel Related Aliases
+ytdlp_deps_path=/home/kamal/.local/bin
 export PATH=~/.config/composer/vendor/bin:$PATH
+export PATH=$ytdlp_deps_path:$PATH
 
 alias lnew='laravel new'
 alias paserve='php artisan serve'
@@ -81,5 +83,5 @@ alias rmtag='~/RKS_FILES/GitRep/Linux/common/shell/rmtag.sh'
 
 
 # Youtube DL
-alias ymp4='youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 '
-alias ytmp3='youtube-dl -f bestaudio -x --audio-format mp3'
+alias ymp4="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
+alias ytmp3='yt-dlp -f bestaudio -x --audio-format mp3'
