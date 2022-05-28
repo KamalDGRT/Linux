@@ -693,3 +693,21 @@ install_Anydesk() {
 
     after_install "Anydesk"
 }
+
+install_Atom_Editor() {
+    banner "Installing Atom IDE"
+
+    show_header "Getting the GPG keys..."
+    wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+
+    show_info "\nAdding Atom IDE Repo to the sources list...\n"
+    echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" | sudo tee /etc/apt/sources.list.d/atom-ide.list
+
+    show_info "\nUpdate the package list\n"
+    sudo apt update
+
+    show_info "\nInstalling the Atom Application\n"
+    sudo apt install atom -y
+
+    after_install "\nAtom IDE\n"
+}
